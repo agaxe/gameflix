@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { VAR_COLOR } from 'static/styles/variable';
 const { COLOR_WHITE } = VAR_COLOR;
+import { pxToRem } from 'static/styles/common';
+
 // ? swiper
 import SwiperCore, { Pagination, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -81,11 +83,11 @@ const MainVisual = styled.div<{ background: string }>`
 	div{
 		color:${COLOR_WHITE};
 		h4{
-			font-size:3.313rem;
+			font-size:${pxToRem(53)};
 			margin-bottom:25px;
 		}
 		p{
-			font-size:2.375rem;
+			font-size:${pxToRem(38)};
 			font-weight:200;
 		}
 	}

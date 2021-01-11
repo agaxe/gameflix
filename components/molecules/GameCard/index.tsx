@@ -5,6 +5,7 @@ import { Skeleton } from 'components/atoms';
 import { STYLE_BOX_SHADOW, STYLE_ELLIPSIS } from 'static/styles/common';
 import { VAR_COLOR } from 'static/styles/variable';
 const { COLOR_WHITE } = VAR_COLOR;
+import { pxToRem } from 'static/styles/common';
 
 // * type
 type GameCardProps = {
@@ -113,7 +114,7 @@ const GameCardText = styled.div`
 	strong{
 		display:block;
 		margin-bottom:10px;
-		line-height:1.2rem;
+		line-height:${pxToRem(19)};
 		${STYLE_ELLIPSIS}
 	}
 `

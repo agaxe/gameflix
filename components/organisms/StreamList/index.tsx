@@ -6,6 +6,7 @@ import { StreamCard } from 'components/molecules';
 import { Skeleton } from 'components/atoms'
 import { VAR_SIZE } from 'static/styles/variable';
 const { CONTENT_WIDTH } = VAR_SIZE;
+import { pxToRem } from 'static/styles/common';
 
 // * type
 type StreamListProps = {
@@ -82,6 +83,6 @@ const LiveListBox = styled.div`
 	width:${CONTENT_WIDTH}; 
 `
 const GameTitle = styled.p`
-	font-size:1.25rem;
+	font-size:${pxToRem(20)};
 	margin-bottom:20px;
 `

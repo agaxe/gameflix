@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Avatar, List, Item } from 'components/atoms';
 import { Skeleton } from 'components/atoms'
 import { STYLE_BOX_SHADOW, STYLE_ELLIPSIS } from 'static/styles/common';
+import { pxToRem } from 'static/styles/common';
 
 // * type
 type StrearmCardProps = {
@@ -110,8 +111,8 @@ const LiveLabel = styled.div`
 	padding:5px 7px;
 	background:#C92A2A;
 	top:10px;
-	font-size:0.688rem;
-	letter-spacing:0.05rem;
+	font-size:${pxToRem(11)};
+	letter-spacing:${pxToRem(0.8)};
 `
 // 시청자 수 라벨
 const ViewerBox = styled.div`
@@ -120,7 +121,7 @@ const ViewerBox = styled.div`
 	background: rgba(0, 0, 0, 0.6);
 	padding:5px;
 	bottom:10px;
-	font-size:0.813rem;
+	font-size:${pxToRem(13)}; 
 `
 // 스트리머 정보 박스
 const StreamerInfo = styled.div`
@@ -139,10 +140,10 @@ const StreamerInfo = styled.div`
 				margin-bottom:8px;
 			}
 			strong{
-				font-size:0.938rem;
+				font-size:${pxToRem(15)}; 
 			}
 			p{
-				font-size:0.813rem;
+				font-size:${pxToRem(13)}; 
 			}
 		}
 	}

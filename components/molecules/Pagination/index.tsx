@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { List, Item } from 'components/atoms';
 import { MdFirstPage, MdLastPage } from "react-icons/md";
 import { useRouter } from 'next/router';
+import { pxToRem } from 'static/styles/common';
 
 // * type
 type PaginationProps = {
@@ -106,9 +107,9 @@ const PaginationList = styled(List)`
 `
 const PaginationItem = styled(Item)`
 	margin:0 15px;
-	font-size:1.4rem;
+	font-size:${pxToRem(22)};
 	cursor:pointer;
 	svg{
-		font-size:1.2rem;
+		font-size:${pxToRem(19)};
 	}
 `

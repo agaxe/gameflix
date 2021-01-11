@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from 'components/atoms';
 import { VAR_COLOR } from 'static/styles/variable';
 const { COLOR_PRIMARY, COLOR_TERTIARY } = VAR_COLOR;
+import { pxToRem } from 'static/styles/common';
 
 // * type
 type ErrorPageTempProps = {
@@ -36,12 +37,12 @@ const ErrorBox = styled.div`
 	color:#717171;
 	text-align:center;
 		h2{
-			font-size:3.75rem;
+			font-size:${pxToRem(60)}; 
 			margin-bottom:15px;
 			letter-spacing: 0.1em;
 		}
 		p{
-			font-size:2.188rem;
+			font-size:${pxToRem(35)}; 
 		}
 	a{
 		text-decoration:none;

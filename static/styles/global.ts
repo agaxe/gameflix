@@ -1,6 +1,7 @@
 import { css } from "styled-components";
 import { VAR_SIZE } from './variable';
 const { BASE_FONT_SIZE, CONTENT_WIDTH, HEADER_HEIGHT } = VAR_SIZE;
+import { pxToRem } from 'static/styles/common';
 
 const GlobalStyle = css`
 html{
@@ -16,16 +17,16 @@ html{
 		}
 		// ? heading & p 태그
 		h1{
-			font-size:3.125rem; // 50px;
+			font-size:${pxToRem(50)};
 		}
 		h2{
-			font-size:2.625rem; // 42px;
+			font-size:${pxToRem(42)};
 		}
 		h3{
-			font-size:2.063rem; // 33px;
+			font-size:${pxToRem(33)};
 		}
 		h4{
-			font-size:1.5rem; // 24px;
+			font-size:${pxToRem(24)};
 		}
 		p{
 			font-size:1rem;

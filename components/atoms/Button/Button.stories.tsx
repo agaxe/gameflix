@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from "styled-components";
 import Button from './index';
 import { withKnobs, text, boolean, select } from '@storybook/addon-knobs';
+import { pxToRem } from 'static/styles/common';
 
 export default {
 	title: 'component/atoms/Button',
@@ -39,7 +40,7 @@ const ButtonWrap = css`
 	padding-left:0;
 	& li{
 		list-style:none;
-		margin-bottom:2rem;
+		margin-bottom:${pxToRem(32)};
 	}
 `
 

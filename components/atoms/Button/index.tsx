@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { VAR_COLOR } from 'static/styles/variable';
 const { COLOR_PRIMARY, COLOR_SECONDARY, COLOR_TERTIARY, COLOR_WHITE } = VAR_COLOR;
+import { pxToRem } from 'static/styles/common';
 
 // * type
 type ButtonType = {
@@ -60,7 +61,7 @@ const Button = styled.button`
 	outline: none;
 	border: none;
 	box-sizing: border-box;
-	border-radius: 0.25rem;
+	border-radius: ${pxToRem(4)};
 	line-height: 1;
 	font-weight: 600;
 	display: inline-flex;
