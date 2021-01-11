@@ -1,0 +1,5 @@
+/node_modules
+/.next
+
+# 환경 변수
+.env
