@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import Link from 'next/link';
 import { VAR_COLOR } from 'static/styles/variable';
-const { COLOR_WHITE } = VAR_COLOR;
+const { COLOR_WHITE, COLOR_PRIMARY } = VAR_COLOR;
 import { pxToRem } from 'static/styles/common';
 
 // ? swiper
@@ -66,7 +66,7 @@ const MainVisualBox = styled.div`
 		border-radius:0;
 		background:#ddd;
 		&.swiper-pagination-bullet-active{
-			background :#f00 !important ;
+			background :${COLOR_PRIMARY} !important ;
 		}
 	}
 `
