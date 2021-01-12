@@ -5,16 +5,16 @@ import { VAR_COLOR } from 'static/styles/variable';
 const { COLOR_PRIMARY } = VAR_COLOR;
 
 // * type
-type LoadingPopuuProps = {
+type LoadingModalProps = {
 	className?: string;
 }
 
 // * component
 /**
- * - 페이지 이동 시 보여주는 로딩 팝업 입니다.
+ * - 페이지 이동 시 보여주는 로딩 모달 입니다.
  * - 사용된 아이콘은 게임 사이트에 어울리도록 게임과 관련된 아이콘을 사용하였습니다.
  */
-function LoadingPopupComp({ className }: LoadingPopuuProps) {
+function LoadingModalComp({ className }: LoadingModalProps) {
 
 	const [Index, setIndex] = useState(0);
 
@@ -34,20 +34,20 @@ function LoadingPopupComp({ className }: LoadingPopuuProps) {
 	}, [])
 
 	return (
-		<LoadingPopup className={className}>
+		<LoadingModal className={className}>
 			<div>
 				{Index === 0 && <p><FaPlaystation /></p>}
 				{Index === 1 && <p><FaGamepad /></p>}
 				{Index === 2 && <p><FaSteam /></p>}
 				{Index === 3 && <p><FaTwitch /></p>}
 			</div>
-		</LoadingPopup>
+		</LoadingModal>
 	)
 }
-export default LoadingPopupComp
+export default LoadingModalComp
 
 // * style
-const LoadingPopup = styled.div`
+const LoadingModal = styled.div`
 	position:fixed;
 	left:0;
 	top:0;

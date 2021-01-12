@@ -1,39 +1,39 @@
 import styled from 'styled-components';
-import LoadingPopup from './index';
+import LoadingModal from './index';
 import React, { useEffect } from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 
 export default {
-	title: 'component/molecules/LoadingPopup',
-	component: LoadingPopup,
+	title: 'component/molecules/LoadingModal',
+	component: LoadingModal,
 	decorators: [withKnobs],
 	parameters: {
-		componentSubtitle: '페이지 로딩 팝업 컴포넌트',
+		componentSubtitle: '페이지 로딩 모달 컴포넌트',
 	}
 }
 
-export function loadingPopup() {
+export function loadingModal() {
 
 	useEffect(() => {
 		document.body.style.overflow = 'unset';
 	}, [])
 
 	return (
-		<LoadingPopupBox>
-			<LoadingPopupSB />
-		</LoadingPopupBox>
+		<LoadingModalBox>
+			<LoadingModalSB />
+		</LoadingModalBox>
 	)
 }
 
-const LoadingPopupBox = styled.div`
+const LoadingModalBox = styled.div`
 	position:relative;
 	height:500px;
 `
-const LoadingPopupSB = styled(LoadingPopup)`
+const LoadingModalSB = styled(LoadingModal)`
 	position:absolute;
 `
 
-loadingPopup.story = {
+loadingModal.story = {
 	name: 'Default',
 }
 

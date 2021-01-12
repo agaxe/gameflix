@@ -4,7 +4,7 @@ import type { } from 'styled-components/cssprop';
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Header, Footer } from 'components/organisms';
-import { LoadingPopup } from 'components/molecules';
+import { LoadingModal } from 'components/molecules';
 import { VAR_COLOR } from 'static/styles/variable';
 const { COLOR_PRIMARY, COLOR_BLACK } = VAR_COLOR;
 import { global, reset } from 'static/styles';
@@ -62,7 +62,7 @@ function App({ Component, pageProps }: AppProps) {
 			</Head>
 			{
 				LoadingState
-					? <LoadingPopup />
+					? <LoadingModal />
 					: null
 			}
 			{!statusCode && <GlobalStyle />}

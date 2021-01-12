@@ -1,7 +1,7 @@
 export { default as GameCard } from './GameCard';
 export { default as GameItem } from './GameItem';
 export { default as Gnb } from './Gnb';
-export { default as LoadingPopup } from './LoadingPopup';
+export { default as LoadingModal } from './LoadingModal';
 export { default as MainVisual } from './MainVisual';
 export { default as PageTitle } from './PageTitle';
 export { default as Pagination } from './Pagination';
