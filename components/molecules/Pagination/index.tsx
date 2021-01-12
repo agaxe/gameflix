@@ -45,7 +45,6 @@ function PaginationComp({ length, current }: PaginationProps) {
 		router.push({
 			query: {
 				q: router.query.q,
-				//idx: CurrPage - 1
 				idx: 1
 			},
 		}).then(() => window.scrollTo(0, 0));
@@ -57,7 +56,6 @@ function PaginationComp({ length, current }: PaginationProps) {
 		router.push({
 			query: {
 				q: router.query.q,
-				//idx: CurrPage + MaxPageLength
 				idx: length
 			},
 		}).then(() => window.scrollTo(0, 0));

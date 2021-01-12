@@ -52,12 +52,5 @@ const MainPageSection = styled.section`
 			margin-bottom:0;
 		}
 	}
-	/* @media screen and (max-width: 768px) {
-		
-  		background:#f00;
-		& > div{
-			width: 500px;
-		}
-	} */
 `
 

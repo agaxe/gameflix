@@ -15,7 +15,6 @@
 			"styled-components",
 			{
 				"ssr": true,
-				//"displayName": true,
 				"preProcess": false
 			}
 		]
