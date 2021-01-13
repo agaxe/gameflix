@@ -91,6 +91,7 @@ const CoverImg = styled.div<{ skeleton?: boolean }>`
 	height:125px;
 	width:100px;
 	margin-right:30px;
+	box-sizing:border-box;
 	${props => !props.skeleton && `border:1px solid ${COLOR_LINE_GRAY}`};
 `
 // 커버 이미지
@@ -104,12 +105,11 @@ const Img = styled.img`
 `
 // 게임 정보 리스트
 const GameInfoList = styled(List)`
-	width:100%;
+	width:60%;
 `
 // 게임 정보 리스트 - 항목
 const GameInfoItem = styled(Item)`
 	& > *{
-		width:60%;
 		padding:5px 0;
 		${STYLE_ELLIPSIS};
 	}
