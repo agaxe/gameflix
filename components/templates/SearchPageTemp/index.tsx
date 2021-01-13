@@ -24,7 +24,7 @@ function SearchPageTemp({ data }: SearchPageProps) {
 	const [CurrentPage, setCurrentPage] = useState(1);
 
 	// 한 페이지에서 보여주려는 컨텐츠의 갯수
-	const [PostPerPage, setPostPerPage] = useState(10);
+	const PostPerPage = 10;
 
 	// 총 페이지 넘버값 ( 모든 컨텐츠 갯수 / 보여주려는 갯수 )
 	const PageNumberList = data.SearchList ? Math.ceil(data.SearchList.length / PostPerPage) : 0;
@@ -34,6 +34,8 @@ function SearchPageTemp({ data }: SearchPageProps) {
 
 	// 현재 페이지의 컨텐츠의 첫번째 인덱스값
 	const indexOfFirstPost = indexOfLastPost - PostPerPage;
+
+	// 현재 보여주려는 포스트
 	const currentPosts = data.SearchList ? data.SearchList.slice(indexOfFirstPost, indexOfLastPost) : [];
 
 	useEffect(() => {
@@ -42,6 +44,10 @@ function SearchPageTemp({ data }: SearchPageProps) {
 		}
 	}, [router.query])
 
+	useEffect(() => {
+		setCurrentPage(1)
+	},[router.query.q])
+	
 	// 리스트형 아이콘 클릭
 	const ViewList_click = () => {
 		setListType('list')
