@@ -37,8 +37,8 @@ function SearchPageTemp({ data }: SearchPageProps) {
 	const currentPosts = data.SearchList ? data.SearchList.slice(indexOfFirstPost, indexOfLastPost) : [];
 
 	useEffect(() => {
-		if (router.pathname === '/search' && router.query.idx) {
-			setCurrentPage(Number(router.query.idx));
+		if (router.pathname === '/search' && router.query.page) {
+			setCurrentPage(Number(router.query.page));
 		}
 	}, [router.query])
 
