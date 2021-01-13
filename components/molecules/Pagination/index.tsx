@@ -4,6 +4,8 @@ import { List, Item } from 'components/atoms';
 import { MdFirstPage, MdLastPage } from "react-icons/md";
 import { useRouter } from 'next/router';
 import { pxToRem } from 'static/styles/common';
+import { VAR_COLOR } from 'static/styles/variable';
+const { COLOR_PRIMARY } = VAR_COLOR;
 
 // * type
 type PaginationProps = {
@@ -74,7 +76,7 @@ function PaginationComp({ length, current }: PaginationProps) {
 							<PaginationItem
 								key={idx}
 								onClick={() => PageIndexClick(Number)}
-								css={{ "color": `${CurrPage === Number && '#f00'}` }}
+								css={{ "color": `${CurrPage === Number && COLOR_PRIMARY}` }}
 							>
 								{Number}
 							</PaginationItem>
