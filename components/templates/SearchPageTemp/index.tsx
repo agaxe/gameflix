@@ -65,10 +65,12 @@ function SearchPageTemp({ data }: SearchPageProps) {
 				result={data.result}
 				type={ListType}
 			/>
-			<Pagination
+			{PageNumberList !== 0 &&
+				<Pagination
 				length={PageNumberList}
 				current={CurrentPage}
 			/>
+			}
 		</section>
 	)
 }
