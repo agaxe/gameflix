@@ -5,6 +5,7 @@ export { default as LoadingModal } from './LoadingModal';
 export { default as MainVisual } from './MainVisual';
 export { default as PageTitle } from './PageTitle';
 export { default as Pagination } from './Pagination';
+export { default as RangeSlider } from './RangeSlider';
 export { default as SearchInput } from './SearchInput';
 export { default as SectionTitle } from './SectionTitle';
 export { default as StreamCard } from './StreamCard';
