@@ -11,7 +11,7 @@ type SkeletonProps = {
 
 // * component 
 /**
- * - <a href="https://material-ui.com/components/skeleton/" target="_blank">meterial ui 의 skeleton</a> 을 사용하였습니다.  
+ * - <a href="https://material-ui.com/components/skeleton/" target="_blank">material ui 의 skeleton</a> 을 사용하였습니다.  
  */
 function SkeletonComp({ width, height, variant }: SkeletonProps) {
 	return (

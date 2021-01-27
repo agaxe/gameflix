@@ -58,7 +58,7 @@ const CustomSlider = withStyles({
 
 // * component
 /**
- * - <a href="https://material-ui.com/components/slider" target="_blank">meterial ui 의 slider</a> 를 활용하였습니다.  
+ * - <a href="https://material-ui.com/components/slider" target="_blank">material ui 의 slider</a> 를 활용하였습니다.  
  */
 function RangeSliderComp({
 	width,
