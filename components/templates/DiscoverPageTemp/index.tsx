@@ -24,6 +24,11 @@ type DiscoverPageTempProps = {
 }
 
 // * component
+/**
+ * - 게임들을 여러 조건로 탐색할 수 있는 탐색 페이지 입니다.
+ * - 우측의 필터 아이콘을 클릭하면 게임들을 여러 조건으로 검색할 수 있는 메뉴가 생성됩니다.
+ * - 탐색결과의 게임 갯수가 특정 수를 넘어가면 무한 스크롤링이 되도록 구현하였습니다.
+ */
 function DiscoverPageTemp({
 	data,
 	genreList,
