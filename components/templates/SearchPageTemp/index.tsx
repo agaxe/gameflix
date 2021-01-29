@@ -18,6 +18,7 @@ function SearchPageTemp({ data }: SearchPageProps) {
 
 	const [ListType, setListType] = useState('list'); // list | card
 	const router = useRouter();
+	const searchQuery = (router.query && router.query.q) ? router.query.q : '';
 
 	// * 페이지 네이션
 	// 현재 페이지
@@ -46,8 +47,8 @@ function SearchPageTemp({ data }: SearchPageProps) {
 
 	useEffect(() => {
 		setCurrentPage(1)
-	},[router.query.q])
-	
+	}, [searchQuery])
+
 	// 리스트형 아이콘 클릭
 	const ViewList_click = () => {
 		setListType('list')
@@ -73,9 +74,9 @@ function SearchPageTemp({ data }: SearchPageProps) {
 			/>
 			{PageNumberList !== 0 &&
 				<Pagination
-				length={PageNumberList}
-				current={CurrentPage}
-			/>
+					length={PageNumberList}
+					current={CurrentPage}
+				/>
 			}
 		</section>
 	)

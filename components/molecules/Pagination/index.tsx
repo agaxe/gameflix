@@ -21,6 +21,7 @@ function PaginationComp({ length, current }: PaginationProps) {
 	const router = useRouter();
 	const [MaxPageLength, setMaxPageLength] = useState(0)
 	const CurrPage = current;
+	const searchQuery = (router.query && router.query.q) ? router.query.q : '';
 
 	useEffect(() => {
 		if (CurrPage === length || length === 1) {
@@ -36,7 +37,7 @@ function PaginationComp({ length, current }: PaginationProps) {
 	const PageIndexClick = (idx) => {
 		router.push({
 			query: {
-				q: router.query.q,
+				q: searchQuery,
 				page: idx
 			},
 		}).then(() => window.scrollTo(0, 0));
@@ -46,7 +47,7 @@ function PaginationComp({ length, current }: PaginationProps) {
 	const PagePrevClick = () => {
 		router.push({
 			query: {
-				q: router.query.q,
+				q: searchQuery,
 				page: 1
 			},
 		}).then(() => window.scrollTo(0, 0));
@@ -57,7 +58,7 @@ function PaginationComp({ length, current }: PaginationProps) {
 	const PageNextClick = () => {
 		router.push({
 			query: {
-				q: router.query.q,
+				q: searchQuery,
 				page: length
 			},
 		}).then(() => window.scrollTo(0, 0));
