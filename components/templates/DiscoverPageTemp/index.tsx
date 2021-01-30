@@ -117,10 +117,9 @@ function DiscoverPageTemp({
 
 	return (
 		<section>
-			<PageTitleBox>
-				<PageTitle>탐색</PageTitle>
-				<FilterIcon onClick={() => setFilterMenuState(true)} />
-			</PageTitleBox>
+			<PageTitle title="탐색">
+				<MdTune onClick={() => setFilterMenuState(true)} />
+			</PageTitle>
 			{
 				(success && filterGameList.length)
 					? <>
@@ -219,17 +218,6 @@ function DiscoverPageTemp({
 export default DiscoverPageTemp;
 
 // * style
-const PageTitleBox = styled.div`
-	position:relative;
-`
-const FilterIcon = styled(MdTune)`
-	position:absolute;
-	right:0;
-	top:10px;
-	width:30px;
-	height:30px;
-	cursor:pointer;
-`
 const PageTitleBottom = styled.div`
 	position:relative;
 	display:flex;

@@ -1,5 +1,6 @@
 import PageTitle from './index';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
+import { MdViewList, MdViewModule, MdTune } from 'react-icons/md';
 
 export default {
 	title: 'component/molecules/PageTitle',
@@ -11,11 +12,22 @@ export default {
 }
 
 export function pageTitle() {
-	const children = text('chliren', '검색 결과')
+
+	const title = text('title', '페이지 타이틀');
+	const Icon = boolean('icon', false);
+
 	return (
-		<PageTitle>{children}</PageTitle>
+		<PageTitle title={title}>
+			{Icon && <MdViewList />}
+		</PageTitle>
 	)
 }
+
+export const withIcon = () => (
+	<PageTitle title='페이지 타이틀'>
+		<MdViewList />
+	</PageTitle>
+)
 
 pageTitle.story = {
 	name: 'Default',

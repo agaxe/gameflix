@@ -60,13 +60,12 @@ function SearchPageTemp({ data }: SearchPageProps) {
 
 	return (
 		<section>
-			<PageTitleBox>
-				<PageTitle>검색 결과</PageTitle>
-				<ListTypeIcon type={ListType}>
+			<PageTitle title="검색 결과">
+				<ListTypeBox type={ListType}>
 					<MdViewList onClick={ViewList_click} />
 					<MdViewModule onClick={ViewModule_click} />
-				</ListTypeIcon>
-			</PageTitleBox>
+				</ListTypeBox>
+			</PageTitle>
 			<SearchList
 				data={currentPosts}
 				result={data.result}
@@ -83,22 +82,10 @@ function SearchPageTemp({ data }: SearchPageProps) {
 }
 export default SearchPageTemp
 
-
 // * style
-// 타이틀 박스
-const PageTitleBox = styled.div`
-	position:relative;
-`
-// 아이콘 박스 ( 리스트 레이아웃 )
-const ListTypeIcon = styled.div<{ type: string }>`
-	position:absolute;
-	right:0;
-	top:10px;
+const ListTypeBox = styled.div<{ type: string }>`
 	svg{
-		width:30px;
-		height:30px;
-		cursor:pointer;
-		${props => props.type === 'card'
+		${props => (props.type === 'card')
 		? `&:first-of-type{
 				color:${COLOR_GRAY}	
 			}`
@@ -107,5 +94,4 @@ const ListTypeIcon = styled.div<{ type: string }>`
 			}`
 	}
 	}
-	
 `
