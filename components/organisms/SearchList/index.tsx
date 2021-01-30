@@ -20,6 +20,9 @@ type SearchListProps = {
  * - `type` 의 **list** 와 **card** 로 리스트 형식을 지정 합니다. 
  */
 function SearchListComp({ data = [], type, result }: SearchListProps) {
+
+	const { NO_COVER_IMAGE } = process.env;
+
 	return (
 		<SearchList flex={type === 'list' ? false : true}>
 			{
@@ -39,13 +42,13 @@ function SearchListComp({ data = [], type, result }: SearchListProps) {
 										? <GameItem
 											key={idx}
 											id={item.id}
-											cover={item.cover ? item.cover.image_id : 'nocover_qhhlj6'}
+											cover={item.cover ? item.cover.image_id : NO_COVER_IMAGE}
 											name={item.name}
 											releaseDate={year}
 										/>
 										: <GameCardSearch
 											id={item.id}
-											cover={item.cover ? item.cover.image_id : 'nocover_qhhlj6'}
+											cover={item.cover ? item.cover.image_id : NO_COVER_IMAGE}
 											name={item.name}
 											releaseDate={year}
 										/>

@@ -39,6 +39,7 @@ function DiscoverPageTemp({
 }: DiscoverPageTempProps) {
 
 	const { success, filterGameList } = data;
+	const { NO_COVER_IMAGE } = process.env;
 	const [genresCheck, setGenresCheck] = useState(genresCheckData);
 	const [releaseDate, setReleaseDate] = useState(releaseDateData);
 	const [ratingScore, setRatingScore] = useState(ratingScoreData);
@@ -143,7 +144,7 @@ function DiscoverPageTemp({
 										<GameCard
 											id={item.id}
 											key={idx}
-											cover={item.cover ? item.cover.image_id : 'nocover_qhhlj6'}
+											cover={item.cover ? item.cover.image_id : NO_COVER_IMAGE}
 											name={item.name}
 											rating={Math.round(item.aggregated_rating)}
 										/>

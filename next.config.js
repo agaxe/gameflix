@@ -25,6 +25,7 @@ module.exports = withCss(withSass({
 		TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
 		TWITCH_SECRET_ID: process.env.TWITCH_SECRET_ID,
 		IGDB_COVER_URL: process.env.IGDB_COVER_URL,
+		NO_COVER_IMAGE: process.env.NO_COVER_IMAGE,
 	},
 }));
 
