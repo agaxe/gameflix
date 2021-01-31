@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useState, useEffect, useRef } from 'react'
 import { MdTune, MdClose } from 'react-icons/md';
-import { List, Item, Skeleton, CheckBox, Button, Select } from 'components/atoms';
+import { List, Item, Skeleton, CheckBox, Button, Select, NoResult } from 'components/atoms';
 import { GameCard, RangeSlider, PageTitle } from 'components/molecules';
 import { pxToRem } from 'static/styles/common';
 import { VAR_COLOR } from 'static/styles/variable';
@@ -153,7 +153,7 @@ function DiscoverPageTemp({
 						</div>
 					</>
 					: (success && !filterGameList.length)
-						? <NotResult><h4>탐색결과가 없습니다 :(</h4></NotResult>
+						? <NoResult title='탐색' />
 						: <>
 							<PageTitleBottom>
 								<Skeleton width={500} height={30} />
@@ -313,12 +313,3 @@ const FilterMenuCloseBtn = styled(MdClose)`
 	font-size:40px;
 	cursor:pointer;
 `
-const NotResult = styled.div`
-	width:100%;
-	text-align:center;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	min-height:400px;
-	color:#cacaca;
-`;

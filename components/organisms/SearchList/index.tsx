@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react'
-import { List, Item } from 'components/atoms';
+import { List, Item, NoResult } from 'components/atoms';
 import { GameCard, GameItem } from 'components/molecules';
 
 // * type
@@ -69,8 +69,7 @@ function SearchListComp({ data = [], type, result }: SearchListProps) {
 								</React.Fragment>
 							))}
 						</>
-						// 검색결과 - 결과 없음
-						: <NotResult><h4>검색결과가 없습니다 :(</h4></NotResult>
+						: <NoResult title='검색' />
 			}
 		</SearchList>
 	)
@@ -99,18 +98,3 @@ const GameCardSearch = styled(GameCard)`
 		margin-right:0;	
 	}
 `;
-// 검색 결과 없음
-const NotResult = styled(Item)`
-	width:100%;
-	text-align:center;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	min-height:400px;
-	color:#cacaca;
-`;
-
-
-
-
-
