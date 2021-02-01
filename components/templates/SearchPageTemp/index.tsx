@@ -4,6 +4,7 @@ import { SearchList } from 'components/organisms';
 import { PageTitle, Pagination } from 'components/molecules';
 import { MdViewList, MdViewModule } from 'react-icons/md';
 import { useRouter } from 'next/router';
+import { PAGE_TITLE_BOTTOM } from 'static/styles/common';
 import { VAR_COLOR } from 'static/styles/variable';
 const { COLOR_GRAY } = VAR_COLOR;
 
@@ -66,6 +67,12 @@ function SearchPageTemp({ data }: SearchPageProps) {
 					<MdViewModule onClick={ViewModule_click} />
 				</ListTypeBox>
 			</PageTitle>
+			<PageTitleBottom>
+				<div>
+					<strong>'{searchQuery}'</strong> 에 대한
+					<strong> {data.SearchList.length.toLocaleString()}</strong> 개의 게임을 검색했습니다!
+				</div>
+			</PageTitleBottom>
 			<SearchList
 				data={currentPosts}
 				result={data.result}
@@ -94,4 +101,7 @@ const ListTypeBox = styled.div<{ type: string }>`
 			}`
 	}
 	}
+`
+const PageTitleBottom = styled.div`
+	${PAGE_TITLE_BOTTOM};
 `

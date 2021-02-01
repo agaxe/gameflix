@@ -3,9 +3,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import { MdTune, MdClose } from 'react-icons/md';
 import { List, Item, Skeleton, CheckBox, Button, Select, NoResult } from 'components/atoms';
 import { GameCard, RangeSlider, PageTitle } from 'components/molecules';
-import { pxToRem } from 'static/styles/common';
+import { PAGE_TITLE_BOTTOM } from 'static/styles/common';
 import { VAR_COLOR } from 'static/styles/variable';
-const { COLOR_PRIMARY, COLOR_WHITE } = VAR_COLOR;
+const { COLOR_WHITE } = VAR_COLOR;
 
 // * type
 type DiscoverPageTempProps = {
@@ -124,12 +124,10 @@ function DiscoverPageTemp({
 				(success && filterGameList.length)
 					? <>
 						<PageTitleBottom>
-							<GameLengthTitle>
-								총
-								<strong>{filterGameList.length.toLocaleString()}</strong>
-								개의 게임을 발견했습니다!
-							</GameLengthTitle>
-							<Select
+							<div>
+								총 <strong>{filterGameList.length.toLocaleString()}</strong> 개의 게임을 발견했습니다!
+							</div>
+							<DiscoverSelect
 								width="150px"
 								firstTitle={sortFirstTitle}
 								onClick={onClickSelectOption}
@@ -219,22 +217,11 @@ export default DiscoverPageTemp;
 
 // * style
 const PageTitleBottom = styled.div`
-	position:relative;
-	display:flex;
-	justify-content:space-between;
-	padding:35px 0;
-	& > div{
-		position:absolute;
-		right:0;
-		top:33px;
-		z-index:50;
-	}
+	${PAGE_TITLE_BOTTOM};
 `
-const GameLengthTitle = styled.p`
-	font-size:${pxToRem(30)};
-	strong{
-		color:${COLOR_PRIMARY};
-	}
+const DiscoverSelect = styled(Select)`
+	right:0;
+	top:33px;
 `
 const GameList = styled(List)`
 	flex-wrap:wrap;
