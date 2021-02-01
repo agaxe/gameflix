@@ -67,12 +67,16 @@ function SearchPageTemp({ data }: SearchPageProps) {
 					<MdViewModule onClick={ViewModule_click} />
 				</ListTypeBox>
 			</PageTitle>
-			<PageTitleBottom>
-				<div>
-					<strong>'{searchQuery}'</strong> 에 대한
-					<strong> {data.SearchList.length.toLocaleString()}</strong> 개의 게임을 검색했습니다!
-				</div>
-			</PageTitleBottom>
+			{
+				(data.result !== 'no') && <>
+					<PageTitleBottom>
+						<div>
+							<strong>'{searchQuery}'</strong> 에 대한
+							<strong> {data.SearchList.length.toLocaleString()}</strong> 개의 게임을 검색했습니다!
+						</div>
+					</PageTitleBottom>
+				</>
+			}
 			<SearchList
 				data={currentPosts}
 				result={data.result}
