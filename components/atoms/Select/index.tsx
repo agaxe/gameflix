@@ -8,6 +8,8 @@ const { COLOR_WHITE, COLOR_LINE_GRAY, COLOR_GRAY } = VAR_COLOR;
 
 // * type
 type SelectType = {
+	/** 클래스 명 */
+	className?: string;
 	/** 넓이값  */
 	width: string;
 	/** 초기값 타이틀 */
@@ -22,7 +24,13 @@ type SelectType = {
 /**
  * - custom style 을 위해 `<div>` 로 제작한 select 입니다.
  */
-function SelectComp({ width, firstTitle, options, onClick }: SelectType) {
+function SelectComp({
+	className,
+	width,
+	firstTitle,
+	options,
+	onClick
+}: SelectType) {
 
 	const [selectItemState, setSelectItemState] = useState(false);
 
@@ -45,7 +53,10 @@ function SelectComp({ width, firstTitle, options, onClick }: SelectType) {
 	}, [selectItemState])
 
 	return (
-		<SelectBox width={width}>
+		<SelectBox
+			className={className}
+			width={width}
+		>
 			<SelectTitle onClick={() => setSelectItemState(!selectItemState)}>
 				{firstTitle}
 				<MdArrowDropDown />
@@ -81,6 +92,8 @@ const SelectBox = styled.div<{ width: string }>`
 	cursor:default;
 	font-size:${pxToRem(14)};
 	user-select: none;
+	position:absolute;
+	z-index:50;
 `
 const SelectTitle = styled.div`
 	display:flex;

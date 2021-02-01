@@ -28,12 +28,14 @@ export function select() {
 	}
 
 	return (
-		<Select
-			width="150px"
-			firstTitle={firstTitle}
-			options={Options}
-			onClick={onClick}
-		/>
+		<div css={{ 'height': '200px' }}>
+			<Select
+				width="150px"
+				firstTitle={firstTitle}
+				options={Options}
+				onClick={onClick}
+			/>
+		</div>
 	)
 }
 
