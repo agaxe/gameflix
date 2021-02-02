@@ -55,6 +55,7 @@ export function discoverPageTemp() {
 	const genresCheckData = [5, 32];
 	const releaseDateData = [2016, 2021];
 	const ratingScoreData = [20, 70];
+	const sortValueData = ['aggregated_rating', 'desc'];
 
 	const runSearch = (genres, releaseDate, ratingScore, sort) => {
 		console.log('장르', genres);
@@ -71,6 +72,7 @@ export function discoverPageTemp() {
 				genresCheckData={genresCheckData}
 				releaseDateData={releaseDateData}
 				ratingScoreData={ratingScoreData}
+				sortValueData={sortValueData}
 				searchFunc={runSearch}
 			/>
 		</div>

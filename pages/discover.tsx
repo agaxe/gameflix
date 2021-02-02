@@ -16,7 +16,7 @@ function DiscoverPage({ genreList }: DiscoverPageProps) {
 	const [genresCheck, setGenresCheck] = useState([])
 	const [releaseDate, setReleaseDate] = useState([2016, new Date().getFullYear()]);
 	const [ratingScore, setRatingScore] = useState([30, 90]);
-	const [sortValue, setSortValue] = useState([])
+	const [sortValue, setSortValue] = useState(['aggregated_rating', 'desc'])
 	const [resultData, setResultData] = useState({ success: null, filterGameList: [] });
 
 	// 필터 검색
@@ -48,6 +48,7 @@ function DiscoverPage({ genreList }: DiscoverPageProps) {
 			genresCheckData={genresCheck}
 			releaseDateData={releaseDate}
 			ratingScoreData={ratingScore}
+			sortValueData={sortValue}
 			searchFunc={runFilterSearch}
 		/>
 	)

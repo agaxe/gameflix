@@ -19,6 +19,8 @@ type DiscoverPageTempProps = {
 	releaseDateData: number[];
 	/** 평점 선택 데이터 */
 	ratingScoreData: number[];
+	/** 정렬 select 데이터 */
+	sortValueData: string[];
 	/** 필터링 실행 함수 */
 	searchFunc: (genres, releaseDate, ratingScore, sort) => void;
 }
@@ -35,6 +37,7 @@ function DiscoverPageTemp({
 	genresCheckData,
 	releaseDateData,
 	ratingScoreData,
+	sortValueData,
 	searchFunc
 }: DiscoverPageTempProps) {
 
@@ -43,7 +46,7 @@ function DiscoverPageTemp({
 	const [genresCheck, setGenresCheck] = useState(genresCheckData);
 	const [releaseDate, setReleaseDate] = useState(releaseDateData);
 	const [ratingScore, setRatingScore] = useState(ratingScoreData);
-	const [sortValue, setSortValue] = useState([])
+	const [sortValue, setSortValue] = useState(sortValueData)
 	const [maxLength, setMaxLength] = useState(20);
 	const [filterMenuState, setFilterMenuState] = useState(false);
 	const sortValueArray = [
