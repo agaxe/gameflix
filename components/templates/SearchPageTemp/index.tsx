@@ -11,15 +11,17 @@ const { COLOR_GRAY } = VAR_COLOR;
 // * type
 type SearchPageProps = {
 	/** 검색 결과 데이터 */
-	data: any
+	data: any;
+	/** 스토리북 테스트 검색어*/
+	searchQuerySB?: string;
 }
 
 // * component
-function SearchPageTemp({ data }: SearchPageProps) {
+function SearchPageTemp({ data, searchQuerySB }: SearchPageProps) {
 
 	const [ListType, setListType] = useState('list'); // list | card
 	const router = useRouter();
-	const searchQuery = (router.query && router.query.q) ? router.query.q : '';
+	const searchQuery = (router.query && router.query.q && !searchQuerySB) ? router.query.q : searchQuerySB;
 
 	// * 페이지 네이션
 	// 현재 페이지
@@ -92,6 +94,11 @@ function SearchPageTemp({ data }: SearchPageProps) {
 	)
 }
 export default SearchPageTemp
+
+// * defaultProps 
+SearchPageTemp.defaultProps = {
+	searchQuerySB: ''
+}
 
 // * style
 const ListTypeBox = styled.div<{ type: string }>`

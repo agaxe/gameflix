@@ -1,5 +1,5 @@
 import SearchPageTemp from './index';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 
 export default {
 	title: 'component/templates/SearchPageTemp',
@@ -23,11 +23,13 @@ export function searchPageTemp() {
 		result: 'yes',
 	}
 
-	const data = boolean('SearchListData', true);
+	const data = boolean('검색결과 데이터', true);
+	const searchQuery = text('검색어', '오버워치');
 
 	return (
 		<SearchPageTemp
 			data={data ? SearchListData : {}}
+			searchQuerySB={searchQuery}
 		/>
 	)
 }
