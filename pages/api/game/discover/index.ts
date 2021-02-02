@@ -35,7 +35,7 @@ export default async function (req, res) {
 	// ? 필터 검색 결과 리스트
 	const FilterGameListFunc = async () => {
 		// api
-		const fields = "fields *, cover.*, external_games.*, first_release_date, genres;";
+		const fields = "fields name, aggregated_rating, cover.*;";
 		const limit = "limit 500;";
 		const sort = `sort ${sortValue};`;
 		const where = `where genres ${genresValue} & ${ratingValue} & ${releaseValue};`
