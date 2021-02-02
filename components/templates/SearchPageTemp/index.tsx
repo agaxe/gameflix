@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react'
+import { Skeleton } from 'components/atoms';
 import { SearchList } from 'components/organisms';
 import { PageTitle, Pagination } from 'components/molecules';
 import { MdViewList, MdViewModule } from 'react-icons/md';
@@ -70,14 +71,16 @@ function SearchPageTemp({ data, searchQuerySB }: SearchPageProps) {
 				</ListTypeBox>
 			</PageTitle>
 			{
-				(data.result !== 'no') && <>
-					<PageTitleBottom>
-						<div>
-							<strong>'{searchQuery}'</strong> 에 대한
+				('result' in data && data.result !== 'no')
+					? <>
+						<PageTitleBottom>
+							<div>
+								<strong>'{searchQuery}'</strong> 에 대한
 							<strong> {data.SearchList.length.toLocaleString()}</strong> 개의 게임을 검색했습니다!
 						</div>
-					</PageTitleBottom>
-				</>
+						</PageTitleBottom>
+					</>
+					: <PageTitleBottom><Skeleton width={500} height={30} /></PageTitleBottom>
 			}
 			<SearchList
 				data={currentPosts}
