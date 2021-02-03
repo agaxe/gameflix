@@ -71,16 +71,17 @@ function SearchPageTemp({ data, searchQuerySB }: SearchPageProps) {
 				</ListTypeBox>
 			</PageTitle>
 			{
-				('result' in data && data.result !== 'no')
+				('result' in data && data.result === 'yes')
 					? <>
 						<PageTitleBottom>
 							<div>
 								<strong>'{searchQuery}'</strong> 에 대한
-							<strong> {data.SearchList.length.toLocaleString()}</strong> 개의 게임을 검색했습니다!
-						</div>
+       							<strong> {data.SearchList.length.toLocaleString()}</strong> 개의 게임을 검색했습니다!
+      						</div>
 						</PageTitleBottom>
 					</>
-					: <PageTitleBottom><Skeleton width={500} height={30} /></PageTitleBottom>
+					: ('result' in data && data.result === 'no') ? null
+						: <PageTitleBottom><Skeleton width={500} height={30} /></PageTitleBottom>
 			}
 			<SearchList
 				data={currentPosts}

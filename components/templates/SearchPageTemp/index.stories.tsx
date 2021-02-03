@@ -12,19 +12,25 @@ export default {
 
 export function searchPageTemp() {
 
-	const SearchListData = {
-		SearchList: [...Array(5)].map(item => (
+	const data = boolean('검색결과 데이터', true);
+	const searchResult = boolean('검색결과 여부', true);
+	const searchQuery = text('검색어', '오버워치');
+
+	const SearchList = searchResult
+		? [...Array(5)].map(item => (
 			{
 				cover: { image_id: 'co1rcb' },
 				name: 'overwatch',
 				first_release_date: 1464048000
 			}
-		)),
-		result: 'yes',
-	}
+		))
+		: null
+	const result = searchResult ? 'yes' : 'no';
 
-	const data = boolean('검색결과 데이터', true);
-	const searchQuery = text('검색어', '오버워치');
+	const SearchListData = {
+		SearchList,
+		result
+	}
 
 	return (
 		<SearchPageTemp
