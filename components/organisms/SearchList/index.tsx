@@ -24,7 +24,10 @@ function SearchListComp({ data = [], type, result }: SearchListProps) {
 	const { NO_COVER_IMAGE } = process.env;
 
 	return (
-		<SearchList flex={type === 'list' ? false : true}>
+		<SearchList
+			flex={type === 'card' ? true : false}
+			length={data.length}
+		>
 			{
 				// 검색결과 - 리스트
 				data.length && result === 'yes'
@@ -83,9 +86,10 @@ SearchListComp.defaultProps = {
 
 // * style
 // 검색결과 리스트
-const SearchList = styled(List) <{ flex: boolean }>`
+const SearchList = styled(List) <{ flex: boolean, length: number }>`
 	flex-wrap:wrap;
-	${props => props.flex && `margin-bottom:50px;`}
+	margin-bottom:20px;
+	${props => (props.flex && props.length) && `margin-bottom:50px;`}
 	a{
 		width:100%;
 	}	
