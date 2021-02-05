@@ -26,7 +26,7 @@ function SearchInputComp({ className, onClick }: SearchInputProps) {
 
 	// 현재 페이지가 search 가 아니면 검색input의 value를 초기화
 	useEffect(() => {
-		const query = router.query ? router.query.q : '';
+		const query = (router.query.q) ? router.query.q : '';
 		const pathname = router.pathname;
 
 		pathname === '/search' ? setSearch(`${query}`) : setSearch('')

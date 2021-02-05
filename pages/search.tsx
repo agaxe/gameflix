@@ -17,7 +17,12 @@ function SearchPage({ data }: SearchPageProps) {
 	return (
 		<>
 			<Head>
-				<title>검색 결과 - {router.query.q}</title>
+				<title>
+					{(router.query.q)
+						? `'${router.query.q}' 검색 결과 | 겜플릭스`
+						: '검색어가 없습니다.'
+					}
+				</title>
 			</Head>
 			<SearchPageTemp data={data} />
 		</>
@@ -44,7 +49,7 @@ export async function getServerSideProps({ query }) {
 		function UpperCase(search) {
 			return search.charAt(0).toUpperCase() + search.slice(1);
 		}
-		const search = UpperCase(q)
+		const search = (q) && UpperCase(q);
 
 		// api
 		const fields = "fields name, rating, aggregated_rating, cover.image_id, first_release_date;";
