@@ -42,7 +42,7 @@ function DiscoverPageTemp({
 }: DiscoverPageTempProps) {
 
 	const { success, filterGameList } = data;
-	const { NO_COVER_IMAGE } = process.env;
+	const NO_COVER_IMAGE = process.env.NO_COVER_IMAGE;
 	const [genresCheck, setGenresCheck] = useState(genresCheckData);
 	const [releaseDate, setReleaseDate] = useState(releaseDateData);
 	const [ratingScore, setRatingScore] = useState(ratingScoreData);

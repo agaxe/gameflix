@@ -21,7 +21,7 @@ type SearchListProps = {
  */
 function SearchListComp({ data = [], type, result }: SearchListProps) {
 
-	const { NO_COVER_IMAGE } = process.env;
+	const NO_COVER_IMAGE = process.env.NO_COVER_IMAGE;
 
 	return (
 		<SearchList
