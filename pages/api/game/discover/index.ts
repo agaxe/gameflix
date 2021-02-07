@@ -1,13 +1,6 @@
-import Axios from 'axios';
+import { useGameApi } from 'hooks';
 
 export default async function (req, res) {
-
-	// 공통 변수
-	const TWITCH_ACCESS_TOKEN_URL = process.env.TWITCH_ACCESS_TOKEN_URL;
-	const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
-
-	// access_token
-	const access_token = await Axios.post(TWITCH_ACCESS_TOKEN_URL).then(res => res.data.access_token);
 
 	// * 쿼리값
 	const filter = JSON.parse(req.query.filter);
@@ -32,27 +25,15 @@ export default async function (req, res) {
 	const ratingValue = (ratingArray[0] === ratingArray[1]) ? `aggregated_rating = ${ratingArray[0]}` : `(aggregated_rating >= ${ratingArray[0]} & aggregated_rating <= ${ratingArray[1]})`;
 	const sortValue = `${sortArray[0]} ${sortArray[1]}`;
 
-	// ? 필터 검색 결과 리스트
-	const FilterGameListFunc = async () => {
-		// api
-		const fields = "fields name, aggregated_rating, cover.*;";
-		const limit = "limit 500;";
-		const sort = `sort ${sortValue};`;
-		const where = `where genres ${genresValue} & ${ratingValue} & ${releaseValue};`
-		const data = `${fields}${where}${sort}${limit}`;
-		const Genres = await Axios({
-			url: `https://api.igdb.com/v4/games`,
-			method: "post",
-			headers: {
-				Accept: "application/json",
-				"Client-ID": TWITCH_CLIENT_ID,
-				Authorization: `Bearer ${access_token}`
-			},
-			data: data
-		})
-		return Genres.data;
+	const options = {
+		endPoint: 'games',
+		fields: 'name, aggregated_rating, cover.*',
+		where: `genres ${genresValue} & ${ratingValue} & ${releaseValue}`,
+		sort: `${sortValue}`,
+		limit: 500
 	}
-	// return  
-	const filterGameList = await FilterGameListFunc();
+
+	// return
+	const filterGameList = await useGameApi(options);
 	res.json({ success: true, filterGameList });
 }

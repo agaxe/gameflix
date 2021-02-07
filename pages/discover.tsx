@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { DiscoverPageTemp } from 'components/templates';
 import { useRouter } from 'next/router';
+import { useGameApi } from 'hooks';
 
 // * type
 type DiscoverPageProps = {
@@ -58,34 +59,14 @@ export default DiscoverPage;
 // * getServerSideProps
 export async function getServerSideProps() {
 
-	// 공통 변수
-	const TWITCH_ACCESS_TOKEN_URL = process.env.TWITCH_ACCESS_TOKEN_URL;
-	const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
-
-	// access_token
-	const access_token = await Axios.post(TWITCH_ACCESS_TOKEN_URL).then(res => res.data.access_token);
-
-	// ? 게임 장르 리스트
-	const GenresListFunc = async () => {
-		// api
-		const fields = "fields name;";
-		const limit = "limit 30; ";
-		const sort = "sort id asc;";
-		const data = `${fields}${sort}${limit}`;
-		const Genres = await Axios({
-			url: `https://api.igdb.com/v4/genres`,
-			method: "post",
-			headers: {
-				Accept: "application/json",
-				"Client-ID": TWITCH_CLIENT_ID,
-				Authorization: `Bearer ${access_token}`
-			},
-			data: data
-		})
-		return Genres.data;
+	const options = {
+		endPoint: 'genres',
+		fields: 'name',
+		sort: 'id asc',
+		limit: 500
 	}
 
-	// return
-	const genreList = await GenresListFunc();
+	// return 
+	const genreList = await useGameApi(options);
 	return { props: { genreList } }
 }	
