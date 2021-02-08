@@ -6,7 +6,7 @@ import { GameList, StreamList } from 'components/organisms';
 // * type 
 type MainPageTempProps = {
 	/** 발매 예정 게임 데이터 */
-	ComingSoonData: any[],
+	comingSoonData: any[],
 	/** 인기 게임 리스트 데이터 */
 	gameListData: any[],
 	/** 실시간 방송 리스트 데이터 */
@@ -18,14 +18,14 @@ type MainPageTempProps = {
  * - 메인 페이지의 템플릿 컴포넌트 입니다.
  */
 function MainPageTemp({
-	ComingSoonData,
+	comingSoonData,
 	gameListData,
 	streamListData
 }: MainPageTempProps) {
 	return (
 		<>
 			<MainVisual
-				ComingSoonData={ComingSoonData}
+				comingSoonData={comingSoonData}
 			/>
 			<MainPageSection>
 				<div>

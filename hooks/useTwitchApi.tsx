@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-export default async function useGameApi(endPoint: string) {
+export default async function useTwitchApi(endPoint: string) {
 
 	// 공통 변수
 	const TWITCH_ACCESS_TOKEN_URL = process.env.TWITCH_ACCESS_TOKEN_URL;

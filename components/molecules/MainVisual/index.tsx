@@ -16,11 +16,11 @@ SwiperCore.use([Pagination, Autoplay]);
 type MainVisualProps = {
 	className?: string;
 	/** 발매예정 게임 데이터 */
-	ComingSoonData: any[];
+	comingSoonData: any[];
 }
 
 // * component
-function MainVisualComp({ ComingSoonData, className }: MainVisualProps) {
+function MainVisualComp({ comingSoonData, className }: MainVisualProps) {
 	return (
 		<MainVisualBox className={className}>
 			<Swiper
@@ -28,7 +28,7 @@ function MainVisualComp({ ComingSoonData, className }: MainVisualProps) {
 				autoplay={{ delay: 5000, disableOnInteraction: false }}
 				pagination={{ clickable: true }}
 			>
-				{ComingSoonData && ComingSoonData.map((item, idx) => {
+				{comingSoonData && comingSoonData.map((item, idx) => {
 					const date = new Date(item.first_release_date * 1000)
 					const year = date.getFullYear();
 					const month = date.getMonth() + 1;

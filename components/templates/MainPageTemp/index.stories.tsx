@@ -12,7 +12,7 @@ export default {
 
 export function mainPageTemp() {
 
-	const ComingSoonData = [...Array(5)].map(item => (
+	const comingSoonData = [...Array(5)].map(item => (
 		{
 			name: 'overwatch',
 			screenshots: [{ image_id: 'qix3yskantk4uj0to7xm' }],
@@ -21,7 +21,7 @@ export function mainPageTemp() {
 	))
 
 
-	const GameListData = [...Array(5)].map(item => (
+	const gameListData = [...Array(5)].map(item => (
 		{
 			cover: { image_id: 'co1rcb' },
 			name: 'overwatch',
@@ -29,7 +29,7 @@ export function mainPageTemp() {
 		}
 	))
 
-	const StreamListData = [...Array(3)].map(it => (
+	const streamListData = [...Array(3)].map(it => (
 		{
 			game: '게임 타이틀',
 			streamers: [...Array(3)].map(item => (
@@ -45,14 +45,14 @@ export function mainPageTemp() {
 		}
 	))
 
-	const gameListData = boolean('GameListData', false);
-	const streamListData = boolean('StreamListData', false);
+	const gameListState = boolean('GameListData', false);
+	const streamListState = boolean('StreamListData', false);
 
 	return (
 		<MainPageTemp
-			ComingSoonData={ComingSoonData}
-			gameListData={gameListData ? GameListData : []}
-			streamListData={streamListData ? StreamListData : []}
+			comingSoonData={comingSoonData}
+			gameListData={gameListState ? gameListData : []}
+			streamListData={streamListState ? streamListData : []}
 		/>
 	)
 }

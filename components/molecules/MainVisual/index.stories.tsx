@@ -25,7 +25,7 @@ export function mainVisaul() {
 
 	return (
 		<MainVisualSB
-			ComingSoonData={data}
+			comingSoonData={data}
 		/>
 	)
 }

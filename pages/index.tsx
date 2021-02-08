@@ -15,7 +15,7 @@ function MainPage({ gameList, streamList, comingSoonList }: MainPageProps) {
 		<MainPageTemp
 			gameListData={gameList}
 			streamListData={streamList}
-			ComingSoonData={comingSoonList}
+			comingSoonData={comingSoonList}
 		/>
 	)
 }

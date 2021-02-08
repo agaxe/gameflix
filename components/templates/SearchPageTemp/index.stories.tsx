@@ -16,7 +16,7 @@ export function searchPageTemp() {
 	const searchResult = boolean('검색결과 여부', true);
 	const searchQuery = text('검색어', '오버워치');
 
-	const SearchList = searchResult
+	const searchList = searchResult
 		? [...Array(5)].map(item => (
 			{
 				cover: { image_id: 'co1rcb' },
@@ -27,14 +27,14 @@ export function searchPageTemp() {
 		: null
 	const result = searchResult ? 'yes' : 'no';
 
-	const SearchListData = {
-		SearchList,
+	const searchListData = {
+		searchList,
 		result
 	}
 
 	return (
 		<SearchPageTemp
-			data={data ? SearchListData : {}}
+			data={data ? searchListData : {}}
 			searchQuerySB={searchQuery}
 		/>
 	)
