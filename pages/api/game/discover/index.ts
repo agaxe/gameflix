@@ -27,7 +27,7 @@ export default async function (req, res) {
 
 	const options = {
 		endPoint: 'games',
-		fields: 'name, aggregated_rating, cover.*',
+		fields: 'name, aggregated_rating, cover.image_id',
 		where: `genres ${genresValue} & ${ratingValue} & ${releaseValue}`,
 		sort: `${sortValue}`,
 		limit: 500

@@ -31,22 +31,22 @@ export async function getServerSideProps() {
 	// ? 인기 게임 리스트
 	const gameList = await useGameApi({
 		endPoint: 'games',
-		fields: '*, cover.*, external_games.*, first_release_date, genres.*',
+		fields: 'name, aggregated_rating, cover.image_id',
 		where: `first_release_date >= ${prevMonth} & rating >= 70 & rating <= 80 & aggregated_rating != null`,
 		sort: 'rating desc',
 		limit: '5',
 	});
 
-	// ? 게임 방송 리스트
+	// ? 발매 예정 게임
 	const comingSoonList = await useGameApi({
 		endPoint: 'games',
-		fields: '*, cover.*, screenshots.*, first_release_date',
+		fields: 'name, screenshots.image_id, first_release_date',
 		where: `first_release_date > ${todayTimeStamp} & screenshots != null`,
 		sort: 'first_release_date asc',
 		limit: '5',
 	})
 
-	// ? 발매 예정 게임
+	// ? 게임 방송 리스트
 	const streamListFunc = async () => {
 
 		// 상위 5위 게임

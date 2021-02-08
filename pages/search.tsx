@@ -42,7 +42,7 @@ export async function getServerSideProps({ query }) {
 
 	const options = {
 		endPoint: 'games',
-		fields: 'name, rating, aggregated_rating, cover.image_id, first_release_date',
+		fields: 'name, cover.image_id, first_release_date',
 		where: `name = *"${search}"*`,
 		sort: 'name asc; sort aggregated_rating desc; sort id asc',
 		limit: 500
