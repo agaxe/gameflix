@@ -146,7 +146,7 @@ function DiscoverPageTemp({
 											key={idx}
 											cover={item.cover ? item.cover.image_id : NO_COVER_IMAGE}
 											name={item.name}
-											rating={Math.round(item.aggregated_rating)}
+											rating={item.aggregated_rating}
 										/>
 									</React.Fragment>
 								))}

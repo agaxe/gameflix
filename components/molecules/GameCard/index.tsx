@@ -73,7 +73,7 @@ function GameCardComp({
 							<GameCardText>
 								<strong>{name}</strong>
 								{releaseDate && <p>{releaseDate}</p>}
-								{rating && <p>{rating}%</p>}
+								{rating && <p>{Math.floor(rating)}%</p>}
 							</GameCardText>
 						</a>
 					</Link>

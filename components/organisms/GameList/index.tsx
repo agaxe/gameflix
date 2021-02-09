@@ -33,7 +33,7 @@ function GameList({ data, className }: GameListProps) {
 								key={idx}
 								cover={item.cover.image_id}
 								name={item.name}
-								rating={Math.round(item.aggregated_rating)}
+								rating={item.aggregated_rating}
 							/>
 						))
 						: <>
