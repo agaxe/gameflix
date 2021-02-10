@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useState, useEffect, useRef } from 'react'
 import { MdTune, MdClose } from 'react-icons/md';
-import { List, Item, Skeleton, CheckBox, Button, Select, NoResult } from 'components/atoms';
+import { List, Item, Skeleton, CheckBox, Button, Select, ModalBg, NoResult } from 'components/atoms';
 import { GameCard, RangeSlider, PageTitle } from 'components/molecules';
 import { PAGE_TITLE_BOTTOM } from 'static/styles/common';
 import { VAR_COLOR } from 'static/styles/variable';
@@ -170,7 +170,7 @@ function DiscoverPageTemp({
 						</>
 			}
 			<>
-				<FilterMenuBg state={filterMenuState} onClick={() => setFilterMenuState(false)} />
+				<ModalBg state={filterMenuState} onClick={() => setFilterMenuState(false)} />
 				<FilterMenuBox state={filterMenuState}>
 					<FilterMenuCloseBtn onClick={() => setFilterMenuState(false)} />
 					<FilterMenu>
@@ -236,16 +236,6 @@ const GameList = styled(List)`
 			margin-right:0;
 		}
 	}
-`
-const FilterMenuBg = styled.div<{ state: boolean }>`
-	display:${props => props.state ? 'block' : 'none'};
-	position:fixed;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	background:rgba(0,0,0,0.6);
-	z-index:100;
 `
 const filterMenuBoxWidth = '410px';
 const FilterMenuBox = styled.div<{ state: boolean }>`

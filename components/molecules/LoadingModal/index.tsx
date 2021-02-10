@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react'
+import { ModalBg } from "components/atoms";
 import { FaPlaystation, FaGamepad, FaSteam, FaTwitch } from "react-icons/fa";
 import { VAR_COLOR } from 'static/styles/variable';
 const { COLOR_PRIMARY } = VAR_COLOR;
@@ -34,33 +35,27 @@ function LoadingModalComp({ className }: LoadingModalProps) {
 	}, [])
 
 	return (
-		<LoadingModal className={className}>
-			<div>
-				{Index === 0 && <p><FaPlaystation /></p>}
-				{Index === 1 && <p><FaGamepad /></p>}
-				{Index === 2 && <p><FaSteam /></p>}
-				{Index === 3 && <p><FaTwitch /></p>}
-			</div>
+		<LoadingModal
+			state
+			zIndex={1000}
+			className={className}
+			display='flex'
+		>
+			{Index === 0 && <p><FaPlaystation /></p>}
+			{Index === 1 && <p><FaGamepad /></p>}
+			{Index === 2 && <p><FaSteam /></p>}
+			{Index === 3 && <p><FaTwitch /></p>}
 		</LoadingModal>
 	)
 }
 export default LoadingModalComp
 
 // * style
-const LoadingModal = styled.div`
-	position:fixed;
-	left:0;
-	top:0;
-	width:100%;
-	height:100%;
-	background:rgba(0,0,0,0.8);
-	color:#fff;
-	z-index:1000;
-	display:flex;
+const LoadingModal = styled(ModalBg)`
 	align-items:center;
 	justify-content:center;
-	color:${COLOR_PRIMARY};
 	p{
+		color:${COLOR_PRIMARY};
 		font-size:50px;
 	};
 `
