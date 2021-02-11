@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head'
 import Axios from 'axios';
 import { DiscoverPageTemp } from 'components/templates';
 import { useRouter } from 'next/router';
@@ -13,6 +14,7 @@ type DiscoverPageProps = {
 // * component
 function DiscoverPage({ genreList }: DiscoverPageProps) {
 
+	const SITE_KO_NAME = process.env.SITE_KO_NAME;
 	const router = useRouter();
 	const [genresCheck, setGenresCheck] = useState([])
 	const [releaseDate, setReleaseDate] = useState([2016, new Date().getFullYear()]);
@@ -43,15 +45,22 @@ function DiscoverPage({ genreList }: DiscoverPageProps) {
 	}, [genresCheck, releaseDate, ratingScore, sortValue])
 
 	return (
-		<DiscoverPageTemp
-			data={resultData}
-			genreList={genreList}
-			genresCheckData={genresCheck}
-			releaseDateData={releaseDate}
-			ratingScoreData={ratingScore}
-			sortValueData={sortValue}
-			searchFunc={runFilterSearch}
-		/>
+		<>
+			<Head>
+				<title>
+					{` 탐색 | ${SITE_KO_NAME}`}
+				</title>
+			</Head>
+			<DiscoverPageTemp
+				data={resultData}
+				genreList={genreList}
+				genresCheckData={genresCheck}
+				releaseDateData={releaseDate}
+				ratingScoreData={ratingScore}
+				sortValueData={sortValue}
+				searchFunc={runFilterSearch}
+			/>
+		</>
 	)
 }
 export default DiscoverPage;

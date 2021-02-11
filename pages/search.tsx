@@ -12,6 +12,7 @@ type SearchPageProps = {
 // * component
 function SearchPage({ data }: SearchPageProps) {
 
+	const SITE_KO_NAME = process.env.SITE_KO_NAME;
 	const router = useRouter();
 
 	return (
@@ -19,7 +20,7 @@ function SearchPage({ data }: SearchPageProps) {
 			<Head>
 				<title>
 					{(router.query.q)
-						? `'${router.query.q}' 검색 결과 | 겜플릭스`
+						? `'${router.query.q}' 검색 결과 | ${SITE_KO_NAME}`
 						: '검색어가 없습니다.'
 					}
 				</title>

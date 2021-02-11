@@ -22,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
 function App({ Component, pageProps }: AppProps) {
 
 	const [LoadingState, setLoadingState] = useState(false);
+	const SITE_KO_NAME = process.env.SITE_KO_NAME;
 
 	// 페이지 로딩 인디케이터  
 	const LodingStartFunc = (url) => {
@@ -58,7 +59,7 @@ function App({ Component, pageProps }: AppProps) {
 				<link rel="mask-icon" href="/static/images/favicon/safari-pinned-tab.svg" color={COLOR_PRIMARY} />
 				<meta name="msapplication-TileColor" content={COLOR_BLACK} />
 				<meta name="theme-color" content={COLOR_BLACK} />
-				<title>겜플릭스</title>
+				<title>{SITE_KO_NAME}</title>
 			</Head>
 			{
 				LoadingState

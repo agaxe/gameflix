@@ -7,11 +7,12 @@ const { COLOR_BLACK } = VAR_COLOR;
 // * component
 function FooterComp() {
 
+	const SITE_EN_NAME = process.env.SITE_EN_NAME;
 	const currentYear = new Date().getFullYear().toString();
 
 	return (
 		<Footer>
-			<p>{currentYear} GAMEFLIX</p>
+			<p>{currentYear} {SITE_EN_NAME.toUpperCase()}</p>
 		</Footer>
 	)
 }
