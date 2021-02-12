@@ -17,6 +17,7 @@ type GameListProps = {
 function GameList({ data, className }: GameListProps) {
 
 	const [GameList, setGameList] = useState([])
+	const NO_COVER_IMAGE = process.env.NO_COVER_IMAGE;
 
 	useEffect(() => {
 		data && setGameList(data);
@@ -31,7 +32,7 @@ function GameList({ data, className }: GameListProps) {
 							<GameCard
 								id={item.id}
 								key={idx}
-								cover={item.cover.image_id}
+								cover={item.cover ? item.cover.image_id : NO_COVER_IMAGE}
 								name={item.name}
 								rating={item.aggregated_rating}
 							/>
