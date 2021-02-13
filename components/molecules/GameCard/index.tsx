@@ -72,8 +72,19 @@ function GameCardComp({
 							</ImgBox>
 							<GameCardText>
 								<strong>{name}</strong>
-								{releaseDate && <p>{releaseDate}</p>}
-								{rating && <p>{Math.floor(rating)}%</p>}
+								{(releaseDate) && <p>{releaseDate}</p>}
+								{
+									(typeof (rating) === 'number')
+										?
+										<p>
+											{
+												(rating !== 0)
+													? <>{Math.floor(rating)}%</>
+													: <>평가없음</>
+											}
+										</p>
+										: null
+								}
 							</GameCardText>
 						</a>
 					</Link>
