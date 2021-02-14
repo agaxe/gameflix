@@ -1,0 +1,297 @@
+{
+	"games": {
+		"id": 8173,
+		"name": "Overwatch",
+		"summary": "In Overwatch, you control one of several heroes in competitive 6-person team shooting matches. Battle over objectives, take down the other team, and achieve victory. \n\n In Overwatch, heroes do battle in diverse locations around the world. From the technological marvel of Numbani to the manufacturing powerhouse of Volskaya, each map has a unique layout and specific win conditions that your team must meet in order to secure victory.",
+		"aggregated_rating": 89.0833333333333,
+		"first_release_date": 1464048000,
+		"cover": {
+			"id": 82091,
+			"image_id": "co1rcb"
+		},
+		"genres": [
+			{
+				"id": 5,
+				"name": "Shooter"
+			},
+			{
+				"id": 15,
+				"name": "Strategy"
+			}
+		],
+		"platforms": [
+			{
+				"id": 6,
+				"name": "PC (Microsoft Windows)"
+			},
+			{
+				"id": 48,
+				"name": "PlayStation 4"
+			},
+			{
+				"id": 49,
+				"name": "Xbox One"
+			},
+			{
+				"id": 130,
+				"name": "Nintendo Switch"
+			}
+		],
+		"screenshots": [
+			{
+				"id": 7311,
+				"image_id": "xcyoi025lvvwnnrdargv"
+			},
+			{
+				"id": 7312,
+				"image_id": "qyardon47coclwtjfwwr"
+			},
+			{
+				"id": 7313,
+				"image_id": "bpcshm1ryzyf4nwu0rkt"
+			},
+			{
+				"id": 7314,
+				"image_id": "aq1xangaqzrlhgetcrop"
+			},
+			{
+				"id": 7315,
+				"image_id": "ao0jpev6qtvqlftjlhv5"
+			}
+		],
+		"videos": [
+			{
+				"id": 3122,
+				"video_id": "Rg7MpZedmpo"
+			},
+			{
+				"id": 3123,
+				"video_id": "KztK1s23d0E"
+			},
+			{
+				"id": 6205,
+				"video_id": "mMhuBk1xKnM"
+			},
+			{
+				"id": 6207,
+				"video_id": "tVLY2BDLkkE"
+			},
+			{
+				"id": 6208,
+				"video_id": "euEo14n-Kuw"
+			},
+			{
+				"id": 10796,
+				"video_id": "Og5-Pm4HNlI"
+			},
+			{
+				"id": 25672,
+				"video_id": "FngTpumNqak"
+			},
+			{
+				"id": 26810,
+				"video_id": "naPxnU2-4no"
+			}
+		],
+		"websites": [
+			{
+				"id": 2335,
+				"category": 1,
+				"game": 8173,
+				"trusted": false,
+				"url": "http://battle.net/overwatch/"
+			},
+			{
+				"id": 7449,
+				"category": 2,
+				"game": 8173,
+				"trusted": false,
+				"url": "http://overwatch.wikia.com/wiki/Overwatch_Wiki"
+			},
+			{
+				"id": 7451,
+				"category": 3,
+				"game": 8173,
+				"trusted": true,
+				"url": "https://en.wikipedia.org/wiki/Overwatch_%28video_game%29"
+			},
+			{
+				"id": 9939,
+				"category": 5,
+				"game": 8173,
+				"trusted": true,
+				"url": "https://twitter.com/PlayOverwatch"
+			},
+			{
+				"id": 59181,
+				"category": 9,
+				"game": 8173,
+				"trusted": true,
+				"url": "https://www.youtube.com/channel/UClOf1XXinvZsy4wKPAkro2A"
+			},
+			{
+				"id": 63779,
+				"category": 4,
+				"game": 8173,
+				"trusted": true,
+				"url": "https://www.facebook.com/PlayOverwatch"
+			},
+			{
+				"id": 63780,
+				"category": 6,
+				"game": 8173,
+				"trusted": true,
+				"url": "https://www.twitch.tv/playoverwatch"
+			},
+			{
+				"id": 63781,
+				"category": 8,
+				"game": 8173,
+				"trusted": true,
+				"url": "https://www.instagram.com/playoverwatch"
+			}
+		],
+		"involved_companies": [
+			{
+				"company": {
+					"id": 51,
+					"name": "Blizzard Entertainment"
+				},
+				"id": 35579
+			},
+			{
+				"company": {
+					"id": 26,
+					"name": "Square Enix"
+				},
+				"id": 40635
+			}
+		],
+		"age_ratings": [
+			{
+				"category": 1,
+				"checksum": "a2f55136-2959-dba9-2e53-d65f376401d5",
+				"content_descriptions": [
+					11475,
+					11476,
+					11477
+				],
+				"id": 8678,
+				"rating": 10,
+				"synopsis": "This is a first-person shooter in which players join an international task force trying to restore peace to the world. Players use a variety of firearms (e.g., pistols, machine guns), arrows, and futuristic weapons (e.g., laser blasters) to attack enemies in team combat objectives. Combat is frenetic with realistic gunfire, cries of pain, and explosions. Splashes of blood briefly appear with each successful hit. One character is depicted smoking a cigar."
+			},
+			{
+				"category": 2,
+				"checksum": "38feff5d-ca24-c39e-3358-0e5de7c74e1d",
+				"content_descriptions": [
+					16878
+				],
+				"id": 12898,
+				"rating": 3,
+				"synopsis": "The content of this game is suitable for persons aged 12 years and over only.↵It contains: Non realistic looking violence towards human characters"
+			}
+		]
+	},
+	"streamers": {
+		"login": "nyc_timescape",
+		"display_name": "NYC_Timescape",
+		"title": "New York City Skyline LIVE",
+		"profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/783161cb-2fe2-434d-a1cd-90f6cdeda816-profile_image-70x70.png",
+		"thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_nyc_timescape-{width}x{height}.jpg",
+		"viewer_count": 12940
+	},
+	"genres": [
+		{
+			"id": 2,
+			"name": "Point-and-click"
+		},
+		{
+			"id": 4,
+			"name": "Fighting"
+		},
+		{
+			"id": 5,
+			"name": "Shooter"
+		},
+		{
+			"id": 7,
+			"name": "Music"
+		},
+		{
+			"id": 8,
+			"name": "Platform"
+		},
+		{
+			"id": 9,
+			"name": "Puzzle"
+		},
+		{
+			"id": 10,
+			"name": "Racing"
+		},
+		{
+			"id": 11,
+			"name": "Real Time Strategy (RTS)"
+		},
+		{
+			"id": 12,
+			"name": "Role-playing (RPG)"
+		},
+		{
+			"id": 13,
+			"name": "Simulator"
+		},
+		{
+			"id": 14,
+			"name": "Sport"
+		},
+		{
+			"id": 15,
+			"name": "Strategy"
+		},
+		{
+			"id": 16,
+			"name": "Turn-based strategy (TBS)"
+		},
+		{
+			"id": 24,
+			"name": "Tactical"
+		},
+		{
+			"id": 25,
+			"name": "Hack and slash/Beat 'em up"
+		},
+		{
+			"id": 26,
+			"name": "Quiz/Trivia"
+		},
+		{
+			"id": 30,
+			"name": "Pinball"
+		},
+		{
+			"id": 31,
+			"name": "Adventure"
+		},
+		{
+			"id": 32,
+			"name": "Indie"
+		},
+		{
+			"id": 33,
+			"name": "Arcade"
+		},
+		{
+			"id": 34,
+			"name": "Visual Novel"
+		},
+		{
+			"id": 35,
+			"name": "Card & Board Game"
+		},
+		{
+			"id": 36,
+			"name": "MOBA"
+		}
+	]
+}
