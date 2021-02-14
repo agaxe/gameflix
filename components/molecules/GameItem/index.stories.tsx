@@ -1,6 +1,7 @@
 import React from 'react';
 import GameItem from './index';
 import { withKnobs, text, number, boolean } from '@storybook/addon-knobs';
+import dummyData from '.storybook/dummyData.json';
 
 export default {
 	title: 'component/molecules/GameItem',
@@ -12,9 +13,12 @@ export default {
 };
 
 export function gameItem() {
-	const id = number('id', 80);
-	const cover = text('cover', 'co1rcb');
-	const name = text('name', 'overwatch');
+
+	const dummyGames = dummyData.games;
+
+	const id = number('id', dummyGames.id);
+	const cover = text('cover', dummyGames.cover.image_id);
+	const name = text('name', dummyGames.name);
 	const releaseDate = text('releaseDate', '2016');
 	const skeleton = boolean('skeleton', false);
 

@@ -1,5 +1,6 @@
 import MainPageTemp from './index';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
+import dummyData from '.storybook/dummyData.json';
 
 export default {
 	title: 'component/templates/MainPageTemp',
@@ -12,41 +13,34 @@ export default {
 
 export function mainPageTemp() {
 
+	const dummyGames = dummyData.games;
+	const dummyStreamers = dummyData.streamers;
+
 	const comingSoonData = [...Array(5)].map(item => (
 		{
-			name: 'overwatch',
-			screenshots: [{ image_id: 'qix3yskantk4uj0to7xm' }],
-			first_release_date: 1464048000
+			name: dummyGames.name,
+			screenshots: dummyGames.screenshots,
+			first_release_date: dummyGames.first_release_date
 		}
 	))
 
-
 	const gameListData = [...Array(5)].map(item => (
 		{
-			cover: { image_id: 'co1rcb' },
-			name: 'overwatch',
-			aggregated_rating: 80
+			cover: dummyGames.cover,
+			name: dummyGames.name,
+			aggregated_rating: dummyGames.aggregated_rating
 		}
 	))
 
 	const streamListData = [...Array(3)].map(it => (
 		{
 			game: '게임 타이틀',
-			streamers: [...Array(3)].map(item => (
-				{
-					login: 'nyc_timescape',
-					display_name: 'NYC_Timescape',
-					title: 'New York City Skyline LIVE',
-					profile_image_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/783161cb-2fe2-434d-a1cd-90f6cdeda816-profile_image-70x70.png',
-					thumbnail_url: 'https://static-cdn.jtvnw.net/previews-ttv/live_user_nyc_timescape-{width}x{height}.jpg',
-					viewer_count: 12940
-				}
-			))
+			streamers: [...Array(3)].map(item => dummyStreamers)
 		}
 	))
 
-	const gameListState = boolean('GameListData', false);
-	const streamListState = boolean('StreamListData', false);
+	const gameListState = boolean('GameListData', true);
+	const streamListState = boolean('StreamListData', true);
 
 	return (
 		<MainPageTemp

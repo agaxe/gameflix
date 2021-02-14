@@ -1,5 +1,6 @@
 import StreamCard from './index';
 import { withKnobs, text, number } from '@storybook/addon-knobs';
+import dummyData from '.storybook/dummyData.json';
 
 export default {
 	title: 'component/molecules/StreamCard',
@@ -12,12 +13,14 @@ export default {
 
 export function streamCard() {
 
-	const id = text('id', 'nyc_timescape');
-	const name = text('name', 'NYC_Timescape');
-	const title = text('title', 'New York City Skyline LIVE');
-	const profileImg = text('profileImg', 'https://static-cdn.jtvnw.net/jtv_user_pictures/783161cb-2fe2-434d-a1cd-90f6cdeda816-profile_image-70x70.png');
-	const thumbnail = text('thumbnail', 'https://static-cdn.jtvnw.net/previews-ttv/live_user_nyc_timescape-369x208.jpg');
-	const viewer = number('viewer', 12940);
+	const dummyStreamers = dummyData.streamers;
+
+	const id = text('id', dummyStreamers.login);
+	const name = text('name', dummyStreamers.display_name);
+	const title = text('title', dummyStreamers.title);
+	const profileImg = text('profileImg', dummyStreamers.profile_image_url);
+	const thumbnail = text('thumbnail', dummyStreamers.thumbnail_url);
+	const viewer = number('viewer', dummyStreamers.viewer_count);
 
 	return (
 		<StreamCard

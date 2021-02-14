@@ -3,6 +3,7 @@ import MainVisual from './index';
 import { withKnobs } from '@storybook/addon-knobs';
 import { VAR_SIZE } from 'static/styles/variable';
 const { CONTENT_WIDTH } = VAR_SIZE;
+import dummyData from '.storybook/dummyData.json';
 
 export default {
 	title: 'component/molecules/MainVisual',
@@ -15,11 +16,13 @@ export default {
 
 export function mainVisaul() {
 
+	const dummyGames = dummyData.games;
+
 	const data = [...Array(5)].map(item => (
 		{
-			name: 'overwatch',
-			screenshots: [{ image_id: 'qix3yskantk4uj0to7xm' }],
-			first_release_date: 1464048000
+			name: dummyGames.name,
+			screenshots: dummyGames.screenshots,
+			first_release_date: dummyGames.first_release_date
 		}
 	))
 

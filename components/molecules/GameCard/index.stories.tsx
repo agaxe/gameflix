@@ -1,6 +1,7 @@
 import React from 'react';
 import GameCard from './index';
 import { withKnobs, text, number, boolean } from '@storybook/addon-knobs';
+import dummyData from '.storybook/dummyData.json';
 
 export default {
 	title: 'component/molecules/GameCard',
@@ -12,9 +13,12 @@ export default {
 };
 
 export function gameCard() {
-	const cover = text('cover', 'co1rcb');
-	const name = text('name', 'overwatch');
-	const rating = number('rating', 80);
+
+	const dummyGames = dummyData.games;
+
+	const cover = text('cover', dummyGames.cover.image_id);
+	const name = text('name', dummyGames.name);
+	const rating = number('rating', dummyGames.aggregated_rating);
 	const skeleton = boolean('skeleton', false);
 
 	return (

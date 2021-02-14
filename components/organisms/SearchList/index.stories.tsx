@@ -1,5 +1,6 @@
 import SearchList from './index';
 import { withKnobs, select } from '@storybook/addon-knobs';
+import dummyData from '.storybook/dummyData.json';
 import { VAR_SIZE } from 'static/styles/variable';
 const { CONTENT_WIDTH } = VAR_SIZE;
 
@@ -12,11 +13,13 @@ export default {
 	}
 };
 
+const dummyGames = dummyData.games;
+
 const data = [...Array(5)].map(item => (
 	{
-		cover: { image_id: 'co1rcb' },
-		name: 'overwatch',
-		first_release_date: 1464048000
+		cover: dummyGames.cover,
+		name: dummyGames.name,
+		first_release_date: dummyGames.first_release_date
 	}
 ))
 

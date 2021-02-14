@@ -2,6 +2,7 @@ import GameList from './index';
 import { withKnobs } from '@storybook/addon-knobs';
 import { VAR_SIZE } from 'static/styles/variable';
 const { CONTENT_WIDTH } = VAR_SIZE;
+import dummyData from '.storybook/dummyData.json';
 
 export default {
 	title: 'component/organisms/GameList',
@@ -14,11 +15,13 @@ export default {
 
 export function gameList() {
 
+	const dummyGames = dummyData.games;
+
 	const data = [...Array(5)].map(item => (
 		{
-			cover: { image_id: 'co1rcb' },
-			name: 'overwatch',
-			aggregated_rating: 80
+			cover: dummyGames.cover,
+			name: dummyGames.name,
+			aggregated_rating: dummyGames.aggregated_rating
 		}
 	))
 
