@@ -175,6 +175,7 @@ function DetailPageTemp({
 
 	useEffect(() => {
 		(summaryMore) && setSummaryMore(false);
+		setCurrentTabMenu(1)
 	}, [detailData])
 
 	return (
