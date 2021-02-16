@@ -37,7 +37,11 @@ export async function getServerSideProps({ query }) {
 
 	// 검색어 앞글자 대문자로 변경
 	function upperCase(search) {
-		return search.charAt(0).toUpperCase() + search.slice(1);
+
+		const keyWordArray = search.split(' ');
+		const keyWord = String(keyWordArray.map(item => (item = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase())));
+
+		return keyWord.replace(',', ' ');
 	}
 	const search = (q) && upperCase(q);
 
