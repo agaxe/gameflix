@@ -89,6 +89,7 @@ SearchListComp.defaultProps = {
 const SearchList = styled(List) <{ flex: boolean, length: number }>`
 	flex-wrap:wrap;
 	margin-bottom:20px;
+	min-height:360px;
 	${props => (props.flex && props.length) && `margin-bottom:50px;`}
 	a{
 		width:100%;
