@@ -37,6 +37,9 @@ function StrearmCardComp({
 	skeleton
 }: StrearmCardProps) {
 
+	const thumbnailUrl = thumbnail?.replace('{width}', '369').replace('{height}', '208')
+	const profileImgUrl = profileImg?.replace('300x300.png', '70x70.png')
+
 	// StrearmCard 스켈레톤
 	const StrearmCardSkeleton = () => {
 		return (
@@ -61,11 +64,11 @@ function StrearmCardComp({
 					: <a href={`https://www.twitch.tv/${id}`} target="_blank">
 						<Thumbnail>
 							<LiveLabel>LIVE</LiveLabel>
-							<img src={thumbnail} alt={`${id}_thumbnail`} />
+							<img src={thumbnailUrl} alt={`${id}_thumbnail`} />
 							<ViewerBox>시청자 {viewer.toLocaleString()}명</ViewerBox>
 						</Thumbnail>
 						<StreamerInfo>
-							<Avatar img={profileImg} />
+							<Avatar img={profileImgUrl} />
 							<List flex={false}>
 								<li><strong>{name}</strong></li>
 								<li><p>{title}</p></li>

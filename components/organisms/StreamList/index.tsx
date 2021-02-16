@@ -37,23 +37,18 @@ function StreamList({ data }: StreamListProps) {
 								<List
 									justify="space-between"
 								>
-									{game.streamers.map((item, index) => {
-										const thumbnail_url = item.thumbnail_url.replace('{width}', '369').replace('{height}', '208')
-										const profile_image_url = item.profile_image_url.replace('300x300.png', '70x70.png')
-
-										return (
-											<React.Fragment key={index}>
-												<StreamCard
-													id={item.login}
-													name={item.display_name}
-													title={item.title}
-													profileImg={profile_image_url}
-													thumbnail={thumbnail_url}
-													viewer={item.viewer_count}
-												/>
-											</React.Fragment>
-										)
-									})}
+									{game.streamers.map((item, index) => (
+										<React.Fragment key={index}>
+											<StreamCard
+												id={item.login}
+												name={item.display_name}
+												title={item.title}
+												profileImg={item.profile_image_url}
+												thumbnail={item.thumbnail_url}
+												viewer={item.viewer_count}
+											/>
+										</React.Fragment>
+									))}
 								</List>
 							</LiveListBox>
 						</React.Fragment>
