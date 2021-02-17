@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { List, Item } from 'components/atoms';
 import { Skeleton } from 'components/atoms';
 import { STYLE_ELLIPSIS } from 'static/styles/common';
-import { VAR_COLOR } from 'static/styles/variable';
-const { COLOR_LINE_GRAY } = VAR_COLOR;
 
 // * type
 type GameItemProps = {
@@ -92,7 +90,6 @@ const CoverImg = styled.div<{ skeleton?: boolean }>`
 	width:100px;
 	margin-right:30px;
 	box-sizing:border-box;
-	${props => !props.skeleton && `border:1px solid ${COLOR_LINE_GRAY}`};
 `
 // 커버 이미지
 const Img = styled.img`

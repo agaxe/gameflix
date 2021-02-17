@@ -99,7 +99,7 @@ const Thumbnail = styled.div`
 		top:0;
 		width:100%;
 		height:100%;
-		z-index:-1;
+		z-index:1;
 	}
 `
 // 공통 스타일
@@ -107,6 +107,7 @@ const Common = css`
 	border-radius: 5px;
 	color:#fff;
 	left:10px;
+	z-index:5;
 `
 // Live 표시 라벨
 const LiveLabel = styled.div`
@@ -120,7 +121,6 @@ const LiveLabel = styled.div`
 // 시청자 수 라벨
 const ViewerBox = styled.div`
 	${Common};
-	//letter-spacing:0.05rem;
 	background: rgba(0, 0, 0, 0.6);
 	padding:5px;
 	bottom:10px;

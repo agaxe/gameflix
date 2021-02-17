@@ -19,7 +19,13 @@ function LogoComp({ link }: LogoProps) {
 
 	// 로고
 	function Logo() {
-		return <img src={ImgFile} alt="logo" />
+		return (
+			<img
+				src={ImgFile}
+				alt="logo"
+				css={{ 'background': 'none' }}
+			/>
+		)
 	}
 
 	return (

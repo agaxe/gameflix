@@ -7,7 +7,7 @@ import { BiLinkExternal } from 'react-icons/bi';
 import { MdPlayArrow, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { pxToRem } from 'static/styles/common';
 import { VAR_COLOR, VAR_SIZE } from 'static/styles/variable';
-const { COLOR_LINE_GRAY, COLOR_PRIMARY, COLOR_WHITE } = VAR_COLOR;
+const { COLOR_LINE_GRAY, COLOR_PRIMARY, COLOR_WHITE, COLOR_GRAY } = VAR_COLOR;
 const { CONTENT_WIDTH } = VAR_SIZE;
 
 // ? swiper
@@ -418,6 +418,7 @@ const CoverImgBox = styled.div`
 	padding-right:50px;
 	width:300px;
 	img{
+		display:inline-block;
 		width:100%;
 		box-sizing:border-box;
 		border:1px solid ${COLOR_LINE_GRAY};
@@ -562,6 +563,7 @@ const MediaSlide = styled(Swiper)`
 	.swiper-slide{
 		width:500px !important;
 		height:280px;
+		background:${COLOR_GRAY};
 		position:relative;
 		overflow:hidden;
 	}
