@@ -421,7 +421,6 @@ const CoverImgBox = styled.div`
 		display:inline-block;
 		width:100%;
 		box-sizing:border-box;
-		border:1px solid ${COLOR_LINE_GRAY};
 	}
 `
 const InfoText = styled.div`
