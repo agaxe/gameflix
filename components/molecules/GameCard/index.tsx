@@ -123,9 +123,7 @@ const GameCardText = styled.div`
 	border-top:1px solid #dadada;
 	font-size:1rem;
 	strong{
-		display:block;
 		margin-bottom:10px;
-		line-height:${pxToRem(19)};
 		${STYLE_ELLIPSIS}
 	}
 `

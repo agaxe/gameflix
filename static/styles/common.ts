@@ -12,6 +12,8 @@ export const STYLE_ELLIPSIS = css`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	line-height:1.4;
+	display:block;
 `;
 // 폰트 사이즈 변환 ( px -> rem )
 export const pxToRem = (px) => {
