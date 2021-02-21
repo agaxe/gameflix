@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link';
-import LogoImg from 'static/images/logo.svg';
 
 // * type
 type LogoProps = {
@@ -11,17 +10,11 @@ type LogoProps = {
 // * component
 function LogoComp({ link }: LogoProps) {
 
-	const [ImgFile, setImgFile] = useState('');
-
-	useEffect(() => {
-		setImgFile(LogoImg);
-	}, [])
-
 	// 로고
 	function Logo() {
 		return (
 			<img
-				src={ImgFile}
+				src='/static/images/logo.svg'
 				alt="logo"
 				css={{ 'background': 'none' }}
 			/>

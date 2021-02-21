@@ -39,7 +39,7 @@
 		"dev": "next dev",
 		"start": "next start",
 		"build": "next build",
-		"storybook": "start-storybook -p 6006",
+		"storybook": "start-storybook -s ./ -p 6006",
 		"build-storybook": "build-storybook"
 	},
 	"author": "",
