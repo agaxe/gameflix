@@ -32,7 +32,7 @@ export async function getServerSideProps() {
 	const gameList = await useGameApi({
 		endPoint: 'games',
 		fields: 'name, aggregated_rating, cover.image_id',
-		where: `first_release_date >= ${prevMonth} & rating >= 70 & rating <= 80 & aggregated_rating != null`,
+		where: `first_release_date >= ${prevMonth} & rating >= 70 & rating <= 90 & aggregated_rating != null`,
 		sort: 'rating desc',
 		limit: '5',
 	});
