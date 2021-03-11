@@ -17,8 +17,6 @@ function DetailPage({ data }: DetailPageProps) {
 	const { name, first_release_date } = detailData;
 	const [recentGames, setRecentGames] = useState([]);
 
-	let newGameInfo = [];
-
 	useEffect(() => {
 		const localRecentGames = JSON.parse(localStorage.getItem('recentGames'));
 
@@ -40,10 +38,13 @@ function DetailPage({ data }: DetailPageProps) {
 
 			const oldRecentGames = localRecentGames.filter((item, idx) => idx < 4);
 
-			if (localRecentGames.every((item => item.id !== currentGameInfo.id))) {
+			// '최근 본 게임' 에서 현재 게임이 없는 경우
+			if (localRecentGames.every(item => item.id !== currentGameInfo.id)) {
 
-				newGameInfo = newGameInfo.concat(currentGameInfo);
-				newGameInfo = newGameInfo.concat(oldRecentGames);
+				const newGameInfo = [
+					currentGameInfo,
+					...oldRecentGames
+				]
 
 				localStorage.setItem('recentGames', JSON.stringify(newGameInfo))
 				setRecentGames(newGameInfo);
