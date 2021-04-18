@@ -15,7 +15,6 @@ export default function GnbComp({ className }: GnbCompProps) {
 	return (
 		<Gnb className={className}>
 			<li><Link href="/discover">탐색</Link></li>
-			<li>로그인</li>
 			<li><MdMoreHoriz /></li>
 		</Gnb>
 	)
