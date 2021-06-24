@@ -25,5 +25,7 @@ const NoResult = styled.div`
 	align-items:center;
 	min-height:400px;
 	color:#cacaca;
+	height:58vh;
+	min-height:360px;
 `;
 

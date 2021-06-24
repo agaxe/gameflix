@@ -10,6 +10,7 @@ html{
 	body{
 		padding-top:${HEADER_HEIGHT};
 		font-family: 'Noto Sans KR', sans-serif;
+		min-width:${CONTENT_WIDTH};
 		// ? section 영역 - 공통 넓이 설정
 		section{
 			margin:0 auto;
