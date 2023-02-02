@@ -1,0 +1,31 @@
+{
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "parser": "typescript",
+  "semi": true,
+  "useTabs": false,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "printWidth": 80,
+  "arrowParens": "always",
+    "overrides": [
+    {
+      "files": ["*.css", "*.scss"],
+      "options": {
+        "parser": "css"
+      }
+    }
+  ],
+  "importOrder" : [
+    "^react$",
+    "^next(.*)$",
+    "^next/(.*)$", 
+    "<THIRD_PARTY_MODULES>",
+    "^@/components/(.*)",
+    "^@/(utils|context|hooks|lib|pages|routes|services|styles|ui|shared)/?(.*)$",
+    "\\.(c|le|sc)ss$",
+    "^[./]"
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
+}
