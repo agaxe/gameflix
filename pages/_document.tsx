@@ -1,9 +1,9 @@
 import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
-import { SITE_KO_NAME } from 'common/variables';
-import { VAR_COLOR } from 'static/styles/variable';
 import { ServerStyleSheet } from 'styled-components';
+import { SITE_KO_NAME } from '@/common/variables';
+import { VAR_COLOR } from '@/static/styles/variable';
 
 const { COLOR_PRIMARY, COLOR_BLACK } = VAR_COLOR;
 

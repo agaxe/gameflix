@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Axios from 'axios';
-import { SITE_KO_NAME } from 'common/variables';
-import { DiscoverPageTemp } from 'components/templates';
-import { useGameApi } from 'hooks';
+import { DiscoverPageTemp } from '@/components/templates';
+import { SITE_KO_NAME } from '@/common/variables';
+import { useGameApi } from '@/hooks';
 
 // * type
 type DiscoverPageProps = {

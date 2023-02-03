@@ -1,15 +1,13 @@
-import { ErrorPageTemp } from 'components/templates';
+import { ErrorPageTemp } from '@/components/templates';
 
 function Error({ statusCode }) {
-	return (
-		<ErrorPageTemp statusCode={statusCode} />
-	)
+  return <ErrorPageTemp statusCode={statusCode} />;
 }
 
 // * getInitialProps
 Error.getInitialProps = ({ res, err }) => {
-	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
-	return { statusCode }
-}
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { statusCode };
+};
 
-export default Error
+export default Error;

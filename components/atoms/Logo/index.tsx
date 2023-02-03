@@ -1,16 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { LogoProps } from './interafce';
 
-// * type
-type LogoProps = {
-  /** 링크의 유무 */
-  link: boolean;
-};
-
-// * component
-function LogoComp({ link }: LogoProps) {
-  // 로고
-  function Logo() {
+export const Logo = ({ isLink = true }: LogoProps) => {
+  function LogoImg() {
     return (
       <img
         src='/static/images/logo.svg'
@@ -22,19 +15,13 @@ function LogoComp({ link }: LogoProps) {
 
   return (
     <div>
-      {link ? (
+      {isLink ? (
         <Link href='/'>
-          <Logo />
+          <LogoImg />
         </Link>
       ) : (
-        <Logo />
+        <LogoImg />
       )}
     </div>
   );
-}
-export default LogoComp;
-
-// * defaultProps
-LogoComp.defaultProps = {
-  link: true
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { IGDB_COVER_URL } from 'common/variables';
-import { Skeleton } from 'components/atoms';
-import { STYLE_BOX_SHADOW, STYLE_ELLIPSIS } from 'static/styles/common';
-import { pxToRem } from 'static/styles/common';
-import { VAR_COLOR } from 'static/styles/variable';
 import styled from 'styled-components';
+import { Skeleton } from '@/components/atoms/Skeleton';
+import { IGDB_COVER_URL } from '@/common/variables';
+import { STYLE_BOX_SHADOW, STYLE_ELLIPSIS } from '@/static/styles/common';
+import { pxToRem } from '@/static/styles/common';
+import { VAR_COLOR } from '@/static/styles/variable';
 
 const { COLOR_WHITE } = VAR_COLOR;
 

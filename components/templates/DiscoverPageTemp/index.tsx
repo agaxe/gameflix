@@ -1,20 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { NO_COVER_IMAGE } from 'common/variables';
-import {
-  Button,
-  CheckBox,
-  Item,
-  List,
-  ModalBg,
-  NoResult,
-  Select,
-  Skeleton
-} from 'components/atoms';
-import { GameCard, PageTitle, RangeSlider } from 'components/molecules';
+import { NO_COVER_IMAGE } from '@/common/variables';
 import { MdClose, MdTune } from 'react-icons/md';
-import { PAGE_TITLE_BOTTOM } from 'static/styles/common';
-import { VAR_COLOR } from 'static/styles/variable';
 import styled from 'styled-components';
+import { Button } from '@/components/atoms/Button';
+import { CheckBox } from '@/components/atoms/CheckBox';
+import { Item } from '@/components/atoms/Item';
+import { List } from '@/components/atoms/List';
+import { ModalBg } from '@/components/atoms/ModalBg';
+import { NoResult } from '@/components/atoms/NoResult';
+import { Select } from '@/components/atoms/Select';
+import { Skeleton } from '@/components/atoms/Skeleton';
+import { GameCard, PageTitle, RangeSlider } from '@/components/molecules';
+import { PAGE_TITLE_BOTTOM } from '@/static/styles/common';
+import { VAR_COLOR } from '@/static/styles/variable';
 
 const { COLOR_WHITE } = VAR_COLOR;
 

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
 //import Head from 'next/head';
 import router from 'next/router';
-//import { SITE_KO_NAME } from 'common/variables';
-import { LoadingModal } from 'components/molecules';
-import { Footer, Header } from 'components/organisms';
-//import dotenv from 'dotenv';
-import { global, reset } from 'static/styles';
-//import { VAR_COLOR } from 'static/styles/variable';
+//import { VAR_COLOR } from '@/static/styles/variable';
 import { createGlobalStyle } from 'styled-components';
 import type {} from 'styled-components/cssprop';
+//import { SITE_KO_NAME } from '@/common/variables';
+import { LoadingModal } from '@/components/molecules';
+import { Footer, Header } from '@/components/organisms';
+//import dotenv from 'dotenv';
+import { global, reset } from '@/static/styles';
 
 //const { COLOR_PRIMARY, COLOR_BLACK } = VAR_COLOR;
 

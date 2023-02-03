@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { SITE_KO_NAME } from 'common/variables';
-import { SearchPageTemp } from 'components/templates';
-import { useGameApi } from 'hooks';
+import { SearchPageTemp } from '@/components/templates';
+import { SITE_KO_NAME } from '@/common/variables';
+import { useGameApi } from '@/hooks';
 
 // * type
 type SearchPageProps = {

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { IGDB_COVER_URL, NO_COVER_IMAGE } from 'common/variables';
-import { Item, List } from 'components/atoms';
-import { GameCard, SectionTitle } from 'components/molecules';
-import { GameList } from 'components/organisms';
 import { BiLinkExternal } from 'react-icons/bi';
 import { MdChevronLeft, MdChevronRight, MdPlayArrow } from 'react-icons/md';
-import { pxToRem } from 'static/styles/common';
-import { VAR_COLOR, VAR_SIZE } from 'static/styles/variable';
 import styled from 'styled-components';
 import SwiperCore, { Navigation } from 'swiper';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Item } from '@/components/atoms/Item';
+import { List } from '@/components/atoms/List';
+import { GameCard, SectionTitle } from '@/components/molecules';
+import { GameList } from '@/components/organisms';
+import { IGDB_COVER_URL, NO_COVER_IMAGE } from '@/common/variables';
+import { pxToRem } from '@/static/styles/common';
+import { VAR_COLOR, VAR_SIZE } from '@/static/styles/variable';
 
 const { COLOR_LINE_GRAY, COLOR_PRIMARY, COLOR_WHITE, COLOR_GRAY } = VAR_COLOR;
 const { CONTENT_WIDTH } = VAR_SIZE;

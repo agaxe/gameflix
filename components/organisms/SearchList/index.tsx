@@ -1,8 +1,9 @@
 import React from 'react';
-import { NO_COVER_IMAGE } from 'common/variables';
-import { Item, List, NoResult } from 'components/atoms';
-import { GameCard, GameItem } from 'components/molecules';
 import styled from 'styled-components';
+import { List } from '@/components/atoms/List';
+import { NoResult } from '@/components/atoms/NoResult';
+import { GameCard, GameItem } from '@/components/molecules';
+import { NO_COVER_IMAGE } from '@/common/variables';
 
 // * type
 type SearchListProps = {

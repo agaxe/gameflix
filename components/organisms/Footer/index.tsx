@@ -1,7 +1,7 @@
 import React from 'react';
-import { pxToRem } from 'static/styles/common';
-import { VAR_COLOR } from 'static/styles/variable';
 import styled from 'styled-components';
+import { pxToRem } from '@/static/styles/common';
+import { VAR_COLOR } from '@/static/styles/variable';
 
 const { COLOR_BLACK } = VAR_COLOR;
 

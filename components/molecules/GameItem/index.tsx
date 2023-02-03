@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { IGDB_COVER_URL } from 'common/variables';
-import { Item, List } from 'components/atoms';
-import { Skeleton } from 'components/atoms';
-import { STYLE_ELLIPSIS } from 'static/styles/common';
 import styled from 'styled-components';
+import { Item } from '@/components/atoms/Item';
+import { List } from '@/components/atoms/List';
+import { Skeleton } from '@/components/atoms/Skeleton';
+import { IGDB_COVER_URL } from '@/common/variables';
+import { STYLE_ELLIPSIS } from '@/static/styles/common';
 
 // * type
 type GameItemProps = {

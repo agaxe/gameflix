@@ -1,31 +1,11 @@
-import styled from 'styled-components';
-import React from 'react'
+import React from 'react';
+import { NoResultProps } from './interface';
+import * as S from './styles';
 
-// * type
-type NoResultProps = {
-	title: string;
-}
-
-// * component
-function NoResultComp({ title }: NoResultProps) {
-	return (
-		<NoResult>
-			<h4>{title}결과가 없습니다 :(</h4>
-		</NoResult>
-	)
-}
-export default NoResultComp;
-
-// * style
-const NoResult = styled.div`
-	width:100%;
-	text-align:center;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	min-height:400px;
-	color:#cacaca;
-	height:58vh;
-	min-height:360px;
-`;
-
+export const NoResult = ({ title }: NoResultProps) => {
+  return (
+    <S.NoResult>
+      <h4>{title}결과가 없습니다 :(</h4>
+    </S.NoResult>
+  );
+};

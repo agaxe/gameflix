@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { GameCard } from 'components/molecules';
 import styled from 'styled-components';
+import { GameCard } from '@/components/molecules';
 
 // * type
 type GameListProps = {
