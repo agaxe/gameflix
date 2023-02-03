@@ -4,6 +4,7 @@ import { MdChevronLeft, MdChevronRight, MdPlayArrow } from 'react-icons/md';
 import styled from 'styled-components';
 import SwiperCore, { Navigation } from 'swiper';
 import 'swiper/css';
+import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Item } from '@/components/atoms/Item';
 import { List } from '@/components/atoms/List';
