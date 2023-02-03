@@ -22,7 +22,7 @@
     "^next/(.*)$", 
     "<THIRD_PARTY_MODULES>",
     "^@/components/(.*)",
-    "^@/(utils|context|hooks|lib|pages|routes|services|styles|ui|shared)/?(.*)$",
+    "^@/(utils|context|hooks|lib|pages|routes|services|styles|ui|shared|static|common)/?(.*)$",
     "\\.(c|le|sc)ss$",
     "^[./]"
   ],
