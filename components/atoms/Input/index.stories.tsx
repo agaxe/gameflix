@@ -1,6 +1,6 @@
 import React from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
-import useInput from 'hooks/useInput';
+import { useInput } from '@/hooks/useInput';
 import { Input } from './index';
 
 export default {
