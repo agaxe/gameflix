@@ -8,7 +8,7 @@ type useGameApiProps = {
   limit?: string | number;
 };
 
-export default async function useGameApi(options: useGameApiProps) {
+export const useGameApi = async (options: useGameApiProps) => {
   const { endPoint, fields, where, sort, limit } = options;
 
   // 공통 변수
@@ -39,4 +39,4 @@ export default async function useGameApi(options: useGameApiProps) {
   });
 
   return result.data;
-}
+};

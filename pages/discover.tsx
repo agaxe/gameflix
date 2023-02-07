@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Axios from 'axios';
 import { DiscoverPageTemp } from '@/components/templates';
 import { SITE_KO_NAME } from '@/common/variables';
-import { useGameApi } from '@/hooks';
+import { useGameApi } from '@/hooks/useGameApi';
 
 // * type
 type DiscoverPageProps = {

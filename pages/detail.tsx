@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { DetailPageTemp } from '@/components/templates';
 import { SITE_KO_NAME } from '@/common/variables';
-import { useGameApi } from '@/hooks';
+import { useGameApi } from '@/hooks/useGameApi';
 
 // * type
 type DetailPageProps = {

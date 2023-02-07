@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { SearchPageTemp } from '@/components/templates';
 import { SITE_KO_NAME } from '@/common/variables';
-import { useGameApi } from '@/hooks';
+import { useGameApi } from '@/hooks/useGameApi';
 
 // * type
 type SearchPageProps = {

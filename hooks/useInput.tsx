@@ -1,17 +1,19 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useCallback, useState } from 'react';
 
-export default function useInput(initialState) {
-	const [InputVal, setInputVal] = useState(initialState);
+export const useInput = (initialState) => {
+  const [InputVal, setInputVal] = useState(initialState);
 
-	const InputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
+  const InputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
 
-		setInputVal({
-			...InputVal,
-			[name]: value
-		});
-	}, [InputVal])
+      setInputVal({
+        ...InputVal,
+        [name]: value
+      });
+    },
+    [InputVal]
+  );
 
-	return [InputVal, InputChange]
-}
-
+  return [InputVal, InputChange];
+};

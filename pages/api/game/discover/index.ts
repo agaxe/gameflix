@@ -1,4 +1,4 @@
-import { useGameApi } from '@/hooks';
+import { useGameApi } from '@/hooks/useGameApi';
 
 export default async function handler(req, res) {
   const { genresCheck, releaseDate, ratingScore, sort } = req.query;

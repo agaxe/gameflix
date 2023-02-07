@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainPageTemp } from '@/components/templates';
-import { useGameApi, useTwitchApi } from '@/hooks';
+import { useGameApi } from '@/hooks/useGameApi';
+import { useTwitchApi } from '@/hooks/useTwitchApi';
 
 //* type
 type MainPageProps = {
