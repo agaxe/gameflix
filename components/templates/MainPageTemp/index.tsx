@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MainVisual, SectionTitle } from '@/components/molecules';
+import { MainVisual } from '@/components/molecules/MainVisual';
+import { SectionTitle } from '@/components/molecules/SectionTitle';
 import { GameList, StreamList } from '@/components/organisms';
 
 // * type

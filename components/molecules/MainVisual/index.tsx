@@ -1,28 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
-// ? swiper
 import SwiperCore, { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { pxToRem } from '@/static/styles/common';
-import { VAR_COLOR } from '@/static/styles/variable';
 import 'swiper/swiper.min.css';
-
-const { COLOR_WHITE, COLOR_PRIMARY } = VAR_COLOR;
+import { MainVisualProps } from './interface';
+import * as S from './styles';
 
 SwiperCore.use([Pagination, Autoplay]);
 
-// * type
-type MainVisualProps = {
-  className?: string;
-  /** 발매예정 게임 데이터 */
-  comingSoonData: any[];
-};
-
-// * component
-function MainVisualComp({ comingSoonData, className }: MainVisualProps) {
+export const MainVisual = ({
+  comingSoonData,
+  className = ''
+}: MainVisualProps) => {
   return (
-    <MainVisualBox className={className}>
+    <S.MainVisualBox className={className}>
       <Swiper
         loop
         autoplay={{ delay: 5000, disableOnInteraction: false }}
@@ -38,7 +29,7 @@ function MainVisualComp({ comingSoonData, className }: MainVisualProps) {
             return (
               <SwiperSlide key={idx}>
                 <Link href={`/detail?id=${item.id}`}>
-                  <MainVisual
+                  <S.MainVisual
                     background={`//images.igdb.com/igdb/image/upload/t_screenshot_big/${item.screenshots[0].image_id}.jpg`}
                   >
                     <div>
@@ -47,51 +38,12 @@ function MainVisualComp({ comingSoonData, className }: MainVisualProps) {
                         {year}년 {month}월 {day}일 발매
                       </p>
                     </div>
-                  </MainVisual>
+                  </S.MainVisual>
                 </Link>
               </SwiperSlide>
             );
           })}
       </Swiper>
-    </MainVisualBox>
+    </S.MainVisualBox>
   );
-}
-export default MainVisualComp;
-
-// * style
-const MainVisualBox = styled.div`
-  .swiper-container-horizontal > .swiper-pagination-bullets {
-    bottom: 30px;
-  }
-  .swiper-pagination-bullet {
-    width: 30px;
-    height: 5px;
-    border-radius: 0;
-    background: #ddd;
-    &.swiper-pagination-bullet-active {
-      background: ${COLOR_PRIMARY} !important ;
-    }
-  }
-`;
-const MainVisual = styled.div<{ background: string }>`
-  height: 500px;
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-    url('${(props) => props.background}') no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-left: 100px;
-  div {
-    color: ${COLOR_WHITE};
-    h4 {
-      font-size: ${pxToRem(53)};
-      margin-bottom: 25px;
-    }
-    p {
-      font-size: ${pxToRem(38)};
-      font-weight: 200;
-    }
-  }
-`;
+};

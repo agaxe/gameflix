@@ -6,7 +6,7 @@ import router from 'next/router';
 import { createGlobalStyle } from 'styled-components';
 import type {} from 'styled-components/cssprop';
 //import { SITE_KO_NAME } from '@/common/variables';
-import { LoadingModal } from '@/components/molecules';
+import { LoadingModal } from '@/components/molecules/LoadingModal';
 import { Footer, Header } from '@/components/organisms';
 //import dotenv from 'dotenv';
 import { global, reset } from '@/static/styles';

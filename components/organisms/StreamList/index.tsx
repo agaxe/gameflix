@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { List } from '@/components/atoms/List';
 import { Skeleton } from '@/components/atoms/Skeleton';
-import { StreamCard } from '@/components/molecules';
+import { StreamCard } from '@/components/molecules/StreamCard';
 import { pxToRem } from '@/static/styles/common';
 import { VAR_SIZE } from '@/static/styles/variable';
 

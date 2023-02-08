@@ -1,31 +1,21 @@
-import Pagenation from './index';
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { number, withKnobs } from '@storybook/addon-knobs';
+import { Pagination } from './index';
 
 export default {
-	title: 'component/molecules/Pagenation',
-	component: Pagenation,
-	decorators: [withKnobs],
-	parameters: {
-		componentSubtitle: '페이지 네이션 컴포넌트',
-	}
+  title: 'component/molecules/Pagination',
+  component: Pagination,
+  decorators: [withKnobs],
+  parameters: {
+    componentSubtitle: '페이지 네이션 컴포넌트'
+  }
+};
+
+export function PaginationSb() {
+  const length = number('length', 5);
+
+  return <Pagination length={length} />;
 }
 
-export function pagenation() {
-
-	const length = number('length', 5);
-
-	return (
-		<Pagenation
-			length={length}
-		/>
-	)
-}
-
-pagenation.story = {
-	name: 'Default',
-}
-
-
-
-
-
+PaginationSb.story = {
+  name: 'Default'
+};

@@ -1,116 +1,58 @@
 import React from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
 import { Skeleton } from '@/components/atoms/Skeleton';
 import { IGDB_COVER_URL } from '@/common/variables';
-import { STYLE_BOX_SHADOW, STYLE_ELLIPSIS } from '@/static/styles/common';
-import { pxToRem } from '@/static/styles/common';
-import { VAR_COLOR } from '@/static/styles/variable';
+import { GameCardProps } from './interface';
+import * as S from './styles';
 
-const { COLOR_WHITE } = VAR_COLOR;
-
-// * type
-type GameCardProps = {
-  /** 게임 아이디 */
-  id?: number;
-  /** 커버 이미지 아이디*/
-  cover?: string;
-  /** 게임 이름 */
-  name?: string;
-  /** 게임 평점 */
-  rating?: number;
-  /** 게임 출시 년도 */
-  releaseDate?: string | number;
-  /** 클래스명 */
-  className?: string;
-  /** 스켈레톤 여부 */
-  skeleton?: boolean;
+// GameCard 스켈레톤
+const GameCardSkeleton = () => {
+  return (
+    <>
+      <S.ImgBox>
+        <Skeleton height='100%' />
+      </S.ImgBox>
+      <S.GameCardText>
+        <strong>
+          <Skeleton width={150} height={15} />
+        </strong>
+        <Skeleton width={50} height={15} />
+      </S.GameCardText>
+    </>
+  );
 };
 
-// * component
 /**
  * - `name` 값은 게임이름 항목과 커버이미지의 alt값으로 사용됩니다.
  * - `skeleton` 값으로 스켈레톤 상태를 적용시킬 수 있습니다.
  */
-function GameCardComp({
+export const GameCard = ({
   id,
   cover,
   name,
   rating,
   releaseDate,
   className,
-  skeleton
-}: GameCardProps) {
-  // GameCard 스켈레톤
-  const GameCardSkeleton = () => {
-    return (
-      <>
-        <ImgBox>
-          <Skeleton height='100%' />
-        </ImgBox>
-        <GameCardText>
-          <strong>
-            <Skeleton width={150} height={15} />
-          </strong>
-          <Skeleton width={50} height={15} />
-        </GameCardText>
-      </>
-    );
-  };
-
+  skeleton = false
+}: GameCardProps) => {
   return (
-    <GameCard className={className}>
+    <S.GameCard className={className}>
       {skeleton ? (
         <GameCardSkeleton />
       ) : (
         <Link href={`/detail?id=${id}`}>
-          <ImgBox>
+          <S.ImgBox>
             <img src={`${IGDB_COVER_URL}${cover}.jpg`} alt={`${name}-cover`} />
-          </ImgBox>
-          <GameCardText>
+          </S.ImgBox>
+          <S.GameCardText>
             <strong>{name}</strong>
             {releaseDate && <p>{releaseDate}</p>}
             {typeof rating === 'number' ? (
               <p>{rating !== 0 ? <>{Math.floor(rating)}%</> : <>평가없음</>}</p>
             ) : null}
-          </GameCardText>
+          </S.GameCardText>
         </Link>
       )}
-    </GameCard>
+    </S.GameCard>
   );
-}
-export default GameCardComp;
-
-// * defaultProps
-GameCardComp.defaultProps = {
-  skeleton: false
 };
-
-// * style
-// 게임 카드
-const GameCard = styled.li`
-  ${STYLE_BOX_SHADOW};
-  width: 220px;
-`;
-// 게임 커버 이미지 박스
-const ImgBox = styled.div`
-  width: 100%;
-  height: 293px;
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-`;
-// 게임 카드 정보 박스
-const GameCardText = styled.div`
-  background: ${COLOR_WHITE};
-  padding: 12px;
-  box-sizing: border-box;
-  border-top: 1px solid #dadada;
-  font-size: 1rem;
-  strong {
-    margin-bottom: 10px;
-    ${STYLE_ELLIPSIS}
-  }
-`;

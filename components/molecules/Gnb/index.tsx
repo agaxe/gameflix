@@ -1,44 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 import { MdMoreHoriz } from 'react-icons/md';
-import styled from 'styled-components';
-import { VAR_COLOR } from '@/static/styles/variable';
+import { GnbProps } from './interface';
+import * as S from './styles';
 
-const { COLOR_WHITE } = VAR_COLOR;
-
-// * type
-type GnbCompProps = {
-  className?: string;
-};
-
-// * component
-export default function GnbComp({ className }: GnbCompProps) {
+export const Gnb = ({ className }: GnbProps) => {
   return (
-    <Gnb className={className}>
+    <S.Gnb className={className}>
       <li>
         <Link href='/discover'>탐색</Link>
       </li>
       <li>
         <MdMoreHoriz />
       </li>
-    </Gnb>
+    </S.Gnb>
   );
-}
-
-// * style
-const Gnb = styled.ul`
-  color: ${COLOR_WHITE};
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  li {
-    margin-right: 30px;
-    &:last-of-type {
-      margin-right: 0;
-    }
-    svg {
-      width: 20px;
-      height: 20px;
-    }
-  }
-`;
+};

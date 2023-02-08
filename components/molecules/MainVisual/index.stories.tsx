@@ -1,7 +1,7 @@
-import { VAR_SIZE } from '@/static/styles/variable';
 import { withKnobs } from '@storybook/addon-knobs';
 import styled from 'styled-components';
-import MainVisual from './index';
+import { VAR_SIZE } from '@/static/styles/variable';
+import { MainVisual } from './index';
 import dummyData from '.storybook/dummyData.json';
 
 const { CONTENT_WIDTH } = VAR_SIZE;

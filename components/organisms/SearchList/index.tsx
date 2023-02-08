@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { List } from '@/components/atoms/List';
 import { NoResult } from '@/components/atoms/NoResult';
-import { GameCard, GameItem } from '@/components/molecules';
+import { GameCard } from '@/components/molecules/GameCard';
+import { GameItem } from '@/components/molecules/GameItem';
 import { NO_COVER_IMAGE } from '@/common/variables';
 
 // * type

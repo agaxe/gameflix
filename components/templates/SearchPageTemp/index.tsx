@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { MdViewList, MdViewModule } from 'react-icons/md';
 import styled from 'styled-components';
 import { Skeleton } from '@/components/atoms/Skeleton';
-import { PageTitle, Pagination } from '@/components/molecules';
+import { PageTitle } from '@/components/molecules/PageTitle';
+import { Pagination } from '@/components/molecules/Pagination';
 import { SearchList } from '@/components/organisms';
 import { PAGE_TITLE_BOTTOM } from '@/static/styles/common';
 import { VAR_COLOR } from '@/static/styles/variable';
@@ -54,7 +55,7 @@ function SearchPageTemp({ data, searchQuerySB }: SearchPageProps) {
     if (router.pathname === '/search' && router.query.page) {
       setCurrentPage(Number(router.query.page));
     }
-  }, [router.query]);
+  }, [router]);
 
   useEffect(() => {
     setCurrentPage(1);

@@ -1,8 +1,8 @@
 import React from 'react';
-import { VAR_COLOR } from '@/static/styles/variable';
 import { withKnobs } from '@storybook/addon-knobs';
 import styled from 'styled-components';
-import Gnb from './index';
+import { VAR_COLOR } from '@/static/styles/variable';
+import { Gnb } from './index';
 
 const { COLOR_BLACK } = VAR_COLOR;
 

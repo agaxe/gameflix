@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { NO_COVER_IMAGE } from '@/common/variables';
 import { MdClose, MdTune } from 'react-icons/md';
 import styled from 'styled-components';
 import { Button } from '@/components/atoms/Button';
@@ -10,7 +9,10 @@ import { ModalBg } from '@/components/atoms/ModalBg';
 import { NoResult } from '@/components/atoms/NoResult';
 import { Select } from '@/components/atoms/Select';
 import { Skeleton } from '@/components/atoms/Skeleton';
-import { GameCard, PageTitle, RangeSlider } from '@/components/molecules';
+import { GameCard } from '@/components/molecules/GameCard';
+import { PageTitle } from '@/components/molecules/PageTitle';
+import { RangeSlider } from '@/components/molecules/RangeSlider';
+import { NO_COVER_IMAGE } from '@/common/variables';
 import { PAGE_TITLE_BOTTOM } from '@/static/styles/common';
 import { VAR_COLOR } from '@/static/styles/variable';
 
@@ -214,7 +216,7 @@ function DiscoverPageTemp({
                   minRange={1970}
                   maxRange={2021}
                   setValue={(newValue) => setReleaseDate(newValue)}
-                  label={true}
+                  hasLabel={true}
                 />
               </FilterMenuContent>
               <FilterMenuContent>
@@ -223,7 +225,7 @@ function DiscoverPageTemp({
                   firstValue={ratingScore[0]}
                   lastValue={ratingScore[1]}
                   setValue={(newValue) => setRatingScore(newValue)}
-                  label={true}
+                  hasLabel={true}
                 />
               </FilterMenuContent>
               <FilterSearchBtn onClick={runfilterSearch}>검색</FilterSearchBtn>

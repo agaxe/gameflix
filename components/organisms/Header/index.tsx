@@ -2,7 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { Logo } from '@/components/atoms/Logo';
-import { Gnb, SearchInput } from '@/components/molecules';
+import { Gnb } from '@/components/molecules/Gnb';
+import { SearchInput } from '@/components/molecules/SearchInput';
 import { VAR_COLOR, VAR_SIZE } from '@/static/styles/variable';
 
 const { HEADER_HEIGHT } = VAR_SIZE;
