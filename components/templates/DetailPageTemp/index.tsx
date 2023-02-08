@@ -3,8 +3,6 @@ import { BiLinkExternal } from 'react-icons/bi';
 import { MdChevronLeft, MdChevronRight, MdPlayArrow } from 'react-icons/md';
 import styled from 'styled-components';
 import SwiperCore, { Navigation } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Item } from '@/components/atoms/Item';
 import { List } from '@/components/atoms/List';
@@ -13,6 +11,8 @@ import { GameList } from '@/components/organisms';
 import { IGDB_COVER_URL, NO_COVER_IMAGE } from '@/common/variables';
 import { pxToRem } from '@/static/styles/common';
 import { VAR_COLOR, VAR_SIZE } from '@/static/styles/variable';
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
 
 const { COLOR_LINE_GRAY, COLOR_PRIMARY, COLOR_WHITE, COLOR_GRAY } = VAR_COLOR;
 const { CONTENT_WIDTH } = VAR_SIZE;

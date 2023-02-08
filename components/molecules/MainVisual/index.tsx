@@ -3,10 +3,10 @@ import Link from 'next/link';
 import styled from 'styled-components';
 // ? swiper
 import SwiperCore, { Autoplay, Pagination } from 'swiper';
-import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { pxToRem } from '@/static/styles/common';
 import { VAR_COLOR } from '@/static/styles/variable';
+import 'swiper/swiper.min.css';
 
 const { COLOR_WHITE, COLOR_PRIMARY } = VAR_COLOR;
 
