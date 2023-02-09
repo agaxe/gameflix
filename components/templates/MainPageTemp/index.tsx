@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { MainVisual } from '@/components/molecules/MainVisual';
 import { SectionTitle } from '@/components/molecules/SectionTitle';
-import { GameList, StreamList } from '@/components/organisms';
+import { GameList } from '@/components/organisms/GameList';
+import { StreamList } from '@/components/organisms/StreamList';
 
 // * type
 type MainPageTempProps = {
@@ -33,7 +34,7 @@ function MainPageTemp({
         </div>
         <div>
           <SectionTitle title='실시간 게임방송' />
-          <StreamList data={streamListData} />
+          <StreamList items={streamListData} />
         </div>
       </MainPageSection>
     </>

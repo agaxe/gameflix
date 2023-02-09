@@ -4,7 +4,7 @@ import { MdSearch } from 'react-icons/md';
 import { SearchInputProps } from './interface';
 import * as S from './styles';
 
-export const SearchInput = ({ className, onClick }: SearchInputProps) => {
+export const SearchInput = ({ className, handleSearch }: SearchInputProps) => {
   const router = useRouter();
   const [query, setQuery] = useState<string>('');
 
@@ -25,7 +25,7 @@ export const SearchInput = ({ className, onClick }: SearchInputProps) => {
   };
 
   const handleKeyDownSearchInput = (e) => {
-    e.key === 'Enter' && onClick(query);
+    e.key === 'Enter' && handleSearch(query);
   };
 
   return (
@@ -37,7 +37,7 @@ export const SearchInput = ({ className, onClick }: SearchInputProps) => {
         onChange={handleChangeSearchInput}
         onKeyDown={handleKeyDownSearchInput}
       />
-      <S.SearchBtn onClick={() => onClick(query)}>
+      <S.SearchBtn onClick={() => handleSearch(query)}>
         <MdSearch />
       </S.SearchBtn>
     </S.SearchInputBox>

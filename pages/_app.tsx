@@ -7,7 +7,8 @@ import { createGlobalStyle } from 'styled-components';
 import type {} from 'styled-components/cssprop';
 //import { SITE_KO_NAME } from '@/common/variables';
 import { LoadingModal } from '@/components/molecules/LoadingModal';
-import { Footer, Header } from '@/components/organisms';
+import { Footer } from '@/components/organisms/Footer';
+import { Header } from '@/components/organisms/Header';
 //import dotenv from 'dotenv';
 import { global, reset } from '@/static/styles';
 

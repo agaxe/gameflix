@@ -1,30 +1,23 @@
 import React from 'react';
-import styled from 'styled-components';
-import { List } from '@/components/atoms/List';
 import { NoResult } from '@/components/atoms/NoResult';
-import { GameCard } from '@/components/molecules/GameCard';
 import { GameItem } from '@/components/molecules/GameItem';
 import { NO_COVER_IMAGE } from '@/common/variables';
+import { SearchListProps } from './interface';
+import * as S from './styles';
 
-// * type
-type SearchListProps = {
-  /** 검색결과 데이터 */
-  data: any[];
-  /** 검색결과 리스트 타입 */
-  type: 'list' | 'card' | string;
-  /** 검색결과 데이터 존재 여부 */
-  result: 'yes' | 'no' | string;
-};
-
-// * component
 /**
- * - [molecules/GameCard](/docs/component-molecules-gamecard--game-card) 과
-	[molecules/GameItem](/docs/component-molecules-gameitem--game-item) 를 사용한 검색결과 리스트 입니다.
+ * - molecules/GameCard 과
+	molecules/GameItem 를 사용한 검색결과 리스트 입니다.
  * - `type` 의 **list** 와 **card** 로 리스트 형식을 지정 합니다. 
  */
-function SearchListComp({ data = [], type, result }: SearchListProps) {
+
+export const SearchList = ({
+  data = [],
+  type = 'list',
+  result
+}: SearchListProps) => {
   return (
-    <SearchList flex={type === 'card' ? true : false} length={data.length}>
+    <S.SearchList flex={type === 'card' ? true : false} length={data.length}>
       {
         // 검색결과 - 리스트
         data.length && result === 'yes' ? (
@@ -45,7 +38,7 @@ function SearchListComp({ data = [], type, result }: SearchListProps) {
                     releaseDate={year}
                   />
                 ) : (
-                  <GameCardSearch
+                  <S.GameCardSearch
                     id={item.id}
                     cover={item?.cover?.image_id || NO_COVER_IMAGE}
                     name={item.name}
@@ -63,7 +56,7 @@ function SearchListComp({ data = [], type, result }: SearchListProps) {
                 {type === 'list' ? (
                   <GameItem skeleton={true} />
                 ) : (
-                  <GameCardSearch skeleton={true} />
+                  <S.GameCardSearch skeleton={true} />
                 )}
               </React.Fragment>
             ))}
@@ -72,32 +65,6 @@ function SearchListComp({ data = [], type, result }: SearchListProps) {
           <NoResult title='검색' />
         )
       }
-    </SearchList>
+    </S.SearchList>
   );
-}
-export default SearchListComp;
-
-// * defaultProps
-SearchListComp.defaultProps = {
-  type: 'list'
 };
-
-// * style
-// 검색결과 리스트
-const SearchList = styled(List)<{ flex: boolean; length: number }>`
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  min-height: 360px;
-  ${(props) => props.flex && props.length && `margin-bottom:50px;`}
-  a {
-    width: 100%;
-  }
-`;
-// 검색결과 - 카드형
-const GameCardSearch = styled(GameCard)`
-  margin-top: 20px;
-  margin-right: 20px;
-  &:nth-child(5n) {
-    margin-right: 0;
-  }
-`;

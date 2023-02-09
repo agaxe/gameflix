@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Skeleton } from '@/components/atoms/Skeleton';
 import { PageTitle } from '@/components/molecules/PageTitle';
 import { Pagination } from '@/components/molecules/Pagination';
-import { SearchList } from '@/components/organisms';
+import { SearchList } from '@/components/organisms/SearchList';
 import { PAGE_TITLE_BOTTOM } from '@/static/styles/common';
 import { VAR_COLOR } from '@/static/styles/variable';
 

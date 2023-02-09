@@ -1,35 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
-import { pxToRem } from '@/static/styles/common';
-import { VAR_COLOR } from '@/static/styles/variable';
+import { SITE_EN_NAME } from '@/common/variables';
+import * as S from './styles';
 
-const { COLOR_BLACK } = VAR_COLOR;
-
-// * component
-function FooterComp() {
-  const SITE_EN_NAME = process.env.SITE_EN_NAME || '';
+export const Footer = () => {
   const currentYear = new Date().getFullYear().toString();
 
   return (
-    <Footer>
+    <S.Footer>
       <p>
         {currentYear} {SITE_EN_NAME.toUpperCase()}
       </p>
-    </Footer>
+    </S.Footer>
   );
-}
-export default FooterComp;
-
-// * style
-const Footer = styled.footer`
-  background: ${COLOR_BLACK};
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  p {
-    font-size: ${pxToRem(24)};
-    letter-spacing: 0.425em;
-    color: #5a5a5a;
-  }
-`;
+};

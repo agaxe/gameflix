@@ -8,7 +8,7 @@ import { Item } from '@/components/atoms/Item';
 import { List } from '@/components/atoms/List';
 import { GameCard } from '@/components/molecules/GameCard';
 import { SectionTitle } from '@/components/molecules/SectionTitle';
-import { GameList } from '@/components/organisms';
+import { GameList } from '@/components/organisms/GameList';
 import { IGDB_COVER_URL, NO_COVER_IMAGE } from '@/common/variables';
 import { pxToRem } from '@/static/styles/common';
 import { VAR_COLOR, VAR_SIZE } from '@/static/styles/variable';

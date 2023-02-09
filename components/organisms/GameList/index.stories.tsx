@@ -1,6 +1,6 @@
-import { VAR_SIZE } from '@/static/styles/variable';
 import { withKnobs } from '@storybook/addon-knobs';
-import GameList from './index';
+import { VAR_SIZE } from '@/static/styles/variable';
+import { GameList } from './index';
 import dummyData from '.storybook/dummyData.json';
 
 const { CONTENT_WIDTH } = VAR_SIZE;

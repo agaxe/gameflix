@@ -1,6 +1,6 @@
-import { VAR_SIZE } from '@/static/styles/variable';
 import { withKnobs } from '@storybook/addon-knobs';
-import Header from './index';
+import { VAR_SIZE } from '@/static/styles/variable';
+import { Header } from './index';
 
 const { CONTENT_WIDTH } = VAR_SIZE;
 

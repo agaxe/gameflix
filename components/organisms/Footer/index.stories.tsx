@@ -1,4 +1,4 @@
-import Footer from './index';
+import {Footer} from './index';
 import { withKnobs } from '@storybook/addon-knobs';
 
 export default {

@@ -1,6 +1,6 @@
 import { VAR_SIZE } from '@/static/styles/variable';
 import { select, withKnobs } from '@storybook/addon-knobs';
-import SearchList from './index';
+import {SearchList} from './index';
 import dummyData from '.storybook/dummyData.json';
 
 const { CONTENT_WIDTH } = VAR_SIZE;

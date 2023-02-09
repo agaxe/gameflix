@@ -1,82 +1,61 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { List } from '@/components/atoms/List';
 import { Skeleton } from '@/components/atoms/Skeleton';
 import { StreamCard } from '@/components/molecules/StreamCard';
-import { pxToRem } from '@/static/styles/common';
-import { VAR_SIZE } from '@/static/styles/variable';
+import { StreamListProps } from './interface';
+import * as S from './styles';
 
-const { CONTENT_WIDTH } = VAR_SIZE;
-
-// * type
-type StreamListProps = {
-  /** 게임 & 스트리머 데이터 */
-  data: any[];
-};
-
-// * component
 /**
- * - [molecules/StreamCard](/docs/component-molecules-streamcard--stream-card) 를 사용한 방송 리스트 입니다.
+ * - molecules/StreamCard 를 사용한 방송 리스트 입니다.
  */
-function StreamList({ data }: StreamListProps) {
-  const [LiveList, setLiveList] = useState([]);
+export const StreamList = ({ items }: StreamListProps) => {
+  const [liveStreamList, setLiveList] = useState([]);
 
   useEffect(() => {
-    data && setLiveList(data);
-  }, [data]);
+    items.length && setLiveList(items);
+  }, [items]);
 
   return (
     <>
-      {LiveList.length ? (
-        LiveList.map((game, idx) => (
-          <React.Fragment key={idx}>
-            <LiveListBox>
-              <GameTitle>{game.game}</GameTitle>
+      {liveStreamList.length ? (
+        liveStreamList.map((game) => (
+          <React.Fragment key={`${game.num}-${game.game}`}>
+            <S.LiveListBox>
+              <S.GameTitle>{game.game}</S.GameTitle>
               <List justify='space-between'>
-                {game.streamers.map((item, index) => (
-                  <React.Fragment key={index}>
+                {game.streamers.map((streamer) => (
+                  <React.Fragment key={streamer.id}>
                     <StreamCard
-                      id={item.login}
-                      name={item.display_name}
-                      title={item.title}
-                      profileImg={item.profile_image_url}
-                      thumbnail={item.thumbnail_url}
-                      viewer={item.viewer_count}
+                      id={streamer.login}
+                      name={streamer.display_name}
+                      title={streamer.title}
+                      profileImg={streamer.profile_image_url}
+                      thumbnail={streamer.thumbnail_url}
+                      viewer={streamer.viewer_count}
                     />
                   </React.Fragment>
                 ))}
               </List>
-            </LiveListBox>
+            </S.LiveListBox>
           </React.Fragment>
         ))
       ) : (
         <>
           {[...Array(3)].map((item, idx) => (
-            <LiveListBox key={idx}>
-              <GameTitle>
+            <S.LiveListBox key={idx}>
+              <S.GameTitle>
                 <Skeleton width={150} height={15} />
-              </GameTitle>
+              </S.GameTitle>
               <List justify='space-between'>
                 {[...Array(3)].map((item, index) => (
                   <StreamCard key={index} skeleton={true} />
                 ))}
               </List>
-            </LiveListBox>
+            </S.LiveListBox>
           ))}
         </>
       )}
     </>
   );
-}
-export default StreamList;
-
-// * style
-const LiveListBox = styled.div`
-  margin-bottom: 40px;
-  width: ${CONTENT_WIDTH};
-`;
-const GameTitle = styled.p`
-  font-size: ${pxToRem(20)};
-  margin-bottom: 20px;
-`;
+};
