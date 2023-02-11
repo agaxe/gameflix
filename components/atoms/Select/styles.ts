@@ -20,6 +20,7 @@ export const Select = styled.div<{ width: string }>`
   user-select: none;
   position: absolute;
   z-index: 50;
+  cursor: pointer;
 `;
 export const Title = styled.div`
   display: flex;
@@ -28,10 +29,9 @@ export const Title = styled.div`
   box-sizing: border-box;
   border: 1px solid transparent;
   transition: border 0.3s;
-
-  ${commonStyles.padding}
+  padding: ${commonStyles.padding};
   &:hover {
-    ${commonStyles.border}
+    border: ${commonStyles.border};
   }
   svg {
     margin-left: 5px;
@@ -40,12 +40,12 @@ export const Title = styled.div`
 `;
 export const SelectList = styled(List)`
   margin-top: -1px;
-
-  ${commonStyles.border}
-  box-sizing:border-box;
+  border: ${commonStyles.border};
+  box-sizing: border-box;
 `;
 export const SelectItem = styled(Item)`
-  ${commonStyles.padding}
+  padding: ${commonStyles.padding};
+  cursor: pointer;
   &:hover {
     background: ${COLOR_GRAY};
   }

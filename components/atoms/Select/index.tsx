@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdArrowDropDown } from 'react-icons/md';
 import { SelectProps } from './interface';
 import * as S from './styles';
@@ -14,33 +14,40 @@ export const Select = ({
   options,
   onClick
 }: SelectProps) => {
-  const [selectItemState, setSelectItemState] = useState(false);
+  const selectRef = useRef(null);
+  const [isActive, setIsActive] = useState(false);
 
   const activeSelectOption = (e) => {
-    setSelectItemState(false);
+    setIsActive(false);
     onClick(e);
   };
 
-  const toggleSelectOption = () => {
-    setSelectItemState(false);
-  };
-
   useEffect(() => {
-    if (selectItemState) {
+    const toggleSelectOption = (e: MouseEvent) => {
+      if (
+        isActive &&
+        selectRef.current &&
+        !selectRef.current.contains(e.target)
+      ) {
+        setIsActive(false);
+      }
+    };
+
+    if (isActive) {
       document.addEventListener('click', toggleSelectOption);
       return () => {
         document.removeEventListener('click', toggleSelectOption);
       };
     }
-  }, [selectItemState]);
+  }, [isActive]);
 
   return (
-    <S.Select className={className} width={width}>
-      <S.Title onClick={() => setSelectItemState(!selectItemState)}>
+    <S.Select className={className} width={width} ref={selectRef}>
+      <S.Title onClick={() => setIsActive((prev) => !prev)}>
         {firstTitle}
         <MdArrowDropDown />
       </S.Title>
-      {selectItemState && (
+      {isActive && (
         <S.SelectList direction='column'>
           {options &&
             options.map((item, idx) => (
