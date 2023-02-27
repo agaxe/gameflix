@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { DetailPageTemp } from '@/components/templates';
+import { DetailPageTemp } from '@/components/templates/DetailPageTemp';
 import { SITE_KO_NAME } from '@/common/variables';
 import { useGameApi } from '@/hooks/useGameApi';
 
@@ -85,10 +85,12 @@ export async function getServerSideProps({ query }) {
 			genres.name,
 			involved_companies.company.name,
 			platforms.name,
-			age_ratings.*,
 			websites.*,
 			screenshots.image_id,
-			videos.video_id`,
+			videos.video_id,
+      age_ratings.*
+      `,
+
     where: `id = ${id}`,
     sort: ''
   });

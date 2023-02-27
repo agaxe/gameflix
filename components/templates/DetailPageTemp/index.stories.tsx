@@ -1,4 +1,4 @@
-import DetailPageTemp from './index';
+import {DetailPageTemp} from './index';
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 import dummyData from '.storybook/dummyData.json';
 

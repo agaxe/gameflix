@@ -1,4 +1,3 @@
-export { default as DetailPageTemp } from './DetailPageTemp';
 export { default as DiscoverPageTemp } from './DiscoverPageTemp';
 export { default as ErrorPageTemp } from './ErrorPageTemp';
 export { default as MainPageTemp } from './MainPageTemp';
