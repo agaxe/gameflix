@@ -21,7 +21,7 @@ export const RangeSlider = ({
   };
 
   return (
-    <div css={{ width }}>
+    <div style={{ width }}>
       <S.CustomSlider
         aria-labelledby='range slider'
         value={[firstValue, lastValue]}

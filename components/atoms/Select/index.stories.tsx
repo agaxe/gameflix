@@ -27,7 +27,7 @@ export function select() {
   };
 
   return (
-    <div css={{ height: '200px' }}>
+    <div style={{ height: '200px' }}>
       <Select
         width='150px'
         firstTitle={firstTitle}

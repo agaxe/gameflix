@@ -8,7 +8,7 @@ export const Logo = ({ isLink = true }: LogoProps) => {
       <img
         src='/static/images/logo.svg'
         alt='logo'
-        css={{ background: 'none' }}
+        style={{ background: 'none' }}
       />
     );
   }

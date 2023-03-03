@@ -1,6 +1,6 @@
 import React from 'react';
 import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
-import { css } from 'styled-components';
+import styled from 'styled-components';
 import { pxToRem } from '@/static/styles/common';
 import { Button } from './index';
 
@@ -32,7 +32,7 @@ button.story = {
   name: 'Default'
 };
 
-const ButtonWrap = css`
+const ButtonWrap = styled.ul`
   padding-left: 0;
   & li {
     list-style: none;
@@ -45,7 +45,7 @@ export const Secondary = () => <Button theme='secondary'>Button</Button>;
 export const Tertiary = () => <Button theme='tertiary'>Button</Button>;
 
 export const Disabled = () => (
-  <ul css={ButtonWrap}>
+  <ButtonWrap>
     <li>
       <Button theme='primary' disabled>
         Button
@@ -56,5 +56,5 @@ export const Disabled = () => (
         Button
       </Button>
     </li>
-  </ul>
+  </ButtonWrap>
 );
