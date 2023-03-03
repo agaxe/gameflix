@@ -94,7 +94,7 @@ export const GameSummary = styled.div<{ summaryMore: boolean }>`
   }
 `;
 
-export const MediaSlideBox = styled.div`
+export const MediaSlideWrap = styled.div`
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -121,6 +121,9 @@ export const MediaSlideBox = styled.div`
   }
 `;
 export const MediaSlide = styled(Swiper)`
+  &.center {
+    margin-left: -220px;
+  }
   .swiper-slide {
     width: 500px !important;
     height: 280px;
@@ -129,7 +132,7 @@ export const MediaSlide = styled(Swiper)`
     overflow: hidden;
   }
 `;
-export const MediaSlideContent = styled.div`
+export const MediaSlideContent = styled.div<{ imgId: number; videoId: number }>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -137,6 +140,11 @@ export const MediaSlideContent = styled.div`
   justify-content: center;
   transition: background-size 0.3s;
   cursor: pointer;
+  background: ${({ imgId, videoId }) =>
+    imgId && !videoId
+      ? `url(' //images.igdb.com/igdb/image/upload/t_original/${imgId}.jpg') center no-repeat`
+      : `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg') center no-repeat`};
+  background-size: 100%;
   &:hover {
     background-size: 104%;
   }

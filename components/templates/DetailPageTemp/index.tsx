@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { MdChevronLeft, MdChevronRight, MdPlayArrow } from 'react-icons/md';
 import SwiperCore, { Navigation } from 'swiper';
 import { SwiperSlide } from 'swiper/react';
@@ -26,8 +26,7 @@ export const DetailPageTemp = ({
   recentGamesData
 }: DetailPageProps) => {
   const [currentTabMenu, setCurrentTabMenu] = useState(1);
-  const [summaryMore, setSummaryMore] = useState(false);
-  const [modalState, setModalState] = useState(false);
+  const [isShowMediaModal, setIsShowMediaModal] = useState(false);
   const [currentModalIdx, setCurrentModalIdx] = useState(0);
 
   const {
@@ -36,13 +35,13 @@ export const DetailPageTemp = ({
     first_release_date,
     aggregated_rating,
     summary,
-    involved_companies,
+    involved_companies: companies,
     genres,
     platforms,
     age_ratings,
     websites,
-    screenshots,
-    videos
+    screenshots = [],
+    videos = []
   } = detailData;
 
   //게임 정보
@@ -56,79 +55,47 @@ export const DetailPageTemp = ({
     return '출시일 정보 없음';
   };
 
-  const arrayToString = (array) => array.toString().replace(/,/gi, ', ');
-
-  const companyName = involved_companies
-    ? involved_companies[0].company.name
-    : null;
-
-  const genresList = genres
-    ? arrayToString(genres.map((item) => item.name))
-    : null;
-
-  const platformsList = platforms
-    ? arrayToString(platforms.map((item) => item.name))
-    : null;
-
   // 미디어 정보
-  const screenshotsData = screenshots ? screenshots : [];
-  const videosData = videos ? videos : [];
+  const mediaContents = [...screenshots, ...videos];
+  const isSlider = mediaContents.length >= 3;
 
-  const mediaContents = [...screenshotsData, ...videosData];
-
-  const mediaSliderPropsFunc = (length) => {
-    if (length >= 3) {
-      return {
-        loop: true,
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        },
-        spaceBetween: 60,
-        initialSlide: -1,
-        allowTouchMove: true
-      };
-    } else {
-      const spaceBetween = length === 1 ? 0 : 30;
-      const initialSlide = length === 1 ? 1 : 2;
-
-      return {
-        loop: false,
-        navigation: false,
-        spaceBetween,
-        initialSlide,
-        allowTouchMove: false
-      };
-    }
+  const getMediaSliderOption = (mediaLength: number) => {
+    return {
+      loop: isSlider,
+      navigation: isSlider
+        ? {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          }
+        : false,
+      spaceBetween: isSlider ? 60 : mediaLength === 1 ? 0 : 30,
+      initialSlide: isSlider ? -1 : mediaLength === 1 ? 1 : 2,
+      allowTouchMove: isSlider
+    };
   };
 
-  const mediaSliderProps = mediaSliderPropsFunc(mediaContents.length);
+  const mediaSliderProps = getMediaSliderOption(mediaContents.length);
 
-  const showMediaModal = (value) => {
-    setModalState(true);
-    setCurrentModalIdx(value);
+  const handleClickMediaSlide = (idx: number) => {
+    setIsShowMediaModal(true);
+    setCurrentModalIdx(idx);
   };
 
-  const prevModalContent = () => {
+  const handleClickModalPrevBtn = () => {
     if (currentModalIdx > 0) {
       setCurrentModalIdx(currentModalIdx - 1);
-    } else {
-      setCurrentModalIdx(mediaContents.length - 1);
+      return;
     }
+    setCurrentModalIdx(mediaContents.length - 1);
   };
 
-  const nextModalContent = () => {
+  const handleClickModalNextBtn = () => {
     if (currentModalIdx >= mediaContents.length - 1) {
       setCurrentModalIdx(0);
-    } else {
-      setCurrentModalIdx(currentModalIdx + 1);
+      return;
     }
+    setCurrentModalIdx(currentModalIdx + 1);
   };
-
-  useEffect(() => {
-    summaryMore && setSummaryMore(false);
-    setCurrentTabMenu(1);
-  }, [summaryMore]);
 
   return (
     <section>
@@ -164,9 +131,7 @@ export const DetailPageTemp = ({
               <S.InfoTabMenuContent>
                 {currentTabMenu === 1 && <DetailSummary summary={summary} />}
                 {currentTabMenu === 2 && (
-                  <DetailInformation
-                    data={{ companyName, genresList, platformsList }}
-                  />
+                  <DetailInformation data={{ companies, genres, platforms }} />
                 )}
                 {currentTabMenu === 3 && <DetailWebSite websites={websites} />}
                 {currentTabMenu === 4 && (
@@ -180,36 +145,29 @@ export const DetailPageTemp = ({
       {mediaContents.length ? (
         <S.Section>
           <SectionTitle title='미디어' />
-          <S.MediaSlideBox>
+          <S.MediaSlideWrap>
             <S.MediaSlide
-              css={{
-                'margin-left': mediaContents.length >= 3 ? '-220px' : '0'
-              }}
+              className={isSlider ? 'center' : ''}
               loop={mediaSliderProps.loop}
               navigation={mediaSliderProps.navigation}
               spaceBetween={mediaSliderProps.spaceBetween}
-              slidesPerView='auto'
               initialSlide={mediaSliderProps.initialSlide}
               allowTouchMove={mediaSliderProps.allowTouchMove}
+              slidesPerView='auto'
             >
               {mediaContents.map((item, idx) => (
-                <SwiperSlide key={idx} className={`${idx}`}>
+                <SwiperSlide key={item.id}>
                   <S.MediaSlideContent
-                    onClick={() => showMediaModal(idx)}
-                    css={{
-                      background:
-                        item.image_id && !item.video_id
-                          ? `url('//images.igdb.com/igdb/image/upload/t_original/${item.image_id}.jpg') center no-repeat;`
-                          : `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://i.ytimg.com/vi/${item.video_id}/hqdefault.jpg') center no-repeat;`,
-                      'background-size': '100%'
-                    }}
+                    onClick={() => handleClickMediaSlide(idx)}
+                    imgId={item?.image_id}
+                    videoId={item?.video_id}
                   >
-                    {item.video_id && <MdPlayArrow />}
+                    {item?.video_id && <MdPlayArrow />}
                   </S.MediaSlideContent>
                 </SwiperSlide>
               ))}
             </S.MediaSlide>
-            {mediaContents.length >= 3 && (
+            {isSlider && (
               <>
                 <span className='swiper-button-prev'>
                   <MdChevronLeft />
@@ -219,14 +177,14 @@ export const DetailPageTemp = ({
                 </span>
               </>
             )}
-          </S.MediaSlideBox>
-          {modalState && (
+          </S.MediaSlideWrap>
+          {isShowMediaModal && (
             <>
-              <S.MediaModalBg onClick={() => setModalState(false)} />
+              <S.MediaModalBg onClick={() => setIsShowMediaModal(false)} />
               <S.MediaModal>
                 <S.MediaModalContent>
                   {mediaContents.length !== 1 && (
-                    <MdChevronLeft onClick={prevModalContent} />
+                    <MdChevronLeft onClick={handleClickModalPrevBtn} />
                   )}
                   <div>
                     {mediaContents[currentModalIdx]?.image_id ? (
@@ -244,7 +202,7 @@ export const DetailPageTemp = ({
                     )}
                   </div>
                   {mediaContents.length !== 1 && (
-                    <MdChevronRight onClick={nextModalContent} />
+                    <MdChevronRight onClick={handleClickModalNextBtn} />
                   )}
                 </S.MediaModalContent>
               </S.MediaModal>
@@ -262,16 +220,16 @@ export const DetailPageTemp = ({
         <SectionTitle title='최근 본 게임' />
         <S.RecentGameList>
           {recentGamesData.length
-            ? recentGamesData.map((item, idx) => (
+            ? recentGamesData.map((item) => (
                 <GameCard
-                  key={idx}
+                  key={item.id}
                   id={item.id}
                   cover={item.cover.image_id}
                   name={item.name}
-                  rating={item.aggregated_rating ? item.aggregated_rating : 0}
+                  rating={item?.aggregated_rating ? item.aggregated_rating : 0}
                 />
               ))
-            : [...Array(5)].map((item, idx) => (
+            : [...Array(5)].map((_, idx) => (
                 <GameCard key={idx} skeleton={true} />
               ))}
         </S.RecentGameList>
