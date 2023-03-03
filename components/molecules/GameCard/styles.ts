@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { STYLE_BOX_SHADOW, STYLE_ELLIPSIS } from '@/static/styles/common';
-import { pxToRem } from '@/static/styles/common';
-import { VAR_COLOR } from '@/static/styles/variable';
+import { VAR_COLOR, VAR_SIZE } from '@/static/styles/variable';
 
 const { COLOR_WHITE } = VAR_COLOR;
+const { GAME_CARD_WIDTH } = VAR_SIZE;
 
 // 게임 카드
 export const GameCard = styled.li`
   ${STYLE_BOX_SHADOW};
-  width: 220px;
+  width: ${GAME_CARD_WIDTH};
 `;
 // 게임 커버 이미지 박스
 export const ImgBox = styled.div`

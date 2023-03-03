@@ -13,5 +13,7 @@ export const VAR_COLOR = {
 export const VAR_SIZE = {
   BASE_FONT_SIZE: 16,
   CONTENT_WIDTH: '1180px',
-  HEADER_HEIGHT: '70px'
+  HEADER_HEIGHT: '70px',
+  GAME_CARD_WIDTH: '220px',
+  STREAM_CARD_WIDTH: '369px'
 };

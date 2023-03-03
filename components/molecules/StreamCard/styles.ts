@@ -2,11 +2,14 @@ import styled, { css } from 'styled-components';
 import { List } from '@/components/atoms/List';
 import { STYLE_BOX_SHADOW, STYLE_ELLIPSIS } from '@/static/styles/common';
 import { pxToRem } from '@/static/styles/common';
+import { VAR_SIZE } from '@/static/styles/variable';
+
+const { STREAM_CARD_WIDTH } = VAR_SIZE;
 
 // 방송 카드 박스
 export const StreamCard = styled.li`
   ${STYLE_BOX_SHADOW};
-  width: 369px;
+  width: ${STREAM_CARD_WIDTH};
 `;
 
 // 방송 썸네일 박스

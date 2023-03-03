@@ -6,7 +6,7 @@ import { pxToRem } from '@/static/styles/common';
 import { VAR_COLOR, VAR_SIZE } from '@/static/styles/variable';
 
 const { COLOR_PRIMARY, COLOR_WHITE, COLOR_GRAY } = VAR_COLOR;
-const { CONTENT_WIDTH } = VAR_SIZE;
+const { CONTENT_WIDTH, GAME_CARD_WIDTH } = VAR_SIZE;
 
 // * style
 export const Section = styled.div`
@@ -16,20 +16,26 @@ export const Section = styled.div`
   }
 `;
 export const InfoBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto 1fr;
 `;
+
 export const CoverImgBox = styled.div`
-  padding-right: 50px;
-  width: 300px;
+  margin-right: 48px;
+  width: 376px;
+  height: 490px;
+  flex: 0 0 auto;
+  position: relative;
   img {
     display: inline-block;
     width: 100%;
     box-sizing: border-box;
   }
 `;
+
 export const InfoText = styled.div`
-  width: calc(${CONTENT_WIDTH} - 350px);
+  flex: 1 1 auto;
+  //width: calc(${CONTENT_WIDTH} - 350px);
   & > h3 {
     width: 100%;
     line-height: 1.4;
@@ -175,10 +181,12 @@ export const MediaModalContent = styled.div`
   align-items: center;
   & > div {
     width: 900px;
+    height: 518px;
     background: #000;
     display: flex;
     justify-content: center;
     margin: 0 20px;
+    position: relative;
     & > * {
       user-select: none;
     }
@@ -198,10 +206,7 @@ export const MediaModalContent = styled.div`
   }
 `;
 export const RecentGameList = styled(List)`
-  & > li {
-    margin-right: 20px;
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
+  display: grid;
+  grid-template-columns: repeat(5, ${GAME_CARD_WIDTH});
+  justify-content: space-between;
 `;

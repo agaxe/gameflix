@@ -23,7 +23,7 @@ export const StreamList = ({ items }: StreamListProps) => {
           <React.Fragment key={`${game.num}-${game.game}`}>
             <S.LiveListBox>
               <S.GameTitle>{game.game}</S.GameTitle>
-              <List justify='space-between'>
+              <S.LiveStreamList>
                 {game.streamers.map((streamer) => (
                   <React.Fragment key={streamer.id}>
                     <StreamCard
@@ -36,7 +36,7 @@ export const StreamList = ({ items }: StreamListProps) => {
                     />
                   </React.Fragment>
                 ))}
-              </List>
+              </S.LiveStreamList>
             </S.LiveListBox>
           </React.Fragment>
         ))
