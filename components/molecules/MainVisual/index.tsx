@@ -9,7 +9,7 @@ import * as S from './styles';
 SwiperCore.use([Pagination, Autoplay]);
 
 export const MainVisual = ({
-  comingSoonData,
+  comingSoonGames = [],
   className = ''
 }: MainVisualProps) => {
   return (
@@ -19,8 +19,8 @@ export const MainVisual = ({
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
       >
-        {comingSoonData &&
-          comingSoonData.map((item, idx) => {
+        {comingSoonGames.length &&
+          comingSoonGames.map((item, idx) => {
             const date = new Date(item.first_release_date * 1000);
             const year = date.getFullYear();
             const month = date.getMonth() + 1;

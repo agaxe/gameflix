@@ -1,22 +1,19 @@
 import React from 'react';
 import { MainPageTemp } from '@/components/templates';
+import { MainPageTempProps } from '@/components/templates/MainPageTemp/interface';
 import { useGameApi } from '@/hooks/useGameApi';
 import { useTwitchApi } from '@/hooks/useTwitchApi';
 
-//* type
-type MainPageProps = {
-  gameList: any[];
-  streamList: any[];
-  comingSoonList: any[];
-};
-
-// * component
-function MainPage({ gameList, streamList, comingSoonList }: MainPageProps) {
+function MainPage({
+  comingSoonGames,
+  popularGames,
+  liveGameStreams = []
+}: MainPageTempProps) {
   return (
     <MainPageTemp
-      gameListData={gameList}
-      streamListData={streamList}
-      comingSoonData={comingSoonList}
+      comingSoonGames={comingSoonGames}
+      popularGames={popularGames}
+      liveGameStreams={liveGameStreams}
     />
   );
 }
@@ -29,7 +26,7 @@ export async function getServerSideProps() {
   const prevMonth = Math.floor(today.setMonth(today.getMonth() - 3) / 1000);
 
   // ? 인기 게임 리스트
-  const gameList = await useGameApi({
+  const popularGames = await useGameApi({
     endPoint: 'games',
     fields: 'name, aggregated_rating, cover.image_id',
     where: `first_release_date >= ${prevMonth} & rating >= 70 & rating <= 90 & aggregated_rating != null`,
@@ -38,7 +35,7 @@ export async function getServerSideProps() {
   });
 
   // ? 발매 예정 게임
-  const comingSoonList = await useGameApi({
+  const comingSoonGames = await useGameApi({
     endPoint: 'games',
     fields: 'name, screenshots.image_id, first_release_date',
     where: `first_release_date > ${todayTimeStamp} & screenshots != null`,
@@ -47,40 +44,46 @@ export async function getServerSideProps() {
   });
 
   // ? 게임 방송 리스트
-  const streamListFunc = async () => {
-    // 상위 5위 게임
-    const gameTop = await useTwitchApi('games/top?first=5').then((res) =>
-      res.data.filter((item, idx) => item.id !== '509658' && idx < 4)
+  const getStreamsData = async () => {
+    const justChattingId = '509658';
+
+    const gameTop3 = await useTwitchApi('games/top?first=5').then((res) =>
+      res.data.filter((item, idx) => item.id !== justChattingId && idx <= 3)
     );
 
-    // 해당 게임의 스트리머 정보 ( 아이디 x )
-    let gameStreamer = await gameTop.map(async (item) => {
-      const data = await useTwitchApi(`streams?game_id=${item.id}&first=3`);
-      return data.data;
-    });
-    gameStreamer = await Promise.all(gameStreamer);
-
-    // 게임정보 + 스트리머 정보 ( 아이디 o )
-    const gameStreamInfo = await Promise.all(
-      gameTop.map(async (game, index) => {
+    return await Promise.all(
+      gameTop3.map(async (game, index) => {
+        const streams = await useTwitchApi(
+          `streams?game_id=${game.id}&first=3`
+        );
         const streamers = await Promise.all(
-          gameStreamer[index].map((item, idx) => {
-            return useTwitchApi(`users?id=${item['user_id']}`).then((res) => {
-              return { ...item, ...res.data[0] };
-            });
+          streams.data.map(async (stream) => {
+            const { thumbnail_url, viewer_count, title } = stream;
+            const user = await useTwitchApi(`users?id=${stream['user_id']}`);
+            const { id, login, display_name, profile_image_url } = user.data[0];
+
+            return {
+              id,
+              thumbnail_url,
+              viewer_count,
+              title,
+              login,
+              display_name,
+              profile_image_url
+            };
           })
         );
+
         return {
-          num: index,
           game: game.name,
-          game_img: game.box_art_url,
+          num: index,
           streamers
         };
       })
     );
-    return gameStreamInfo;
   };
-  const streamList = await streamListFunc();
 
-  return { props: { gameList, comingSoonList, streamList } };
+  const liveGameStreams = await getStreamsData();
+
+  return { props: { popularGames, comingSoonGames, liveGameStreams } };
 }

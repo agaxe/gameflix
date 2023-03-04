@@ -9,17 +9,11 @@ import * as S from './styles';
 /**
  * - molecules/StreamCard 를 사용한 방송 리스트 입니다.
  */
-export const StreamList = ({ items }: StreamListProps) => {
-  const [liveStreamList, setLiveList] = useState([]);
-
-  useEffect(() => {
-    items.length && setLiveList(items);
-  }, [items]);
-
+export const StreamList = ({ items = [] }: StreamListProps) => {
   return (
     <>
-      {liveStreamList.length ? (
-        liveStreamList.map((game) => (
+      {items.length ? (
+        items.map((game) => (
           <React.Fragment key={`${game.num}-${game.game}`}>
             <S.LiveListBox>
               <S.GameTitle>{game.game}</S.GameTitle>

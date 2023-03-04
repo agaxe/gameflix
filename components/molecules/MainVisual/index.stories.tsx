@@ -24,7 +24,7 @@ export function mainVisaul() {
     first_release_date: dummyGames.first_release_date
   }));
 
-  return <MainVisualSB comingSoonData={data} />;
+  return <MainVisualSB comingSoonGames={data} />;
 }
 
 const MainVisualSB = styled(MainVisual)`

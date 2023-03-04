@@ -1,7 +1,6 @@
 import { HTMLAttributes } from 'react';
+import { MainPageTempProps } from '@/components/templates/MainPageTemp/interface';
 
 // * type
-export interface MainVisualProps extends HTMLAttributes<HTMLDivElement> {
-  /** 발매예정 게임 데이터 */
-  comingSoonData: any[];
-}
+export type MainVisualProps = HTMLAttributes<HTMLDivElement> &
+  Pick<MainPageTempProps, 'comingSoonGames'>;
