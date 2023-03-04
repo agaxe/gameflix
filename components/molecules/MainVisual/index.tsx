@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import SwiperCore, { Autoplay, Pagination } from 'swiper';
+import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
 import { MainVisualProps } from './interface';
