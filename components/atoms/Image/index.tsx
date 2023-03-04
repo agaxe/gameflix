@@ -7,7 +7,7 @@ interface ImageProps extends NextImageProps {
 }
 
 export const Image = ({ src = '', fallbackSrc = '', ...rest }: ImageProps) => {
-  const [imgSrc, setImgSrc] = useState<typeof src>('');
+  const [imgSrc, setImgSrc] = useState<typeof src>(src);
   const blurDataUrl =
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8+O1bPQAJGwNesYV0lwAAAABJRU5ErkJggg==';
 
@@ -17,8 +17,8 @@ export const Image = ({ src = '', fallbackSrc = '', ...rest }: ImageProps) => {
 
   return (
     <NextImage
-      src={imgSrc}
       {...rest}
+      src={imgSrc}
       fill={true}
       placeholder='blur'
       blurDataURL={blurDataUrl}
