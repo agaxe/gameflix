@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { Image } from '@/components/atoms/Image';
 import { Skeleton } from '@/components/atoms/Skeleton';
 import { IGDB_COVER_URL } from '@/common/variables';
 import { GameItemProps } from './interface';
@@ -39,8 +40,8 @@ export const GameItem = ({
       ) : (
         <Link href={`/detail?id=${id}`}>
           <S.CoverImg>
-            <S.Img
-              src={`${IGDB_COVER_URL}${cover}.jpg`}
+            <Image
+              src={`${IGDB_COVER_URL}/${cover}.jpg`}
               alt={`${name}-cover`}
             />
           </S.CoverImg>

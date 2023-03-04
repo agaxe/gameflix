@@ -14,11 +14,7 @@ export const GameCard = styled.li`
 export const ImgBox = styled.div`
   width: 100%;
   height: 293px;
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+  position: relative;
 `;
 // 게임 카드 정보 박스
 export const GameCardText = styled.div`

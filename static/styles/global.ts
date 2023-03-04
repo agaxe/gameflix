@@ -1,9 +1,8 @@
-import { pxToRem } from '@/static/styles/common';
 import { css } from 'styled-components';
-import { VAR_COLOR, VAR_SIZE } from './variable';
+import { pxToRem } from '@/static/styles/common';
+import { VAR_SIZE } from './variable';
 
 const { BASE_FONT_SIZE, CONTENT_WIDTH, HEADER_HEIGHT } = VAR_SIZE;
-const { COLOR_GRAY } = VAR_COLOR;
 
 const GlobalStyle = css`
   html {
@@ -33,9 +32,6 @@ const GlobalStyle = css`
       }
       p {
         font-size: 1rem;
-      }
-      img {
-        background: ${COLOR_GRAY};
       }
     }
   }

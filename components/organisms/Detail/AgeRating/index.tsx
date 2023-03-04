@@ -1,6 +1,7 @@
 import React from 'react';
-import { Item } from '@/components/atoms/Item';
+import { Image } from '@/components/atoms/Image';
 import { DetailNoGameInfoTitle } from '@/components/molecules/Detail/NoGameInfoTitle';
+import { IGDB_COVER_URL } from '@/common/variables';
 import * as S from './styles';
 
 interface DeatailAgeRatingProps {
@@ -23,15 +24,16 @@ export const DeatailAgeRating = ({
       {ageRatings.length ? (
         <S.AgeRatingList>
           {ageRatings.map((item, idx) => (
-            <Item key={idx}>
-              <img
+            <S.AgeRatingItem key={idx}>
+              <Image
                 src={`/static/images/game_rating/${ageRatingImg(
                   item.category,
                   item.rating
                 )}`}
                 alt={`${ageRatingImg(item.category, item.rating)}`}
+                fallbackSrc={`${IGDB_COVER_URL}/undefined.jpg`}
               />
-            </Item>
+            </S.AgeRatingItem>
           ))}
         </S.AgeRatingList>
       ) : (

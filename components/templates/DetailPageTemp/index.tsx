@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MdChevronLeft, MdChevronRight, MdPlayArrow } from 'react-icons/md';
 import SwiperCore, { Navigation } from 'swiper';
 import { SwiperSlide } from 'swiper/react';
+import { Image } from '@/components/atoms/Image';
 import { List } from '@/components/atoms/List';
 import { GameCard } from '@/components/molecules/GameCard';
 import { SectionTitle } from '@/components/molecules/SectionTitle';
@@ -26,8 +27,8 @@ export const DetailPageTemp = ({
   recentGamesData
 }: DetailPageProps) => {
   const [currentTabMenu, setCurrentTabMenu] = useState(1);
-  const [isShowMediaModal, setIsShowMediaModal] = useState(false);
   const [currentModalIdx, setCurrentModalIdx] = useState(0);
+  const [isShowMediaModal, setIsShowMediaModal] = useState(false);
 
   const {
     name,
@@ -102,9 +103,10 @@ export const DetailPageTemp = ({
       <S.Section>
         <S.InfoBox>
           <S.CoverImgBox>
-            <img
-              src={`${IGDB_COVER_URL}${coverImg}.jpg`}
-              alt={`${detailData.name}-cover`}
+            <Image
+              src={`${IGDB_COVER_URL}/${coverImg}.jpg`}
+              alt={`${detailData.name} cover image`}
+              fill={false}
             />
           </S.CoverImgBox>
           <S.InfoText>
@@ -188,9 +190,9 @@ export const DetailPageTemp = ({
                   )}
                   <div>
                     {mediaContents[currentModalIdx]?.image_id ? (
-                      <img
-                        src={`//images.igdb.com/igdb/image/upload/t_original/${mediaContents[currentModalIdx].image_id}.jpg`}
-                        alt=''
+                      <Image
+                        src={`http://images.igdb.com/igdb/image/upload/t_original/${mediaContents[currentModalIdx].image_id}.jpg`}
+                        alt={`${name} image ${currentModalIdx}`}
                       />
                     ) : (
                       <iframe

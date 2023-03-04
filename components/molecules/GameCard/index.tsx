@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { Image } from '@/components/atoms/Image';
 import { Skeleton } from '@/components/atoms/Skeleton';
 import { IGDB_COVER_URL } from '@/common/variables';
 import { GameCardProps } from './interface';
@@ -42,7 +43,10 @@ export const GameCard = ({
       ) : (
         <Link href={`/detail?id=${id}`}>
           <S.ImgBox>
-            <img src={`${IGDB_COVER_URL}${cover}.jpg`} alt={`${name}-cover`} />
+            <Image
+              src={`${IGDB_COVER_URL}/${cover}.jpg`}
+              alt={`${name}-cover`}
+            />
           </S.ImgBox>
           <S.GameCardText>
             <strong>{name}</strong>

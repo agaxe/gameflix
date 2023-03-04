@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar } from '@/components/atoms/Avatar';
+import { Image } from '@/components/atoms/Image';
 import { Item } from '@/components/atoms/Item';
 import { List } from '@/components/atoms/List';
 import { Skeleton } from '@/components/atoms/Skeleton';
@@ -54,7 +55,7 @@ export const StreamCard = ({
         >
           <S.Thumbnail>
             <S.LiveLabel>LIVE</S.LiveLabel>
-            <img src={thumbnailUrl} alt={`${id}_thumbnail`} />
+            <Image src={thumbnailUrl} alt={`${id}_thumbnail`} />
             <S.ViewerBox>시청자 {viewer.toLocaleString()}명</S.ViewerBox>
           </S.Thumbnail>
           <S.StreamerInfo>

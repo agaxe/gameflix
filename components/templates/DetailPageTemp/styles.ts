@@ -190,10 +190,6 @@ export const MediaModalContent = styled.div`
     & > * {
       user-select: none;
     }
-    & > img {
-      max-width: 100%;
-      max-height: 80vh;
-    }
     & > iframe {
       width: 100%;
       height: 500px;
