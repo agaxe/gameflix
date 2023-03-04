@@ -18,10 +18,6 @@ export const Header = styled.header`
   align-items: center;
   padding: 0 50px;
   box-sizing: border-box;
-  svg {
-    width: 20px;
-    height: 20px;
-  }
 `;
 
 // 헤더 - 검색 input
