@@ -22,6 +22,7 @@ export const Image = ({ src = '', fallbackSrc = '', ...rest }: ImageProps) => {
       fill={true}
       placeholder='blur'
       blurDataURL={blurDataUrl}
+      sizes='100%'
       onError={() => {
         setImgSrc(fallbackSrc);
       }}
