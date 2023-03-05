@@ -5,7 +5,7 @@ interface ErrorPageTempProps {
   statusCode: number;
 }
 
-export function ErrorPageTemp({ statusCode }: ErrorPageTempProps) {
+export const ErrorPageTemp = ({ statusCode }: ErrorPageTempProps) => {
   return (
     <S.ErrorWrap>
       <div>
@@ -17,4 +17,4 @@ export function ErrorPageTemp({ statusCode }: ErrorPageTempProps) {
       </div>
     </S.ErrorWrap>
   );
-}
+};

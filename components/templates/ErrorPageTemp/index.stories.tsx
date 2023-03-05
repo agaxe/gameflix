@@ -1,5 +1,5 @@
 import { number, withKnobs } from '@storybook/addon-knobs';
-import ErrorPageTemp from './index';
+import { ErrorPageTemp } from './index';
 
 export default {
   title: 'component/templates/ErrorPageTemp',

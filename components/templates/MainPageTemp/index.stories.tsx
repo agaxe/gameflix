@@ -1,5 +1,5 @@
 import { boolean, withKnobs } from '@storybook/addon-knobs';
-import MainPageTemp from './index';
+import { MainPageTemp } from './index';
 import dummyData from '.storybook/dummyData.json';
 
 export default {
