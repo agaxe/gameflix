@@ -15,28 +15,33 @@ export const useGameApi = async (options: useGameApiProps) => {
   const TWITCH_ACCESS_TOKEN_URL = process.env.TWITCH_ACCESS_TOKEN_URL;
   const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
 
-  // access_token
-  const access_token = await Axios.post(TWITCH_ACCESS_TOKEN_URL).then(
-    (res) => res.data.access_token
-  );
+  return new Promise(async (resolve, reject) => {
+    const access_token = await Axios.post(TWITCH_ACCESS_TOKEN_URL).then(
+      (res) => res.data.access_token
+    );
 
-  // api
-  const fieldsValue = fields ? `fields ${fields};` : '';
-  const whereValue = where ? `where ${where};` : '';
-  const sortValue = sort ? `sort ${sort};` : '';
-  const limitValue = limit ? `limit ${limit};` : '';
-  const optionsValue = `${fieldsValue}${whereValue}${sortValue}${limitValue}`;
+    if (!access_token) reject(new Error(`TWITCH ACCESS TOKEN ERROR`));
 
-  const result = await Axios({
-    url: `https://api.igdb.com/v4/${endPoint}`,
-    method: 'post',
-    headers: {
-      Accept: 'application/json',
-      'Client-ID': TWITCH_CLIENT_ID,
-      Authorization: `Bearer ${access_token}`
-    },
-    data: optionsValue
+    // api
+    const fieldsValue = fields ? `fields ${fields};` : '';
+    const whereValue = where ? `where ${where};` : '';
+    const sortValue = sort ? `sort ${sort};` : '';
+    const limitValue = limit ? `limit ${limit};` : '';
+    const optionsValue = `${fieldsValue}${whereValue}${sortValue}${limitValue}`;
+
+    const result = await Axios({
+      url: `https://api.igdb.com/v4/${endPoint}`,
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Client-ID': TWITCH_CLIENT_ID,
+        Authorization: `Bearer ${access_token}`
+      },
+      data: optionsValue
+    });
+
+    if (!result?.data) reject(new Error(`GAME DATA NOT FOUND`));
+
+    resolve(result.data);
   });
-
-  return result.data;
 };

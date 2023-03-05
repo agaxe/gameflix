@@ -55,7 +55,7 @@ export async function getServerSideProps({ query }) {
     limit: 500
   };
 
-  const searchList = await useGameApi(options);
+  const searchList = ((await useGameApi(options)) as any[]) || [];
 
   // 검색결과 여부에 따른 전달값 조건문
   if (searchList.length) {
