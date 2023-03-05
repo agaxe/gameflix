@@ -41,7 +41,7 @@ export const GameCard = ({
       {skeleton ? (
         <GameCardSkeleton />
       ) : (
-        <Link href={`/detail?id=${id}`}>
+        <Link href={`/detail/${id}`}>
           <S.ImgBox>
             <Image
               src={`${IGDB_COVER_URL}/${cover}.jpg`}

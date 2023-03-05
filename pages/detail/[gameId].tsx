@@ -71,8 +71,8 @@ function DetailPage({ data }: DetailPageProps) {
 export default DetailPage;
 
 // * getServerSideProps
-export async function getServerSideProps({ query }) {
-  const { id } = query;
+export async function getServerSideProps({ params }) {
+  const { gameId: id } = params;
 
   const detailData = await useGameApi({
     endPoint: 'games',

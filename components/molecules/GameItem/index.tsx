@@ -38,7 +38,7 @@ export const GameItem = ({
       {skeleton ? (
         <GameItemSkeleton />
       ) : (
-        <Link href={`/detail?id=${id}`}>
+        <Link href={`/detail/${id}`}>
           <S.CoverImg>
             <Image
               src={`${IGDB_COVER_URL}/${cover}.jpg`}

@@ -29,7 +29,7 @@ export const MainVisual = ({
 
             return (
               <SwiperSlide key={idx}>
-                <Link href={`/detail?id=${item.id}`}>
+                <Link href={`/detail/${item.id}`}>
                   <S.MainVisual
                     background={`//images.igdb.com/igdb/image/upload/t_screenshot_big/${item.screenshots[0].image_id}.jpg`}
                   >
