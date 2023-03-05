@@ -1,55 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { DetailPageTemp } from '@/components/templates/DetailPageTemp';
+import { DetailPageTempProps } from '@/components/templates/DetailPageTemp/interface';
 import { SITE_KO_NAME } from '@/common/variables';
+import { NO_COVER_IMAGE } from '@/common/variables';
 import { useGameApi } from '@/hooks/useGameApi';
 
-// * type
-type DetailPageProps = {
-  data: any;
-};
-
 // * component
-function DetailPage({ data }: DetailPageProps) {
-  const NO_COVER_IMAGE = process.env.NO_COVER_IMAGE;
-  const { detailData, similarGameData } = data;
-  const { name, first_release_date } = detailData;
+function DetailPage({
+  data,
+  similarGames = []
+}: Omit<DetailPageTempProps, 'recentGames'>) {
+  const { name, first_release_date } = data;
   const [recentGames, setRecentGames] = useState([]);
 
   useEffect(() => {
     const localRecentGames = JSON.parse(localStorage.getItem('recentGames'));
 
-    const coverData = detailData.cover
-      ? detailData.cover
+    const coverData = data.cover
+      ? data.cover
       : {
           image_id: NO_COVER_IMAGE
         };
 
     const currentGameInfo = {
-      id: detailData.id,
+      id: data.id,
       cover: coverData,
-      name: detailData.name,
-      aggregated_rating: detailData.aggregated_rating
+      name: data.name,
+      aggregated_rating: data.aggregated_rating
     };
 
-    // 기존 정보가 있을 경우
-    if (localRecentGames) {
-      const oldRecentGames = localRecentGames.filter((item, idx) => idx < 4);
-
-      // '최근 본 게임' 에서 현재 게임이 없는 경우
-      if (localRecentGames.every((item) => item.id !== currentGameInfo.id)) {
-        const newGameInfo = [currentGameInfo, ...oldRecentGames];
-
-        localStorage.setItem('recentGames', JSON.stringify(newGameInfo));
-        setRecentGames(newGameInfo);
-      } else {
-        setRecentGames(localRecentGames);
-      }
-    } else {
+    if (!localRecentGames) {
       localStorage.setItem('recentGames', JSON.stringify([currentGameInfo]));
       setRecentGames([currentGameInfo]);
+      return;
     }
-  }, [detailData]);
+
+    // '최근 본 게임' 에서 현재 게임이 없는 경우
+    if (localRecentGames.every((item) => item.id !== currentGameInfo.id)) {
+      const oldRecentGames = localRecentGames.filter((item, idx) => idx < 4);
+      const newGameInfo = [currentGameInfo, ...oldRecentGames];
+
+      localStorage.setItem('recentGames', JSON.stringify(newGameInfo));
+      setRecentGames(newGameInfo);
+      return;
+    }
+
+    setRecentGames(localRecentGames);
+  }, [data]);
 
   return (
     <>
@@ -61,22 +59,22 @@ function DetailPage({ data }: DetailPageProps) {
         </title>
       </Head>
       <DetailPageTemp
-        detailData={detailData}
-        similarGameData={similarGameData}
-        recentGamesData={recentGames}
+        data={data}
+        similarGames={similarGames}
+        recentGames={recentGames}
       />
     </>
   );
 }
 export default DetailPage;
 
-// * getServerSideProps
 export async function getServerSideProps({ params }) {
   const { gameId: id } = params;
 
-  const detailData = await useGameApi({
-    endPoint: 'games',
-    fields: `
+  try {
+    const data = await useGameApi({
+      endPoint: 'games',
+      fields: `
 			name,
 			aggregated_rating,
 			summary,
@@ -90,53 +88,59 @@ export async function getServerSideProps({ params }) {
 			videos.video_id,
       age_ratings.*
       `,
+      where: `id = ${id}`,
+      sort: ''
+    });
+    const gameData = data[0];
 
-    where: `id = ${id}`,
-    sort: ''
-  });
+    const similarGenreIds: string = gameData.genres
+      ? gameData.genres.map((item) => item.id).toString()
+      : '';
 
-  const similarGenre = detailData[0].genres
-    ? detailData[0].genres.map((item) => item.id).toString()
-    : null;
-
-  // 비슷한 게임
-  const optionsFunc = (genres, id, limit) => {
-    return {
-      endPoint: 'games',
-      fields: `
+    // 비슷한 게임
+    const getGameOption = (genres: string, id: string, limit: number) => {
+      return {
+        endPoint: 'games',
+        fields: `
 					name,
 					cover.image_id,
 					aggregated_rating
 				`,
-      where: `genres = ${genres} & aggregated_rating != null & id != (${id})`,
-      sort: 'aggregated_rating desc',
-      limit: limit
+        where: `genres = ${genres} & aggregated_rating != null & id != (${id})`,
+        sort: 'aggregated_rating desc',
+        limit: limit
+      };
     };
-  };
 
-  let similarGameData = similarGenre
-    ? await useGameApi(
-        optionsFunc(`[${similarGenre}]`, `${detailData[0].id}`, 5)
-      )
-    : [];
+    let similarGames =
+      ((await useGameApi(
+        getGameOption(`[${similarGenreIds}]`, `${gameData.id}`, 5)
+      )) as any[]) || [];
 
-  // 비슷한 게임의 갯수가 5개 미만인 경우 게임 추가
-  if (!similarGameData.length || similarGameData.length < 5) {
-    const moreLength = similarGameData.length ? 5 - similarGameData.length : 5;
-    const similarGameDataId = similarGameData.length
-      ? `,${similarGameData.map((item) => item.id).toString()}`
-      : '';
-    const moreOptions = optionsFunc(
-      `(${similarGenre})`,
-      `${detailData[0].id}${similarGameDataId}`,
-      moreLength
-    );
-    similarGameData = similarGameData.concat(await useGameApi(moreOptions));
-  }
+    // 비슷한 게임의 갯수가 5개 미만인 경우 게임 추가
+    if (!similarGames.length || similarGames.length < 5) {
+      const moreLength = similarGames.length ? 5 - similarGames.length : 5;
+      const similarGameDataId = similarGames.length
+        ? `,${similarGames.map((item) => item.id).toString()}`
+        : '';
 
-  return {
-    props: {
-      data: { success: true, detailData: detailData[0], similarGameData }
+      const moreOptions = getGameOption(
+        `(${similarGenreIds})`,
+        `${gameData.id}${similarGameDataId}`,
+        moreLength
+      );
+      similarGames = similarGames.concat(await useGameApi(moreOptions));
     }
-  };
+
+    return {
+      props: {
+        data: gameData,
+        similarGames
+      }
+    };
+  } catch (error) {
+    return {
+      notFound: true
+    };
+  }
 }

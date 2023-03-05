@@ -16,16 +16,16 @@ import { getUnixTimeStampToDate } from '@/utils/getUnixTimeStampToDate';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import { tabMenuTitles } from './data';
-import { DetailPageProps } from './interface';
+import { DetailPageTempProps } from './interface';
 import * as S from './styles';
 
 SwiperCore.use([Navigation]);
 
 export const DetailPageTemp = ({
-  detailData,
-  similarGameData,
-  recentGamesData
-}: DetailPageProps) => {
+  data,
+  similarGames,
+  recentGames
+}: DetailPageTempProps) => {
   const [currentTabMenu, setCurrentTabMenu] = useState(1);
   const [currentModalIdx, setCurrentModalIdx] = useState(0);
   const [isShowMediaModal, setIsShowMediaModal] = useState(false);
@@ -43,7 +43,7 @@ export const DetailPageTemp = ({
     websites,
     screenshots = [],
     videos = []
-  } = detailData;
+  } = data;
 
   //게임 정보
   const coverImg = cover?.image_id || NO_COVER_IMAGE;
@@ -105,7 +105,7 @@ export const DetailPageTemp = ({
           <S.CoverImgBox>
             <Image
               src={`${IGDB_COVER_URL}/${coverImg}.jpg`}
-              alt={`${detailData.name} cover image`}
+              alt={`${data.name} cover image`}
               fill={false}
             />
           </S.CoverImgBox>
@@ -212,17 +212,17 @@ export const DetailPageTemp = ({
           )}
         </S.Section>
       ) : null}
-      {similarGameData.length ? (
+      {similarGames.length ? (
         <S.Section>
           <SectionTitle title='비슷한 게임' />
-          <GameList data={similarGameData} />
+          <GameList data={similarGames} />
         </S.Section>
       ) : null}
       <S.Section>
         <SectionTitle title='최근 본 게임' />
         <S.RecentGameList>
-          {recentGamesData.length
-            ? recentGamesData.map((item) => (
+          {recentGames.length
+            ? recentGames.map((item) => (
                 <GameCard
                   key={item.id}
                   id={item.id}
