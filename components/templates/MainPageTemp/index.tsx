@@ -6,11 +6,11 @@ import { GameList } from '@/components/organisms/GameList';
 import { StreamList } from '@/components/organisms/StreamList';
 import { MainPageTempProps } from './interface';
 
-function MainPageTemp({
+export const MainPageTemp = ({
   comingSoonGames,
   popularGames,
   liveGameStreams
-}: MainPageTempProps) {
+}: MainPageTempProps) => {
   return (
     <>
       <MainVisual comingSoonGames={comingSoonGames} />
@@ -26,8 +26,7 @@ function MainPageTemp({
       </MainPageSection>
     </>
   );
-}
-export default MainPageTemp;
+};
 
 const MainPageSection = styled.section`
   padding-top: 100px;

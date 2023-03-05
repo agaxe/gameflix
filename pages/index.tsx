@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainPageTemp } from '@/components/templates';
+import { MainPageTemp } from '@/components/templates/MainPageTemp';
 import { MainPageTempProps } from '@/components/templates/MainPageTemp/interface';
 import { useGameApi } from '@/hooks/useGameApi';
 import { useTwitchApi } from '@/hooks/useTwitchApi';
