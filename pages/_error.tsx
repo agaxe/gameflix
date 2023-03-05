@@ -1,4 +1,4 @@
-import { ErrorPageTemp } from '@/components/templates';
+import { ErrorPageTemp } from '@/components/templates/ErrorPageTemp';
 
 function Error({ statusCode }) {
   return <ErrorPageTemp statusCode={statusCode} />;
