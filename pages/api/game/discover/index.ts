@@ -1,7 +1,7 @@
 import { useGameApi } from '@/hooks/useGameApi';
 
 export default async function handler(req, res) {
-  const { genresCheck, releaseDate, ratingScore, sort } = req.query;
+  const { checkedGenres, releaseDate, ratingScore, sortValue } = req.query;
 
   // 배열로 변환
   const stringToArray = (string) => string.split(',');
@@ -16,10 +16,10 @@ export default async function handler(req, res) {
 
   const releaseArray = stringToArray(releaseDate);
   const ratingArray = stringToArray(ratingScore);
-  const sortArray = stringToArray(sort);
+  const sortArray = stringToArray(sortValue);
 
   // 필터링 조건값
-  const genresValue = genresCheck ? `= (${genresCheck})` : '!= null';
+  const genresValue = checkedGenres ? `= (${checkedGenres})` : '!= null';
   const releaseValue = `( first_release_date >= ${stringToTimeStamp(
     releaseArray[0],
     'start'
@@ -28,13 +28,12 @@ export default async function handler(req, res) {
     ratingArray[0] === ratingArray[1]
       ? `aggregated_rating = ${ratingArray[0]}`
       : `(aggregated_rating >= ${ratingArray[0]} & aggregated_rating <= ${ratingArray[1]})`;
-  const sortValue = `${sortArray[0]} ${sortArray[1]}`;
 
   const options = {
     endPoint: 'games',
     fields: 'name, aggregated_rating, cover.image_id',
     where: `genres ${genresValue} & ${ratingValue} & ${releaseValue}`,
-    sort: `${sortValue}`,
+    sort: `${sortArray[0]} ${sortArray[1]}`,
     limit: 500
   };
 

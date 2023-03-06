@@ -2,52 +2,51 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Axios from 'axios';
-import { DiscoverPageTemp } from '@/components/templates';
+import { DiscoverPageTemp } from '@/components/templates/DiscoverPageTemp';
+import { Filters } from '@/components/templates/DiscoverPageTemp/interface';
 import { SITE_KO_NAME } from '@/common/variables';
 import { useGameApi } from '@/hooks/useGameApi';
 
 // * type
 type DiscoverPageProps = {
-  /** 장르 리스트 */
-  genreList: any[];
+  genres: object[]; // 장르 리스트
 };
 
 // * component
-function DiscoverPage({ genreList }: DiscoverPageProps) {
+function DiscoverPage({ genres = [] }: DiscoverPageProps) {
   const router = useRouter();
-  const [genresCheck, setGenresCheck] = useState([]);
-  const [releaseDate, setReleaseDate] = useState([
-    2016,
-    new Date().getFullYear()
-  ]);
-  const [ratingScore, setRatingScore] = useState([30, 90]);
-  const [sortValue, setSortValue] = useState(['aggregated_rating', 'desc']);
+  const [filters, setFilters] = useState<Filters>({
+    checkedGenres: [],
+    releaseDate: [2016, new Date().getFullYear()],
+    ratingScore: [30, 90],
+    sortValue: ['aggregated_rating', 'desc']
+  });
+  const { checkedGenres, releaseDate, ratingScore, sortValue } = filters;
+
   const [resultData, setResultData] = useState({
     success: null,
     filterGameList: []
   });
 
   // 필터 검색
-  const runFilterSearch = (genres, releaseDate, ratingScore, sortValue) => {
-    setGenresCheck(genres);
-    setReleaseDate(releaseDate);
-    setRatingScore(ratingScore);
-    setSortValue(sortValue);
+  const runFilterSearch = (filters: Filters) => {
+    setFilters(filters);
     router.replace(router.asPath);
   };
 
   useEffect(() => {
-    const filter = {
-      genresCheck: genresCheck.toString(),
-      releaseDate: releaseDate.toString(),
-      ratingScore: ratingScore.toString(),
-      sort: sortValue.toString()
-    };
+    const filterToString = Object.entries(filters).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        [key]: value.toString()
+      }),
+      {}
+    );
 
-    Axios.get(`/api/game/discover`, { params: filter })
+    Axios.get(`/api/game/discover`, { params: filterToString })
       .then((res) => setResultData(res.data))
       .catch((err) => console.log(err));
-  }, [genresCheck, releaseDate, ratingScore, sortValue]);
+  }, [filters, router]);
 
   return (
     <>
@@ -56,8 +55,8 @@ function DiscoverPage({ genreList }: DiscoverPageProps) {
       </Head>
       <DiscoverPageTemp
         data={resultData}
-        genreList={genreList}
-        genresCheckData={genresCheck}
+        genres={genres}
+        checkedGenresData={checkedGenres}
         releaseDateData={releaseDate}
         ratingScoreData={ratingScore}
         sortValueData={sortValue}
@@ -68,7 +67,6 @@ function DiscoverPage({ genreList }: DiscoverPageProps) {
 }
 export default DiscoverPage;
 
-// * getServerSideProps
 export async function getServerSideProps() {
   const options = {
     endPoint: 'genres',
@@ -78,6 +76,6 @@ export async function getServerSideProps() {
   };
 
   // return
-  const genreList = await useGameApi(options);
-  return { props: { genreList } };
+  const genres = await useGameApi(options);
+  return { props: { genres } };
 }

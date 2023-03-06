@@ -1,62 +1,40 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { MdClose, MdTune } from 'react-icons/md';
-import styled from 'styled-components';
-import { Button } from '@/components/atoms/Button';
+import { MdTune } from 'react-icons/md';
 import { CheckBox } from '@/components/atoms/CheckBox';
-import { Item } from '@/components/atoms/Item';
 import { List } from '@/components/atoms/List';
 import { ModalBg } from '@/components/atoms/ModalBg';
 import { NoResult } from '@/components/atoms/NoResult';
-import { Select } from '@/components/atoms/Select';
 import { Skeleton } from '@/components/atoms/Skeleton';
 import { GameCard } from '@/components/molecules/GameCard';
 import { PageTitle } from '@/components/molecules/PageTitle';
 import { RangeSlider } from '@/components/molecules/RangeSlider';
 import { NO_COVER_IMAGE } from '@/common/variables';
-import { PAGE_TITLE_BOTTOM } from '@/static/styles/common';
-import { VAR_COLOR } from '@/static/styles/variable';
+import { sortValues } from './data';
+import { DiscoverPageTempProps, Filters } from './interface';
+import * as S from './styles';
 
-const { COLOR_WHITE } = VAR_COLOR;
-
-// * type
-type DiscoverPageTempProps = {
-  /** 필터링 결과 리스트 */
-  data: { success: boolean; filterGameList: any[] };
-  /** 장르 리스트 */
-  genreList: any[];
-  /** 장르 선택 데이터 */
-  genresCheckData: number[];
-  /** 발매일 선택 데이터 */
-  releaseDateData: number[];
-  /** 평점 선택 데이터 */
-  ratingScoreData: number[];
-  /** 정렬 select 데이터 */
-  sortValueData: string[];
-  /** 필터링 실행 함수 */
-  searchFunc: (genres, releaseDate, ratingScore, sort) => void;
-};
-
-// * component
 /**
  * - 게임들을 여러 조건로 탐색할 수 있는 탐색 페이지 입니다.
  * - 우측의 필터 아이콘을 클릭하면 게임들을 여러 조건으로 검색할 수 있는 메뉴가 생성됩니다.
  * - 탐색결과의 게임 갯수가 특정 수를 넘어가면 무한 스크롤링이 되도록 구현하였습니다.
  */
-function DiscoverPageTemp({
+export const DiscoverPageTemp = ({
   data,
-  genreList,
-  genresCheckData,
+  genres,
+  checkedGenresData,
   releaseDateData,
   ratingScoreData,
   sortValueData,
   searchFunc
-}: DiscoverPageTempProps) {
+}: DiscoverPageTempProps) => {
   const { success, filterGameList } = data;
-  //const NO_COVER_IMAGE = process.env.NO_COVER_IMAGE;
-  const [genresCheck, setGenresCheck] = useState(genresCheckData);
-  const [releaseDate, setReleaseDate] = useState(releaseDateData);
-  const [ratingScore, setRatingScore] = useState(ratingScoreData);
-  const [sortValue, setSortValue] = useState(sortValueData);
+  const [filters, setFilters] = useState<Filters>({
+    checkedGenres: checkedGenresData,
+    releaseDate: releaseDateData,
+    ratingScore: ratingScoreData,
+    sortValue: sortValueData
+  });
+  const { releaseDate, ratingScore } = filters;
   const [maxLength, setMaxLength] = useState(20);
   const [filterMenuState, setFilterMenuState] = useState(false);
   const sortValueArray = [
@@ -75,35 +53,44 @@ function DiscoverPageTemp({
   const selectGenres = (e) => {
     const { name, checked } = e.target;
 
-    if (checked) {
-      setGenresCheck([...genresCheck, name]);
-    } else {
-      setGenresCheck([...genresCheck, name].filter((item) => item !== name));
+    if (!checked) {
+      setFilters((prev) => ({
+        ...prev,
+        checkedGenres: [...prev.checkedGenres, name].filter(
+          (item) => item !== name
+        )
+      }));
+      return;
     }
+
+    setFilters((prev) => ({
+      ...prev,
+      checkedGenres: [...prev.checkedGenres, name]
+    }));
   };
 
   // 필터 검색버튼 클릭
   const runfilterSearch = () => {
-    searchFunc(genresCheck, releaseDate, ratingScore, sortValue);
+    searchFunc(filters);
     window.scrollTo(0, 0);
     setFilterMenuState(false);
     setMaxLength(20);
   };
 
-  // 필터 결과 리스트 이벤트
-  const listScroll = () => {
-    if (GameListRef.current) {
-      const { clientHeight, offsetTop } = GameListRef.current;
-      const { scrollTop } = document.documentElement;
-      const windowHeight = window.innerHeight;
-
-      if (clientHeight + offsetTop - windowHeight <= scrollTop) {
-        setMaxLength(maxLength + 20);
-      }
-    }
-  };
-
   useEffect(() => {
+    // 필터 결과 리스트 이벤트
+    const listScroll = () => {
+      if (GameListRef.current) {
+        const { clientHeight, offsetTop } = GameListRef.current;
+        const { scrollTop } = document.documentElement;
+        const windowHeight = window.innerHeight;
+
+        if (clientHeight + offsetTop - windowHeight <= scrollTop) {
+          setMaxLength(maxLength + 20);
+        }
+      }
+    };
+
     window.addEventListener('scroll', listScroll);
     return () => {
       window.removeEventListener('scroll', listScroll);
@@ -121,11 +108,16 @@ function DiscoverPageTemp({
   // select option 선택
   const onClickSelectOption = (e) => {
     const { name, value } = e.target.dataset;
-    const arraySortValue = value.split('-');
+    const sortValueInfo = { sortValue: value.split('-') };
 
-    setSortValue(arraySortValue);
+    const filterInfo = {
+      ...filters,
+      ...sortValueInfo
+    };
+
     setSortFirstTitle(name);
-    searchFunc(genresCheck, releaseDate, ratingScore, arraySortValue);
+    setFilters(filterInfo);
+    searchFunc(filterInfo);
   };
 
   return (
@@ -135,49 +127,49 @@ function DiscoverPageTemp({
       </PageTitle>
       {success && filterGameList.length ? (
         <>
-          <PageTitleBottom>
+          <S.PageTitleBottom>
             <div>
               총 <strong>{filterGameList.length.toLocaleString()}</strong> 개의
               게임을 발견했습니다!
             </div>
-            <DiscoverSelect
+            <S.DiscoverSelect
               width='150px'
               firstTitle={sortFirstTitle}
               onClick={onClickSelectOption}
-              options={sortValueArray}
+              options={sortValues}
             />
-          </PageTitleBottom>
+          </S.PageTitleBottom>
           <div ref={GameListRef}>
-            <GameList justify='flex-start'>
+            <S.GameList justify='flex-start'>
               {filterGameList.slice(0, maxLength).map((item, idx) => (
                 <React.Fragment key={idx}>
                   <GameCard
                     id={item.id}
                     key={idx}
-                    cover={item.cover.image_id || NO_COVER_IMAGE}
+                    cover={item?.cover?.image_id || NO_COVER_IMAGE}
                     name={item.name}
                     rating={item.aggregated_rating}
                   />
                 </React.Fragment>
               ))}
-            </GameList>
+            </S.GameList>
           </div>
         </>
       ) : success && !filterGameList.length ? (
         <NoResult title='탐색' />
       ) : (
         <>
-          <PageTitleBottom>
+          <S.PageTitleBottom>
             <Skeleton width={500} height={30} />
             <Skeleton width={140} height={30} />
-          </PageTitleBottom>
-          <GameList>
+          </S.PageTitleBottom>
+          <S.GameList>
             {[...Array(maxLength)].map((item, idx) => (
               <React.Fragment key={idx}>
                 <GameCard skeleton />
               </React.Fragment>
             ))}
-          </GameList>
+          </S.GameList>
         </>
       )}
       <>
@@ -185,131 +177,66 @@ function DiscoverPageTemp({
           state={filterMenuState}
           onClick={() => setFilterMenuState(false)}
         />
-        <FilterMenuBox state={filterMenuState}>
-          <FilterMenuCloseBtn onClick={() => setFilterMenuState(false)} />
-          <FilterMenu>
+        <S.FilterMenuBox state={filterMenuState}>
+          <S.FilterMenuCloseBtn onClick={() => setFilterMenuState(false)} />
+          <S.FilterMenu>
             <div>
-              <FilterMenuContent>
-                <FilterMenuTitle>장르</FilterMenuTitle>
+              <S.FilterMenuContent>
+                <S.FilterMenuTitle>장르</S.FilterMenuTitle>
                 <List direction='column'>
-                  {genreList.map((item, idx) => (
+                  {genres.map((item: any, idx) => (
                     <React.Fragment key={idx}>
-                      <FilterMenuItem>
-                        <FilterMenuLabel htmlFor={item.name}>
+                      <S.FilterMenuItem>
+                        <S.FilterMenuLabel htmlFor={item.name}>
                           {item.name}
-                        </FilterMenuLabel>
+                        </S.FilterMenuLabel>
                         <CheckBox
                           id={item.name}
                           name={item.id}
                           onClick={selectGenres}
                         />
-                      </FilterMenuItem>
+                      </S.FilterMenuItem>
                     </React.Fragment>
                   ))}
                 </List>
-              </FilterMenuContent>
-              <FilterMenuContent>
-                <FilterMenuTitle>발매일</FilterMenuTitle>
+              </S.FilterMenuContent>
+              <S.FilterMenuContent>
+                <S.FilterMenuTitle>발매일</S.FilterMenuTitle>
                 <RangeSlider
                   firstValue={releaseDate[0]}
                   lastValue={releaseDate[1]}
                   minRange={1970}
                   maxRange={2021}
-                  setValue={(newValue) => setReleaseDate(newValue)}
+                  setValue={(newValue) =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      releaseDate: newValue
+                    }))
+                  }
                   hasLabel={true}
                 />
-              </FilterMenuContent>
-              <FilterMenuContent>
-                <FilterMenuTitle>평점</FilterMenuTitle>
+              </S.FilterMenuContent>
+              <S.FilterMenuContent>
+                <S.FilterMenuTitle>평점</S.FilterMenuTitle>
                 <RangeSlider
                   firstValue={ratingScore[0]}
                   lastValue={ratingScore[1]}
-                  setValue={(newValue) => setRatingScore(newValue)}
+                  setValue={(newValue) =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      ratingScore: newValue
+                    }))
+                  }
                   hasLabel={true}
                 />
-              </FilterMenuContent>
-              <FilterSearchBtn onClick={runfilterSearch}>검색</FilterSearchBtn>
+              </S.FilterMenuContent>
+              <S.FilterSearchBtn onClick={runfilterSearch}>
+                검색
+              </S.FilterSearchBtn>
             </div>
-          </FilterMenu>
-        </FilterMenuBox>
+          </S.FilterMenu>
+        </S.FilterMenuBox>
       </>
     </section>
   );
-}
-export default DiscoverPageTemp;
-
-// * style
-const PageTitleBottom = styled.div`
-  ${PAGE_TITLE_BOTTOM};
-`;
-const DiscoverSelect = styled(Select)`
-  right: 0;
-  top: 33px;
-`;
-const GameList = styled(List)`
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  li {
-    margin-right: 20px;
-    margin-bottom: 35px;
-    &:nth-child(5n) {
-      margin-right: 0;
-    }
-  }
-`;
-const filterMenuBoxWidth = '410px';
-const FilterMenuBox = styled.div<{ state: boolean }>`
-  position: fixed;
-  right: ${(props) => (props.state ? '0' : `-${filterMenuBoxWidth}`)};
-  transition: right 0.3s;
-  width: ${filterMenuBoxWidth};
-  height: 100%;
-  z-index: 100;
-  top: 0;
-`;
-const FilterMenu = styled.div`
-  position: absolute;
-  z-index: 150;
-  right: 0;
-  top: 0;
-  width: calc(${filterMenuBoxWidth} - 50px);
-  height: 100%;
-  overflow-y: scroll;
-  background: ${COLOR_WHITE};
-  & > div {
-    width: 80%;
-    margin: 0 auto;
-    padding: 45px 0px;
-  }
-`;
-const FilterMenuContent = styled.div`
-  margin-bottom: 40px;
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-`;
-const FilterMenuItem = styled(Item)`
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-`;
-const FilterMenuLabel = styled.label`
-  width: 80%;
-  user-select: none;
-`;
-const FilterMenuTitle = styled.h4`
-  margin-bottom: 25px;
-`;
-const FilterSearchBtn = styled(Button)`
-  width: 100%;
-  margin-top: 65px;
-`;
-const FilterMenuCloseBtn = styled(MdClose)`
-  position: absolute;
-  left: 0;
-  z-index: 200;
-  top: 10px;
-  color: ${COLOR_WHITE};
-  font-size: 40px;
-  cursor: pointer;
-`;
+};
