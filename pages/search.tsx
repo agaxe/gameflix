@@ -1,16 +1,18 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { SearchPageTemp } from '@/components/templates';
+import { SearchPageTemp } from '@/components/templates/SearchPageTemp';
 import { SITE_KO_NAME } from '@/common/variables';
 import { useGameApi } from '@/hooks/useGameApi';
+import { getPascalCaseString } from '@/utils/getPascalCaseString';
 
-// * type
-type SearchPageProps = {
-  data: any;
-};
+interface SearchPageProps {
+  data: {
+    searchList: object[];
+    hasResult: boolean;
+  };
+}
 
-// * component
 function SearchPage({ data }: SearchPageProps) {
   const router = useRouter();
 
@@ -29,23 +31,9 @@ function SearchPage({ data }: SearchPageProps) {
 }
 export default SearchPage;
 
-// * getServerSideProps
 export async function getServerSideProps({ query }) {
   const { q } = query;
-
-  // 검색어 앞글자 대문자로 변경
-  function upperCase(search) {
-    const keyWordArray = search.split(' ');
-    const keyWord = String(
-      keyWordArray.map(
-        (item) =>
-          (item = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase())
-      )
-    );
-
-    return keyWord.replace(',', ' ');
-  }
-  const search = q && upperCase(q);
+  const search = q && getPascalCaseString(q);
 
   const options = {
     endPoint: 'games',
@@ -58,11 +46,9 @@ export async function getServerSideProps({ query }) {
   const searchList = ((await useGameApi(options)) as any[]) || [];
 
   // 검색결과 여부에 따른 전달값 조건문
-  if (searchList.length) {
-    return { props: { data: { success: true, searchList, result: 'yes' } } };
-  } else {
-    return {
-      props: { data: { success: false, searchList: [], result: 'no' } }
-    };
-  }
+  return {
+    props: {
+      data: { searchList, hasResult: Boolean(searchList.length) }
+    }
+  };
 }

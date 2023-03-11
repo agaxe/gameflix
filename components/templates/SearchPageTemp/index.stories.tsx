@@ -1,4 +1,4 @@
-import SearchPageTemp from './index';
+import {SearchPageTemp} from './index';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import dummyData from '.storybook/dummyData.json';
 

@@ -1,55 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { MdViewList, MdViewModule } from 'react-icons/md';
-import styled from 'styled-components';
 import { Skeleton } from '@/components/atoms/Skeleton';
 import { PageTitle } from '@/components/molecules/PageTitle';
 import { Pagination } from '@/components/molecules/Pagination';
 import { SearchList } from '@/components/organisms/SearchList';
-import { PAGE_TITLE_BOTTOM } from '@/static/styles/common';
-import { VAR_COLOR } from '@/static/styles/variable';
+import { ListType, SearchPageProps } from './interface';
+import * as S from './styles';
 
-const { COLOR_GRAY } = VAR_COLOR;
-
-// * type
-type SearchPageProps = {
-  /** 검색 결과 데이터 */
-  data: any;
-  /** 스토리북 테스트 검색어*/
-  searchQuerySB?: string;
-};
-
-// * component
-function SearchPageTemp({ data, searchQuerySB }: SearchPageProps) {
-  const [ListType, setListType] = useState('list'); // list | card
+export const SearchPageTemp = ({
+  data = [],
+  searchQuerySB = ''
+}: SearchPageProps) => {
   const router = useRouter();
-  const searchQuery =
-    router.query && router.query.q && !searchQuerySB
-      ? router.query.q
-      : searchQuerySB;
+  const [listType, setListType] = useState<ListType>('LIST');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // * 페이지 네이션
-  // 현재 페이지
-  const [CurrentPage, setCurrentPage] = useState(1);
+  const searchQuery = useMemo(() => {
+    const searchQuery =
+      router.query && router.query.q && !searchQuerySB
+        ? router.query.q
+        : searchQuerySB;
+    return searchQuery;
+  }, [router, searchQuerySB]);
 
-  // 한 페이지에서 보여주려는 컨텐츠의 갯수
-  const PostPerPage = 10;
+  const pagination = useMemo(() => {
+    // 한 페이지에서 보여주려는 컨텐츠의 갯수
+    const PostPerPage = 10;
 
-  // 총 페이지 넘버값 ( 모든 컨텐츠 갯수 / 보여주려는 갯수 )
-  const PageNumberList = data.searchList
-    ? Math.ceil(data.searchList.length / PostPerPage)
-    : 0;
+    // 총 페이지 넘버값 ( 모든 컨텐츠 갯수 / 보여주려는 갯수 )
+    const pageNumberList = data.searchList
+      ? Math.ceil(data.searchList.length / PostPerPage)
+      : 0;
 
-  // 현재 페이지의 컨텐츠의 마지막 인덱스값
-  const indexOfLastPost = CurrentPage * PostPerPage;
+    // 현재 페이지의 컨텐츠의 마지막 인덱스값
+    const indexOfLastPost = currentPage * PostPerPage;
 
-  // 현재 페이지의 컨텐츠의 첫번째 인덱스값
-  const indexOfFirstPost = indexOfLastPost - PostPerPage;
+    // 현재 페이지의 컨텐츠의 첫번째 인덱스값
+    const indexOfFirstPost = indexOfLastPost - PostPerPage;
 
-  // 현재 보여주려는 포스트
-  const currentPosts = data.searchList
-    ? data.searchList.slice(indexOfFirstPost, indexOfLastPost)
-    : [];
+    // 현재 보여주려는 포스트
+    const currentPosts = data.searchList
+      ? data.searchList.slice(indexOfFirstPost, indexOfLastPost)
+      : [];
+
+    return {
+      pageNumberList,
+      currentPosts
+    };
+  }, [data, currentPage]);
 
   useEffect(() => {
     if (router.pathname === '/search' && router.query.page) {
@@ -61,65 +60,39 @@ function SearchPageTemp({ data, searchQuerySB }: SearchPageProps) {
     setCurrentPage(1);
   }, [searchQuery]);
 
-  // 리스트형 아이콘 클릭
-  const ViewList_click = () => {
-    setListType('list');
-  };
-  // 모듈형 아이콘 클릭
-  const ViewModule_click = () => {
-    setListType('card');
-  };
-
   return (
     <section>
       <PageTitle title='검색 결과'>
-        <ListTypeBox type={ListType}>
-          <MdViewList onClick={ViewList_click} />
-          <MdViewModule onClick={ViewModule_click} />
-        </ListTypeBox>
+        <S.ListTypeBox type={listType}>
+          <MdViewList onClick={() => setListType('LIST')} />
+          <MdViewModule onClick={() => setListType('CARD')} />
+        </S.ListTypeBox>
       </PageTitle>
-      {'result' in data && data.result === 'yes' ? (
+      {'hasResult' in data ? (
         <>
-          <PageTitleBottom>
-            <div>
-              <strong>'{searchQuery}'</strong> 에 대한
-              <strong> {data.searchList.length.toLocaleString()}</strong> 개의
-              게임을 검색했습니다!
-            </div>
-          </PageTitleBottom>
+          {data.hasResult ? (
+            <S.PageTitleBottom>
+              <div>
+                <strong>'{searchQuery}'</strong> 에 대한
+                <strong> {data.searchList.length.toLocaleString()}</strong> 개의
+                게임을 검색했습니다!
+              </div>
+            </S.PageTitleBottom>
+          ) : null}
         </>
-      ) : 'result' in data && data.result === 'no' ? null : (
-        <PageTitleBottom>
+      ) : (
+        <S.PageTitleBottom>
           <Skeleton width={500} height={30} />
-        </PageTitleBottom>
+        </S.PageTitleBottom>
       )}
-      <SearchList data={currentPosts} result={data.result} type={ListType} />
-      {PageNumberList !== 0 && (
-        <Pagination length={PageNumberList} current={CurrentPage} />
+      <SearchList
+        data={pagination.currentPosts}
+        hasResult={data.hasResult}
+        type={listType}
+      />
+      {pagination.pageNumberList !== 0 && (
+        <Pagination length={pagination.pageNumberList} current={currentPage} />
       )}
     </section>
   );
-}
-export default SearchPageTemp;
-
-// * defaultProps
-SearchPageTemp.defaultProps = {
-  searchQuerySB: ''
 };
-
-// * style
-const ListTypeBox = styled.div<{ type: string }>`
-  svg {
-    ${(props) =>
-      props.type === 'card'
-        ? `&:first-of-type{
-				color:${COLOR_GRAY}	
-			}`
-        : `&:last-of-type{
-				color:${COLOR_GRAY}	
-			}`}
-  }
-`;
-const PageTitleBottom = styled.div`
-  ${PAGE_TITLE_BOTTOM};
-`;

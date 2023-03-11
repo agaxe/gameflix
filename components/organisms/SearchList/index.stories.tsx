@@ -1,4 +1,4 @@
-import { select, withKnobs } from '@storybook/addon-knobs';
+import { boolean, select, withKnobs } from '@storybook/addon-knobs';
 import { VAR_SIZE } from '@/static/styles/variable';
 import { SearchList } from './index';
 import dummyData from '.storybook/dummyData.json';
@@ -23,12 +23,12 @@ const data = [...Array(5)].map((item) => ({
 }));
 
 export function searchList() {
-  const type = select('type', ['list', 'card'], 'list');
-  const result = select('result', ['yes', 'no'], 'yes');
+  const type = select('type', ['LIST', 'CARD'], 'LIST');
+  const result = boolean('hasResult', true);
 
   return (
     <div style={{ width: CONTENT_WIDTH }}>
-      <SearchList data={data} type={type} result={result} />
+      <SearchList data={data} type={type} hasResult={result} />
     </div>
   );
 }
@@ -38,9 +38,11 @@ searchList.story = {
 };
 
 export const ListType = () => (
-  <SearchList data={data} type='list' result='yes' />
+  <SearchList data={data} type='LIST' hasResult={true} />
 );
 export const CardType = () => (
-  <SearchList data={data} type='card' result='yes' />
+  <SearchList data={data} type='CARD' hasResult={true} />
 );
-export const NotResult = () => <SearchList data={[]} type='list' result='no' />;
+export const NotResult = () => (
+  <SearchList data={[]} type='LIST' hasResult={false} />
+);

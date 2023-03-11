@@ -10,17 +10,16 @@ import * as S from './styles';
 	molecules/GameItem 를 사용한 검색결과 리스트 입니다.
  * - `type` 의 **list** 와 **card** 로 리스트 형식을 지정 합니다. 
  */
-
 export const SearchList = ({
   data = [],
-  type = 'list',
-  result
+  type = 'LIST',
+  hasResult
 }: SearchListProps) => {
   return (
-    <S.SearchList flex={type === 'card' ? true : false} length={data.length}>
+    <S.SearchList flex={type === 'CARD' ? true : false} length={data.length}>
       {
         // 검색결과 - 리스트
-        data.length && result === 'yes' ? (
+        data.length && hasResult ? (
           data.map((item, idx) => {
             // 게임 출시 년도 ( 출시하지 않았을 경우 '출시 예정' )
             const year = item.first_release_date
@@ -29,7 +28,7 @@ export const SearchList = ({
 
             return (
               <React.Fragment key={idx}>
-                {type === 'list' ? (
+                {type === 'LIST' ? (
                   <GameItem
                     key={idx}
                     id={item.id}
@@ -49,11 +48,11 @@ export const SearchList = ({
             );
           })
         ) : // 검색결과 - 로딩 스켈레톤
-        !data.length && !result ? (
+        !data.length && !hasResult ? (
           <>
             {[...Array(5)].map((item, idx) => (
               <React.Fragment key={idx}>
-                {type === 'list' ? (
+                {type === 'LIST' ? (
                   <GameItem skeleton={true} />
                 ) : (
                   <S.GameCardSearch skeleton={true} />
