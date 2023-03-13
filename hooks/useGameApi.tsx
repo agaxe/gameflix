@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { getTwtichAccessToken } from '@/utils/getTwtichAccessToken';
 
 type useGameApiProps = {
   endPoint: string;
@@ -10,17 +11,10 @@ type useGameApiProps = {
 
 export const useGameApi = async (options: useGameApiProps) => {
   const { endPoint, fields, where, sort, limit } = options;
-
-  // 공통 변수
-  const TWITCH_ACCESS_TOKEN_URL = process.env.TWITCH_ACCESS_TOKEN_URL;
   const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
 
-  return new Promise(async (resolve, reject) => {
-    const access_token = await Axios.post(TWITCH_ACCESS_TOKEN_URL).then(
-      (res) => res.data.access_token
-    );
-
-    if (!access_token) reject(new Error(`TWITCH ACCESS TOKEN ERROR`));
+  try {
+    const accessToken = await getTwtichAccessToken();
 
     // api
     const fieldsValue = fields ? `fields ${fields};` : '';
@@ -35,13 +29,15 @@ export const useGameApi = async (options: useGameApiProps) => {
       headers: {
         Accept: 'application/json',
         'Client-ID': TWITCH_CLIENT_ID,
-        Authorization: `Bearer ${access_token}`
+        Authorization: `Bearer ${accessToken}`
       },
       data: optionsValue
     });
 
-    if (!result?.data) reject(new Error(`GAME DATA NOT FOUND`));
+    if (result instanceof Error) throw new Error(`GAME DATA ERROR`, result);
 
-    resolve(result.data);
-  });
+    return result.data;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
