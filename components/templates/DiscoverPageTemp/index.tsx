@@ -25,9 +25,13 @@ export const DiscoverPageTemp = ({
   releaseDateData,
   ratingScoreData,
   sortValueData,
-  searchFunc
+  searchFunc,
+  fetchNextPage
 }: DiscoverPageTempProps) => {
-  const { success, filterGameList } = data;
+  const isChecked = useRef(false);
+  const gameListRef = useRef(null);
+  const [filterMenuState, setFilterMenuState] = useState(false);
+  const [sortFirstTitle, setSortFirstTitle] = useState(sortValues[0].title);
   const [filters, setFilters] = useState<Filters>({
     checkedGenres: checkedGenresData,
     releaseDate: releaseDateData,
@@ -35,38 +39,27 @@ export const DiscoverPageTemp = ({
     sortValue: sortValueData
   });
   const { releaseDate, ratingScore } = filters;
-  const [maxLength, setMaxLength] = useState(20);
-  const [filterMenuState, setFilterMenuState] = useState(false);
-  const sortValueArray = [
-    { title: '평점 높은 순', value: 'aggregated_rating-desc' },
-    { title: '평점 낮은 순', value: 'aggregated_rating-asc' },
-    { title: '발매일 최신 순', value: 'first_release_date-desc' },
-    { title: '발매일 오래된 순', value: 'first_release_date-asc' },
-    { title: '이름 순', value: 'name-asc' }
-  ];
-  const [sortFirstTitle, setSortFirstTitle] = useState(sortValueArray[0].title);
-
-  // ref
-  const GameListRef = useRef(null);
 
   // 장르 선택(체크) 이벤트
-  const selectGenres = (e) => {
-    const { name, checked } = e.target;
+  const handleClickGenreCheckBox = (
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+  ) => {
+    const { name, checked } = e.target as HTMLInputElement;
 
-    if (!checked) {
-      setFilters((prev) => ({
-        ...prev,
-        checkedGenres: [...prev.checkedGenres, name].filter(
-          (item) => item !== name
-        )
-      }));
-      return;
-    }
+    const getCheckedGenres = (prev: Filters) => {
+      const checkedGenres = [...prev.checkedGenres, name];
+      return !checked
+        ? checkedGenres.filter((item) => item !== name)
+        : checkedGenres;
+    };
 
-    setFilters((prev) => ({
-      ...prev,
-      checkedGenres: [...prev.checkedGenres, name]
-    }));
+    setFilters(
+      (prev) =>
+        ({
+          ...prev,
+          checkedGenres: getCheckedGenres(prev)
+        } as Filters)
+    );
   };
 
   // 필터 검색버튼 클릭
@@ -74,20 +67,26 @@ export const DiscoverPageTemp = ({
     searchFunc(filters);
     window.scrollTo(0, 0);
     setFilterMenuState(false);
-    setMaxLength(20);
   };
 
   useEffect(() => {
     // 필터 결과 리스트 이벤트
     const listScroll = () => {
-      if (GameListRef.current) {
-        const { clientHeight, offsetTop } = GameListRef.current;
+      if (gameListRef.current) {
+        const { clientHeight, offsetTop } = gameListRef.current;
         const { scrollTop } = document.documentElement;
         const windowHeight = window.innerHeight;
 
-        if (clientHeight + offsetTop - windowHeight <= scrollTop) {
-          setMaxLength(maxLength + 20);
+        if (
+          isChecked.current === false &&
+          clientHeight + offsetTop - windowHeight <= scrollTop
+        ) {
+          fetchNextPage();
+          isChecked.current = true;
+          return;
         }
+
+        isChecked.current = false;
       }
     };
 
@@ -95,7 +94,7 @@ export const DiscoverPageTemp = ({
     return () => {
       window.removeEventListener('scroll', listScroll);
     };
-  }, [maxLength]);
+  }, []);
 
   useEffect(() => {
     if (filterMenuState) {
@@ -120,17 +119,20 @@ export const DiscoverPageTemp = ({
     searchFunc(filterInfo);
   };
 
+  const success = data?.pages[0].success;
+  const count = data?.pages[0].count;
+
   return (
     <section>
       <PageTitle title='탐색'>
         <MdTune onClick={() => setFilterMenuState(true)} />
       </PageTitle>
-      {success && filterGameList.length ? (
+      {data?.pages.length ? (
         <>
           <S.PageTitleBottom>
             <div>
-              총 <strong>{filterGameList.length.toLocaleString()}</strong> 개의
-              게임을 발견했습니다!
+              총 <strong>{count.toLocaleString()}</strong> 개의 게임을
+              발견했습니다!
             </div>
             <S.DiscoverSelect
               width='150px'
@@ -139,23 +141,25 @@ export const DiscoverPageTemp = ({
               options={sortValues}
             />
           </S.PageTitleBottom>
-          <div ref={GameListRef}>
+          <div ref={gameListRef}>
             <S.GameList justify='flex-start'>
-              {filterGameList.slice(0, maxLength).map((item, idx) => (
-                <React.Fragment key={idx}>
-                  <GameCard
-                    id={item.id}
-                    key={idx}
-                    cover={item?.cover?.image_id || NO_COVER_IMAGE}
-                    name={item.name}
-                    rating={item.aggregated_rating}
-                  />
-                </React.Fragment>
-              ))}
+              {data.pages.map((item, idx) =>
+                item.games.map((item, idx) => (
+                  <React.Fragment key={idx}>
+                    <GameCard
+                      id={item.id}
+                      key={idx}
+                      cover={item?.cover?.image_id || NO_COVER_IMAGE}
+                      name={item.name}
+                      rating={item.aggregated_rating}
+                    />
+                  </React.Fragment>
+                ))
+              )}
             </S.GameList>
           </div>
         </>
-      ) : success && !filterGameList.length ? (
+      ) : success && !data.pages.length ? (
         <NoResult title='탐색' />
       ) : (
         <>
@@ -164,7 +168,7 @@ export const DiscoverPageTemp = ({
             <Skeleton width={140} height={30} />
           </S.PageTitleBottom>
           <S.GameList>
-            {[...Array(maxLength)].map((item, idx) => (
+            {[...Array(20)].map((item, idx) => (
               <React.Fragment key={idx}>
                 <GameCard skeleton />
               </React.Fragment>
@@ -193,7 +197,7 @@ export const DiscoverPageTemp = ({
                         <CheckBox
                           id={item.name}
                           name={item.id}
-                          onClick={selectGenres}
+                          onClick={handleClickGenreCheckBox}
                         />
                       </S.FilterMenuItem>
                     </React.Fragment>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import router from 'next/router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createGlobalStyle } from 'styled-components';
 import type {} from 'styled-components/cssprop';
 import { LoadingModal } from '@/components/molecules/LoadingModal';
@@ -13,23 +15,20 @@ import { VAR_COLOR } from '@/static/styles/variable';
 
 const { COLOR_BLACK } = VAR_COLOR;
 
-// * common style
 const GlobalStyle = createGlobalStyle`
 	${reset}
 	${global}
 `;
 
-// * component
+const queryClient = new QueryClient();
+
 function App({ Component, pageProps }: AppProps) {
   const [LoadingState, setLoadingState] = useState(false);
 
   // 페이지 로딩 인디케이터
-  const LodingStartFunc = (url) => {
-    setLoadingState(true);
-  };
-  const LodingEndFunc = (url) => {
-    setLoadingState(false);
-  };
+  const LodingStartFunc = () => setLoadingState(true);
+  const LodingEndFunc = () => setLoadingState(false);
+
   useEffect(() => {
     router.events.on('routeChangeStart', LodingStartFunc);
     router.events.on('routeChangeComplete', LodingEndFunc);
@@ -43,7 +42,7 @@ function App({ Component, pageProps }: AppProps) {
   const { statusCode } = pageProps;
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Head>
         <meta charSet='UTF-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
@@ -58,7 +57,8 @@ function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         {!statusCode && <Footer />}
       </div>
-    </>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 export default App;

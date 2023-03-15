@@ -1,6 +1,6 @@
 import { boolean, number, withKnobs } from '@storybook/addon-knobs';
 import { DiscoverPageTemp } from './index';
-import { Filters } from './interface';
+import { DiscoverPageTempProps, Filters } from './interface';
 import dummyData from '.storybook/dummyData.json';
 
 export default {
@@ -19,15 +19,23 @@ export function discoverPageTemp() {
   const gameData = boolean('게임 리스트 데이터', true);
   const gemeLength = gameData ? number('게임 수', 30) : 0;
 
-  const data = {
-    success: gameData,
-    filterGameList: [...Array(gemeLength)].map((item) => ({
-      id: dummyGames.id,
-      name: dummyGames.name,
-      first_release_date: dummyGames.first_release_date,
-      aggregated_rating: dummyGames.aggregated_rating,
-      cover: dummyGames.cover
-    }))
+  type Data = DiscoverPageTempProps['data'];
+  const data: Data = {
+    pages: [
+      {
+        success: Boolean(gameData),
+        count: gemeLength,
+        games: [...Array(gemeLength)].map((item) => ({
+          id: dummyGames.id,
+          name: dummyGames.name,
+          aggregated_rating: dummyGames.aggregated_rating,
+          cover: {
+            image_id: dummyGames.cover.image_id
+          }
+        }))
+      }
+    ],
+    pageParams: []
   };
 
   const genresCheckData = [5, 32];
@@ -52,6 +60,7 @@ export function discoverPageTemp() {
         ratingScoreData={ratingScoreData}
         sortValueData={sortValueData}
         searchFunc={runSearch}
+        fetchNextPage={() => {}}
       />
     </div>
   );

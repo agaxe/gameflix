@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import Axios from 'axios';
 import { DiscoverPageTemp } from '@/components/templates/DiscoverPageTemp';
 import { Filters } from '@/components/templates/DiscoverPageTemp/interface';
 import { SITE_KO_NAME } from '@/common/variables';
 import { useGameApi } from '@/hooks/useGameApi';
+import { DiscoverPageProps, GameData } from '@/shared/types/pages/discover';
 
-// * type
-type DiscoverPageProps = {
-  genres: object[]; // 장르 리스트
-};
-
-// * component
 function DiscoverPage({ genres = [] }: DiscoverPageProps) {
   const router = useRouter();
   const [filters, setFilters] = useState<Filters>({
@@ -23,9 +19,29 @@ function DiscoverPage({ genres = [] }: DiscoverPageProps) {
   });
   const { checkedGenres, releaseDate, ratingScore, sortValue } = filters;
 
-  const [resultData, setResultData] = useState({
-    success: null,
-    filterGameList: []
+  const filtersStringValue = useMemo(() => {
+    const filterToString = Object.entries(filters).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        [key]: value.toString()
+      }),
+      {}
+    );
+    return filterToString;
+  }, [filters]);
+
+  const { fetchNextPage, data } = useInfiniteQuery({
+    queryKey: ['discover', Object.values(filtersStringValue).toString()],
+    queryFn: async ({ pageParam = 1 }): Promise<GameData> => {
+      return await Axios.get(`/api/game/discover`, {
+        params: {
+          ...filtersStringValue,
+          page: pageParam
+        }
+      }).then((res) => res.data);
+    },
+    getNextPageParam: (lastPage, allPages) => allPages.length + 1,
+    refetchOnWindowFocus: false
   });
 
   // 필터 검색
@@ -34,33 +50,20 @@ function DiscoverPage({ genres = [] }: DiscoverPageProps) {
     router.replace(router.asPath);
   };
 
-  useEffect(() => {
-    const filterToString = Object.entries(filters).reduce(
-      (acc, [key, value]) => ({
-        ...acc,
-        [key]: value.toString()
-      }),
-      {}
-    );
-
-    Axios.get(`/api/game/discover`, { params: filterToString })
-      .then((res) => setResultData(res.data))
-      .catch((err) => console.log(err));
-  }, [filters, router]);
-
   return (
     <>
       <Head>
         <title>{` 탐색 | ${SITE_KO_NAME}`}</title>
       </Head>
       <DiscoverPageTemp
-        data={resultData}
+        data={data}
         genres={genres}
         checkedGenresData={checkedGenres}
         releaseDateData={releaseDate}
         ratingScoreData={ratingScore}
         sortValueData={sortValue}
         searchFunc={runFilterSearch}
+        fetchNextPage={fetchNextPage}
       />
     </>
   );
@@ -75,7 +78,6 @@ export async function getServerSideProps() {
     limit: 500
   };
 
-  // return
   const genres = await useGameApi(options);
   return { props: { genres } };
 }
